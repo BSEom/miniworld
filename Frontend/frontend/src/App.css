@@ -1,0 +1,154 @@
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;
+  background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 50%, #e6f3ff 100%);
+  justify-content: left;
+}
+
+body > * {
+  width: 75%;
+  margin: 20px;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.layout {
+  display: flex;
+  gap: 20px;
+  min-height: 600px;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.content-area {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 3px solid #ff9999;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+/* 공통 버튼 스타일 */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #ff6b9d, #ff8e9e);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #ff5588, #ff7799);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: linear-gradient(45deg, #9999ff, #bbbbff);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(45deg, #8888ff, #aaaaff);
+  transform: translateY(-2px);
+}
+
+/* 카드 스타일 */
+.card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.card-header {
+  background: linear-gradient(45deg, #ff99cc, #ffaadd);
+  color: white;
+  padding: 12px 16px;
+  font-weight: bold;
+  border-bottom: 2px solid #ff88bb;
+
+}
+
+.card-body {
+  padding: 16px;
+}
+
+/* 입력 폼 스타일 */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #666;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #ff99cc;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #ff99cc;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+}
