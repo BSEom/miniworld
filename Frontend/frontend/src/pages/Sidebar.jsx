@@ -28,15 +28,15 @@ const Sidebar = ({ onPageChange }) => {
       {/* 프로필 카드 */}
       <div className="profile-card">
         <div className="profile-header">
-          <div className="profile-avatar-large">
             <span className="avatar-emoji">😊</span>
             <div className="level-badge">Lv.15</div>
+            <div className="status-indicator online"></div>
           </div>
           <div className="profile-info">
             <h3 className="profile-name">박유빈</h3>
+            
             <p className="profile-message">안녕하세요! 제 미니홈피에 오신걸 환영합니다 ^_^</p>
           </div>
-        </div>
         
         <div className="profile-stats">
           <div className="stat-item">

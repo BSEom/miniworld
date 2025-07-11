@@ -17,17 +17,6 @@
   overflow: hidden;
 }
 
-.profile-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  animation: rotate 20s linear infinite;
-}
-
 @keyframes rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -40,19 +29,6 @@
   margin-bottom: 15px;
   position: relative;
   z-index: 1;
-}
-
-.profile-avatar-large {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
 }
 
 .profile-avatar-large .avatar-emoji {
@@ -136,14 +112,15 @@
 }
 
 .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 12px 16px;
-  font-weight: bold;
   font-size: 14px;
   display: flex;
   align-items: center;
   gap: 8px;
+  background: linear-gradient(45deg, #ff99cc, #ffaadd);
+  color: white;
+  padding: 12px 16px;
+  font-weight: bold;
+  border-bottom: 2px solid #ff88bb;
 }
 
 .header-icon {

@@ -33,10 +33,10 @@ const Header = ({ visitCount }) => {
             </div>
           </div>
           
-          <div className="profile-avatar">
+          {/* <div className="profile-avatar">
             <span className="avatar-emoji">😊</span>
             <div className="status-indicator online"></div>
-          </div>
+          </div> */}
         </div>
       </div>
     </header>
