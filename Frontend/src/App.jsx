@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from './pages/Header';
-import Sidebar from './pages/Sidebar';
+import LeftBar from './pages/LeftBar';
 import Navigation from './pages/Navigation';
 import HomePage from './pages/HomePage';
 import DiaryPage from './pages/DiaryPage';
@@ -39,7 +39,7 @@ const App = () => {
       
       <div className="container">
         <div className="layout">
-          <Sidebar onPageChange={setCurrentPage} />
+          <LeftBar onPageChange={setCurrentPage} />
           
           <div className="main-content">
             <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />

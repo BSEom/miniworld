@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Sidebar.css';
+import './LeftBar.css';
 
-const Sidebar = ({ onPageChange }) => {
+const LeftBar = ({ onPageChange }) => {
   const [bgmPlaying, setBgmPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState({
     title: '첫사랑',
@@ -28,7 +28,7 @@ const Sidebar = ({ onPageChange }) => {
       {/* 프로필 카드 */}
       <div className="profile-card">
         <div className="profile-header">
-            <span className="avatar-emoji">😊</span>
+            <span className="avatar">😊</span>
             <div className="level-badge">Lv.15</div>
             <div className="status-indicator online"></div>
           </div>
@@ -90,13 +90,13 @@ const Sidebar = ({ onPageChange }) => {
           <div className="visitor-list">
             {recentVisitors.map((visitor, index) => (
               <div key={index} className="visitor-item">
-                <div className="visitor-avatar">
-                  <span className="avatar-emoji">{visitor.avatar}</span>
-                  {visitor.isOnline && <div className="online-dot"></div>}
-                </div>
+                {/* <div className="visitor-avatar">
+                  <span className="avatar">{visitor.avatar}</span>
+                </div> */}
                 <div className="visitor-info">
                   <p className="visitor-name">{visitor.name}</p>
                   <p className="visitor-time">{visitor.time}</p>
+                  {visitor.isOnline && <div className="online-dot"></div>}
                 </div>
               </div>
             ))}
@@ -155,4 +155,4 @@ const Sidebar = ({ onPageChange }) => {
   );
 };
 
-export default Sidebar;
+export default LeftBar;

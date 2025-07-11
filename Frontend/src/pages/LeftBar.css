@@ -275,7 +275,7 @@
 
 .online-dot {
   position: absolute;
-  bottom: 0;
+  bottom: 50%;
   right: 0;
   width: 10px;
   height: 10px;
@@ -283,9 +283,11 @@
   border-radius: 50%;
   border: 2px solid white;
   animation: pulse 2s infinite;
+  /* z-index: 5; */
 }
 
 .visitor-info {
+  position: relative;
   flex: 1;
 }
 
