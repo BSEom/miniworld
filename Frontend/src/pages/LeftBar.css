@@ -15,6 +15,7 @@
   border: 3px solid #ffb3ba;
   position: relative;
   overflow: hidden;
+  height: 50rem;
 }
 
 @keyframes rotate {
@@ -29,10 +30,6 @@
   margin-bottom: 15px;
   position: relative;
   z-index: 1;
-}
-
-.profile-avatar-large .avatar-emoji {
-  font-size: 28px;
 }
 
 .level-badge {
@@ -69,13 +66,16 @@
 }
 
 .profile-stats {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   padding: 10px;
   backdrop-filter: blur(10px);
-  position: relative;
   z-index: 1;
 }
 
@@ -98,374 +98,6 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* 공통 카드 스타일 */
-.menu-card,
-.bgm-card,
-.visitors-card,
-.friends-card,
-.miniroom-card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  border: 2px solid #e0e0e0;
-}
-
-.card-header {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(45deg, #ff99cc, #ffaadd);
-  color: white;
-  padding: 12px 16px;
-  font-weight: bold;
-  border-bottom: 2px solid #ff88bb;
-}
-
-.header-icon {
-  font-size: 16px;
-}
-
-.card-body {
-  padding: 15px;
-}
-
-/* 메뉴 */
-.menu-list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: none;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 14px;
-  width: 100%;
-  text-align: left;
-}
-
-.menu-item:hover {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-  color: white;
-  transform: translateX(5px);
-}
-
-.menu-icon {
-  font-size: 16px;
-}
-
-.menu-label {
-  font-weight: 500;
-}
-
-/* BGM */
-.bgm-player {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 10px;
-  padding: 15px;
-  color: white;
-}
-
-.song-info {
-  margin-bottom: 10px;
-}
-
-.song-title {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0 0 2px 0;
-}
-
-.song-artist {
-  font-size: 12px;
-  opacity: 0.8;
-  margin: 0;
-}
-
-.player-controls {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.play-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.play-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-.play-btn.playing {
-  animation: pulse 1s infinite;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #ffd700, #ffed4a);
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-
-/* 방문자 목록 */
-.visitor-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.visitor-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.visitor-item:hover {
-  background: #e9ecef;
-  transform: translateX(3px);
-}
-
-.visitor-avatar {
-  position: relative;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-
-.visitor-avatar .avatar-emoji {
-  font-size: 18px;
-}
-
-.online-dot {
-  position: absolute;
-  bottom: 50%;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background: #00b894;
-  border-radius: 50%;
-  border: 2px solid white;
-  animation: pulse 2s infinite;
-  /* z-index: 5; */
-}
-
-.visitor-info {
-  position: relative;
-  flex: 1;
-}
-
-.visitor-name {
-  font-size: 13px;
-  font-weight: bold;
-  color: #2d3436;
-  margin: 0 0 2px 0;
-}
-
-.visitor-time {
-  font-size: 11px;
-  color: #636e72;
-  margin: 0;
-}
-
-/* 친구 목록 */
-.friend-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.friend-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.friend-item:hover {
-  background: #e9ecef;
-  transform: translateX(3px);
-}
-
-.friend-avatar {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #a29bfe, #6c5ce7);
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-
-.friend-avatar .avatar-emoji {
-  font-size: 16px;
-}
-
-.status-dot {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-.status-dot.online {
-  background: #00b894;
-  animation: pulse 2s infinite;
-}
-
-.status-dot.away {
-  background: #fdcb6e;
-}
-
-.status-dot.offline {
-  background: #636e72;
-}
-
-.friend-info {
-  flex: 1;
-}
-
-.friend-name {
-  font-size: 12px;
-  font-weight: bold;
-  color: #2d3436;
-  margin: 0 0 2px 0;
-}
-
-.friend-mood {
-  font-size: 10px;
-  color: #636e72;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.view-all-btn {
-  width: 100%;
-  padding: 8px;
-  background: linear-gradient(135deg, #ff7675, #d63031);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.view-all-btn:hover {
-  background: linear-gradient(135deg, #d63031, #b71c1c);
-  transform: translateY(-2px);
-}
-
-/* 미니룸 */
-.miniroom-preview {
-  text-align: center;
-}
-
-.room-scene {
-  position: relative;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(135deg, #74b9ff, #0984e3);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.room-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
-}
-
-.room-items {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 15px;
-}
-
-.room-item {
-  font-size: 20px;
-  animation: float 3s ease-in-out infinite;
-}
-
-.room-item.bed {
-  animation-delay: 0s;
-}
-
-.room-item.desk {
-  animation-delay: 1s;
-}
-
-.room-item.plant {
-  animation-delay: 2s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-}
-
-.room-title {
-  font-size: 12px;
-  color: #636e72;
-  margin: 0;
-  font-weight: 500;
-}
-
 /* 반응형 */
 @media (max-width: 768px) {
   .sidebar {
@@ -476,17 +108,5 @@
     flex-direction: column;
     text-align: center;
     gap: 10px;
-  }
-  
-  .menu-list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .menu-item {
-    flex: 1;
-    min-width: 100px;
-    justify-content: center;
   }
 }

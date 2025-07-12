@@ -8,11 +8,12 @@ body {
   font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;
   background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 50%, #e6f3ff 100%);
   justify-content: left;
+
 }
 
 body > * {
-  width: 75%;
-  margin: 20px;
+  width: 100%;
+  /* margin: 20px; */
 }
 
 .app {
@@ -27,8 +28,9 @@ body > * {
 
 .main-content {
   flex: 1;
+  position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 15px;
 }
 
@@ -38,7 +40,11 @@ body > * {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   border: 3px solid #ff9999;
   min-height: 500px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
   overflow: hidden;
+  display: flex;
 }
 
 /* 공통 버튼 스타일 */
@@ -117,6 +123,49 @@ body > * {
   outline: none;
   border-color: #ff99cc;
 }
+
+.test {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-right: 100px;
+}
+
+.tag_area {
+  z-index: -1;
+  position: absolute;
+  right: -7rem;
+  top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-width: 110px;
+  border-radius: 0 18px 18px 0;
+  gap: 12px;
+  border-left: none;
+}
+
+.rightbar {
+  justify-items: right;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  border-radius: 0 18px 18px 0;
+}
+.container {
+  z-index: 3;
+  padding: 20px;
+  /* border-radius: 0 15px 15px 0; */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  margin-left: 0;
+} 
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {

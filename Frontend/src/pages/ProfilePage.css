@@ -1,4 +1,6 @@
 .profile-page {
+  min-height: 500px;
+  padding: 20px;
   padding: 2rem;
   background-color: #f4f4f4;
   color: #444;

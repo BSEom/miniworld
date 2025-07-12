@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 
 const Header = ({ visitCount }) => {
@@ -7,17 +7,27 @@ const Header = ({ visitCount }) => {
     month: '2-digit',
     day: '2-digit'
   }).replace(/\. /g, '.').replace('.', '');
+  const [todayMood, setTodayMood] = useState('😊');
+  const moodOptions = ['😊', '😄', '😆', '🥰', '😎', '🤗', '😋', '🤔', '😴', '😵‍💫','😢','🥹'];
 
   return (
     <header className="header">
       <div className="header-content">
         <div className="header-left">
           <div className="logo">
-            <span className="logo-icon">🌟</span>
-            <div className="logo-text">
+            <span className="avatar-emoji">{todayMood}</span>
+              <button 
+                className="mood-selector"
+                onClick={() => {
+                  const randomMood = moodOptions[Math.floor(Math.random() * moodOptions.length)];
+                  setTodayMood(randomMood);
+                }}>
+              기분 바꾸기
+            </button>
+          </div>
+          <div className="logo-text">
               <h1>유빈이의 미니홈피</h1>
-              <p className="date">Today is {currentDate}</p>
-            </div>
+              <p className='now-status'>집에 가고 싶어요...</p>
           </div>
         </div>
         

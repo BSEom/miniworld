@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Header from './pages/Header';
 import LeftBar from './pages/LeftBar';
+import RightBar from './pages/RightBar';
 import Navigation from './pages/Navigation';
-import HomePage from './pages/HomePage';
+import MiniRoom from './pages/MiniRoom';
 import DiaryPage from './pages/DiaryPage';
 import PhotoPage from './pages/PhotoPage';
 import ProfilePage from './pages/ProfilePage';
@@ -17,7 +18,7 @@ const App = () => {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage />;
+        return <MiniRoom />;
       case 'diary':
         return <DiaryPage />;
       case 'photos':
@@ -29,26 +30,32 @@ const App = () => {
       case 'friends':
         return <FriendsPage />;
       default:
-        return <HomePage />;
+        return <MiniRoom />;
     }
   };
 
   return (
     <div className="app">
-      <Header visitCount={visitCount} />
-      
+      <div className='test'>
+
       <div className="container">
+        <Header visitCount={visitCount} />
         <div className="layout">
           <LeftBar onPageChange={setCurrentPage} />
-          
           <div className="main-content">
-            <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
             <div className="content-area">
               {renderCurrentPage()}
             </div>
+          <div className="tag_area">
+            <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
+          </div>
           </div>
         </div>
       </div>
+      <div className='rightbar'>
+          <RightBar onPageChange={setCurrentPage} />
+      </div>
+    </div>
     </div>
   );
 };
