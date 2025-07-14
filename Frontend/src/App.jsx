@@ -52,9 +52,9 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className='rightbar'>
+      {/* <div className='rightbar'>
           <RightBar onPageChange={setCurrentPage} />
-      </div>
+      </div> */}
     </div>
     </div>
   );
