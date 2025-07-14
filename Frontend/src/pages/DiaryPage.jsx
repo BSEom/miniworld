@@ -28,42 +28,62 @@ const DiaryPage = () => {
       mood: '🤔'
     }
   ]);
+const [currentPage, setCurrentPage] = useState(1);
+const itemsPerPage = 2;
+
+const startIndex = (currentPage - 1) * itemsPerPage;
+const endIndex = startIndex + itemsPerPage;
+const currentEntries = diaryEntries.slice(startIndex, endIndex);
+
+const totalPages = Math.ceil(diaryEntries.length / itemsPerPage);
 
   return (
-    <div className="diary-page">
-      <div className="diary-header">
-        <h2>📝 나의 일기장</h2>
-        <div className="diary-stats">
-          <span>총 {diaryEntries.length}개의 일기</span>
-        </div>
-      </div>
-
-      <div className="diary-list">
-        {diaryEntries.map(entry => (
-          <div key={entry.id} className="diary-entry">
-            <div className="entry-header">
-              <div className="entry-date">{entry.date}</div>
-              <div className="entry-weather">
-                <span className="weather-icon">
-                  {entry.weather === '맑음' ? '☀️' : entry.weather === '흐림' ? '☁️' : '🌧️'}
-                </span>
-                <span>{entry.weather}</span>
-              </div>
-              <div className="entry-mood">{entry.mood}</div>
-            </div>
-            <div className="entry-content">
-              <h3 className="entry-title">{entry.title}</h3>
-              <p className="entry-text">{entry.content}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="diary-actions">
-        <button className="write-btn">✏️ 새 일기 쓰기</button>
+  <div className="diary-page">
+    <div className="diary-header">
+      <h2>📝 나의 일기장</h2>
+    <div className="diary-actions">
+      <button className="write-btn">✏️ 새 일기 쓰기</button>
+    </div>
+      <div className="diary-stats">
+        <span>총 {diaryEntries.length}개의 일기</span>
       </div>
     </div>
-  );
+
+    <div className="diary-list">
+      {currentEntries.map(entry => (
+        <div key={entry.id} className="diary-entry">
+          <div className="entry-header">
+            <div className="entry-date">{entry.date}</div>
+            <div className="entry-weather">
+              <span className="weather-icon">
+                {entry.weather === '맑음' ? '☀️' : entry.weather === '흐림' ? '☁️' : '🌧️'}
+              </span>
+              <span>{entry.weather}</span>
+            </div>
+            <div className="entry-mood">{entry.mood}</div>
+          </div>
+          <div className="entry-content">
+            <h3 className="entry-title">{entry.title}</h3>
+            <p className="entry-text">{entry.content}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div className="pagination">
+      {Array.from({ length: totalPages }, (_, i) => (
+        <button
+          key={i}
+          onClick={() => setCurrentPage(i + 1)}
+          className={currentPage === i + 1 ? 'active' : ''}
+        >
+          {i + 1}
+        </button>
+      ))}
+    </div>
+
+  </div>
+);
 };
 
 export default DiaryPage;
