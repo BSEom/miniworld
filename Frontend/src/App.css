@@ -26,6 +26,7 @@ body > * {
   min-height: 600px;
 }
 
+/* 페이지 */
 .main-content {
   flex: 1;
   position: relative;
@@ -34,13 +35,13 @@ body > * {
   gap: 15px;
 }
 
+/* 페이지 border */
 .content-area {
   background: white;
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   border: 3px solid #ff9999;
-  min-height: 500px;
-  max-width: 900px;
+  height: 35rem;
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
@@ -161,9 +162,9 @@ body > * {
 .container {
   z-index: 3;
   padding: 20px;
-  /* border-radius: 0 15px 15px 0; */
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   width: 60%;
+  height: 52rem;
   margin-left: 0;
 } 
 
