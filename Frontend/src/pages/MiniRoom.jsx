@@ -72,7 +72,7 @@ const MiniRoom = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="miniroom_container">
       <div className="board" ref={boardRef}>
         {imageList.map((item) => (
           <img

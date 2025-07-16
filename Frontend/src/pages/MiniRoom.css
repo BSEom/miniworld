@@ -1,15 +1,16 @@
-.container {
+.miniroom_container {
   padding: 20px;
   font-family: Arial, sans-serif;
+  width: 100%;
 }
 
 .board {
   position: relative;
-  width: 130%;
-  height: 500px;
-  border: 2px dashed #ccc;
-  background: url('/img/miniroom/map.png');
-  background-size: cover;
+  width: 100%;
+  height: 100%;
+  /* border: 2px dashed #ccc; */
+  background: url('/img/miniroom/map3.png');
+  background-size: 100% 100%;
   overflow: hidden;
 }
 
@@ -43,6 +44,18 @@
   z-index: 20;
 }
 
-#img3 {
-  width: 33px;
+/* #img1 {
+  width: 150px;
 }
+
+#img2 {
+  width: 100px;
+}
+
+#img3 {
+  width: 50px;
+}
+
+#img4 {
+  width: 100px;
+} */
