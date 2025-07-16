@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.miniroom_container {
+  width: 100%;
+  padding: 20px;
+}
+
 .board {
   position: relative;
   width: 100%;
