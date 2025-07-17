@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './LeftBar.css';
+import './Theme.css';
+import { getThemeClass } from '../utils/Theme';
 
-const LeftBar = ({ onPageChange }) => {
+const LeftBar = ({ onPageChange, todayMood}) => {
   const [bgmPlaying, setBgmPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState({
     title: '첫사랑',
@@ -12,7 +14,7 @@ const LeftBar = ({ onPageChange }) => {
   return (
     <div className="sidebar">
       {/* 프로필 카드 */}
-      <div className="profile-card">
+      <div className={`profile-card ${getThemeClass(todayMood)}`}>
         <div className="profile-header">
             <img className="profile-avatar" src="/img/avatar/profile.png" alt="profile" />
             <div className="level-badge">Lv.15</div>
@@ -26,7 +28,7 @@ const LeftBar = ({ onPageChange }) => {
       {/* BGM */}
       <div className="bgm-card">
         <div className="card-body">
-          <div className="bgm-player">
+          <div className={`bgm-player ${getThemeClass(todayMood)}`}>
             <div className="song-info">
               <p className="song-title">{currentSong.title}</p>
               <p className="song-artist">{currentSong.artist}</p>
