@@ -112,9 +112,35 @@ const MiniRoom = () => {
         ))}
       </div>
       <div className='rightbar'>
+
+      {/* 일촌 친구 */}
+      <div className="friends-card">
+        <div className="card-header">
+        <span>💕 일촌 친구</span>
+        </div>
+        <div className="card-body">
+          <div className="friend-list">
+            {ilchonFriends.slice(0, 4).map((friend, index) => (
+              <div key={index} className="friend-item">
+                <div className="friend-avatar">
+                  <span className="friend-avatar">{friend.avatar}</span>
+                  <div className={`status-dot ${friend.status === '온라인' ? 'online' : friend.status === '자리비움' ? 'away' : 'offline'}`}></div>
+                </div>
+                <div className="friend-info">
+                  <p className="friend-name">{friend.name}</p>
+                  <p className="friend-mood">{friend.mood}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
       {/* 최근 방문자 */}
       <div className="visitors-card">
-        <span className="card-header">👋최근 방문자</span>
+        <div className="card-header">
+        <span>👋</span>
+        <span>최근 방문자</span>
+        </div>
         <div className="card-body">
           <div className="visitor-list">
             {recentVisitors.slice(0, 3).map((visitor, index) => (
@@ -126,27 +152,6 @@ const MiniRoom = () => {
                   <p className="visitor-name">{visitor.name}</p>
                   <p className="visitor-time">{visitor.time}</p>
                   {visitor.isOnline && <div className="online-dot"></div>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* 일촌 친구 */}
-      <div className="friends-card">
-        <span className="card-header">💕 일촌 친구</span>
-        <div className="card-body">
-          <div className="friend-list">
-            {ilchonFriends.slice(0, 4).map((friend, index) => (
-              <div key={index} className="friend-item">
-                <div className="friend-avatar">
-                  <span className="avatar-emoji">{friend.avatar}</span>
-                  <div className={`status-dot ${friend.status === '온라인' ? 'online' : friend.status === '자리비움' ? 'away' : 'offline'}`}></div>
-                </div>
-                <div className="friend-info">
-                  <p className="friend-name">{friend.name}</p>
-                  <p className="friend-mood">{friend.mood}</p>
                 </div>
               </div>
             ))}

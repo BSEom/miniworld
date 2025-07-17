@@ -20,7 +20,6 @@ const LeftBar = ({ onPageChange }) => {
           </div>
           <div className="profile-info">
             <h3 className="profile-name">박유빈</h3>
-            
             <p className="profile-message">안녕하세요! 제 미니홈피에 오신걸 환영합니다 ^_^</p>
           </div>
 
@@ -49,17 +48,6 @@ const LeftBar = ({ onPageChange }) => {
           </div>
         </div>
       </div>
-        
-        {/* <div className="profile-stats">
-          <div className="stat-item">
-            <span className="stat-label">일촌</span>
-            <span className="stat-value">24</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-label">방문</span>
-            <span className="stat-value">15,847</span>
-          </div>
-        </div> */}
       </div>
     </div>
   );
