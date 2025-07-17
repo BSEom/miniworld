@@ -8,6 +8,21 @@ const MiniRoom = () => {
   const [positions, setPositions] = useState({});   // 위치 저장용
   const [grabbingId, setGrabbingId] = useState(null); // 드래그 중인 obj id 저장용 
 
+  // 최근 방문자
+  const recentVisitors = [
+    { name: '정현', time: '2분전', avatar: '😊', isOnline: true },
+    { name: '은지', time: '5분전', avatar: '😄', isOnline: false },
+    { name: '서영', time: '1시간전', avatar: '😉', isOnline: true },
+    { name: '보성', time: '3시간전', avatar: '🤓', isOnline: false }
+  ];
+  // 일촌 친구
+  const ilchonFriends = [
+    { name: '정민', status: '온라인', avatar: '😎', mood: '행복해요~' },
+    { name: '은희', status: '자리비움', avatar: '🤗', mood: '밥먹는중' },
+    { name: '혜빈', status: '온라인', avatar: '😋', mood: '공부중..' },
+    { name: '혜미', status: '오프라인', avatar: '😴', mood: 'bye bye🤚' }
+  ];
+  // 미니룸 아이템 이미지 목록
   const imageList = [
     { id: 'img1', src: 'img/miniroom/table.gif' },
     { id: 'img2', src: 'img/miniroom/window.gif' },
@@ -96,7 +111,50 @@ const MiniRoom = () => {
           />
         ))}
       </div>
+      <div className='rightbar'>
+      {/* 최근 방문자 */}
+      <div className="visitors-card">
+        <span className="card-header">👋최근 방문자</span>
+        <div className="card-body">
+          <div className="visitor-list">
+            {recentVisitors.slice(0, 3).map((visitor, index) => (
+              <div key={index} className="visitor-item">
+                {/* <div className="visitor-avatar">
+                  <span className="avatar">{visitor.avatar}</span>
+                  </div> */}
+                <div className="visitor-info">
+                  <p className="visitor-name">{visitor.name}</p>
+                  <p className="visitor-time">{visitor.time}</p>
+                  {visitor.isOnline && <div className="online-dot"></div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 일촌 친구 */}
+      <div className="friends-card">
+        <span className="card-header">💕 일촌 친구</span>
+        <div className="card-body">
+          <div className="friend-list">
+            {ilchonFriends.slice(0, 4).map((friend, index) => (
+              <div key={index} className="friend-item">
+                <div className="friend-avatar">
+                  <span className="avatar-emoji">{friend.avatar}</span>
+                  <div className={`status-dot ${friend.status === '온라인' ? 'online' : friend.status === '자리비움' ? 'away' : 'offline'}`}></div>
+                </div>
+                <div className="friend-info">
+                  <p className="friend-name">{friend.name}</p>
+                  <p className="friend-mood">{friend.mood}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
   );
 };
 

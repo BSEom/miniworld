@@ -22,6 +22,14 @@
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
 }
+button:hover {
+  border-color: #646cff;
+  transform: scale(1.05);
+}
+
+.mood-selector:focus {
+  outline: 3px solid rgb(240, 240, 159)
+}
 
 .header::before {
   content: '';
