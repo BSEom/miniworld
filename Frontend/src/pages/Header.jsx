@@ -13,6 +13,7 @@ const Header = ({ visitCount, todayMood, setTodayMood }) => {
   const moodOptions = ['😊', '😄', '😆', '🥰', '🤗', '😎', '😴', '🤗', '😵‍💫','😢','🥹', '😡'];
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const moodRef = useRef(null);
+  // const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
 
   useEffect(() => {
     function handleClickOutside(event) {

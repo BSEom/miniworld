@@ -1,13 +1,15 @@
 // src/utils/theme.js
-export const getThemeClass = (mood) => {
+export const getThemeClass2 = (mood) => {
   switch (mood) {
     case '😊':
     case '😄':
     case '😆':
     case '🥰':
     case '🤗':
+      console.log(mood)
       return 'theme-happy';
     case '😎':
+       console.log("paly")
       return 'theme-play';
     case '😴':
       return 'theme-sleepy';
@@ -18,6 +20,7 @@ export const getThemeClass = (mood) => {
     case '😡':
       return 'theme-angry';
     default:
+       console.log(mood)
       return 'theme-happy';
   }
 };
