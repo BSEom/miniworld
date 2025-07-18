@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './RightBar.css';
+// import './RightBar.css';
 
 const RightBar = ({ onPageChange }) => {
   const [bgmPlaying, setBgmPlaying] = useState(false);

@@ -32,36 +32,12 @@
   align-items: center;
   gap: 5px;
   padding: 8px 12px;
-  background: white;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
   flex: 1;
   min-width: 0;
   overflow: hidden;
-}
-
-.nav-tab:hover {
-  background: linear-gradient(135deg, var(--tab-color, #ff6b9d), var(--tab-color-light, #ff6b9d20));
-  color: white;
-  transform: translateY(-2px);
-}
-
-.nav-tab.active {
-  background: linear-gradient(135deg, var(--tab-color, #ff6b9d), var(--tab-color-light, #ff6b9d20));
-  color: white;
-  font-weight: bold;
-}
-
-.nav-tab.active::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #ffd700, #ffed4a);
-  animation: shimmer 2s infinite;
 }
 
 @keyframes shimmer {
@@ -146,16 +122,6 @@
 .logout-btn:hover {
   background: linear-gradient(135deg, #ff7675, #d63031);
   color: white;
-}
-
-.avatar-emoji {
-  font-size: 60px;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 15px;
-  border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  animation: bounce 2s infinite;
 }
 
 /* 반응형 */
