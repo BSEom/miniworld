@@ -89,41 +89,6 @@
   to { box-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.6); }
 }
 
-.nav-actions {
-  display: flex;
-  gap: 5px;
-  padding: 0 15px;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: none;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 16px;
-}
-
-.action-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
-  transform: scale(1.1);
-}
-
-.settings-btn:hover {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-}
-
-.logout-btn:hover {
-  background: linear-gradient(135deg, #ff7675, #d63031);
-  color: white;
-}
-
 /* 반응형 */
 @media (max-width: 768px) {
   .nav-container {

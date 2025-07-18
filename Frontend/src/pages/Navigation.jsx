@@ -31,15 +31,6 @@ const Navigation = ({ currentPage, onPageChange, todayMood }) => {
             </button>
           ))}
         </div>
-
-        <div className="nav-actions">
-          <button className="action-btn settings-btn">
-            <span>⚙️</span>
-          </button>
-          <button className="action-btn logout-btn">
-            <span>🚪</span>
-          </button>
-        </div>
       </div>
     </nav>
   );

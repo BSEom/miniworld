@@ -51,17 +51,16 @@
 }
 
 /* 최근 방문자 */
-/* .card-header {
+.card-header {
   display: flex;
   align-items: center;
   gap: 3px;
   font-size: 14px;
   font-weight: bold;
-  color: #2d3436;
   padding: 10px;
-  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
   border-radius: 10px 10px 0 0;
-} */
+}
+
 
 .visitor-time {
   position: relative;
