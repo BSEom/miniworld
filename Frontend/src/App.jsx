@@ -16,10 +16,10 @@ const App = () => {
   const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
   const [todayMood, setTodayMood] = useState('😊');
 
-  const renderCurrentPage = () => {
+  const renderCurrentPage = (todayMood) => {
     switch (currentPage) {
       case 'home':
-        return <MiniRoom />;
+        return <MiniRoom todayMood={todayMood}/>;
       case 'diary':
         return <DiaryPage />;
       case 'photos':
@@ -31,7 +31,7 @@ const App = () => {
       case 'friends':
         return <FriendsPage />;
       default:
-        return <MiniRoom />;
+        return <MiniRoom todayMood={todayMood}/>;
     }
   };
 
@@ -51,7 +51,7 @@ const App = () => {
             />
             <div className="main-content">
               <div className={`content-area ${getThemeClass(todayMood)}`}>
-                {renderCurrentPage()}
+                {renderCurrentPage(todayMood)}
               </div>
               <div className="tag_area">
                 <Navigation currentPage={currentPage} onPageChange={setCurrentPage} todayMood={todayMood} />

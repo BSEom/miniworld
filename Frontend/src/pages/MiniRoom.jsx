@@ -1,24 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './MiniRoom.css';
+import { getThemeClass } from '../utils/Theme';
 
-const MiniRoom = () => {
+const MiniRoom = (todayMood) => {
   const boardRef = useRef(null);  // board 정보 접근용
   const imageRefs = useRef({});   // image 정보 접근용
   const draggingRef = useRef({ isDragging: false, offsetX: 0, offsetY: 0, targetId: null });  // 드래그 중인 요소 접근용
   const [positions, setPositions] = useState({});   // 위치 저장용
-  const [grabbingId, setGrabbingId] = useState(null); // 드래그 중인 obj id 저장용 
+  const [grabbingId, setGrabbingId] = useState(null); // 드래그 중인 obj id 저장용
 
   // 최근 방문자
   const recentVisitors = [
-    { name: '정현', time: '2분전', avatar: '😊', isOnline: true },
-    { name: '은지', time: '5분전', avatar: '😄', isOnline: false },
-    { name: '서영', time: '1시간전', avatar: '😉', isOnline: true },
-    { name: '보성', time: '3시간전', avatar: '🤓', isOnline: false }
+    { name: '정현', status:'온라인', time: '2분전', avatar: '😊', mood:'집에 가고 싶어요...' },
+    { name: '은지', status:'자리비움', time: '5분전', avatar: '😄', mood:'드라마 보는중...' },
+    { name: '서영', status:'오프라인', time: '1시간전', avatar: '😉', mood:'bye bye🤚' },
+    { name: '보성', status:'온라인', time: '3시간전', avatar: '🤓', mood:'안녕하세요' }
   ];
   // 일촌 친구
   const ilchonFriends = [
     { name: '정민', status: '온라인', avatar: '😎', mood: '행복해요~' },
-    { name: '은희', status: '자리비움', avatar: '🤗', mood: '밥먹는중' },
+    { name: '은희', status: '자리비움', avatar: '🤗', mood: '미궁게임 하는중..' },
     { name: '혜빈', status: '온라인', avatar: '😋', mood: '공부중..' },
     { name: '혜미', status: '오프라인', avatar: '😴', mood: 'bye bye🤚' }
   ];
@@ -29,7 +30,6 @@ const MiniRoom = () => {
     { id: 'img3', src: 'img/miniroom/chair.gif', width: 33 },
     { id: 'img4', src: 'img/miniroom/ddd.gif' }
   ];
-
   // 초기 위치 로드
   useEffect(() => {
     const saved = {};
@@ -115,7 +115,7 @@ const MiniRoom = () => {
 
       {/* 일촌 친구 */}
       <div className="friends-card">
-        <div className="card-header">
+        <div className={`card-header ${getThemeClass(todayMood.todayMood)}`}>
         <span>💕 일촌 친구</span>
         </div>
         <div className="card-body">
@@ -137,7 +137,7 @@ const MiniRoom = () => {
       </div>
       {/* 최근 방문자 */}
       <div className="visitors-card">
-        <div className="card-header">
+        <div className={`card-header ${getThemeClass(todayMood.todayMood)}`}>
         <span>👋</span>
         <span>최근 방문자</span>
         </div>
@@ -145,13 +145,14 @@ const MiniRoom = () => {
           <div className="visitor-list">
             {recentVisitors.slice(0, 3).map((visitor, index) => (
               <div key={index} className="visitor-item">
-                {/* <div className="visitor-avatar">
+                <div className="visitor-avatar">
                   <span className="avatar">{visitor.avatar}</span>
-                  </div> */}
+                  <div className={`status-dot ${visitor.status === '온라인' ? 'online' : visitor.status === '자리비움' ? 'away' : 'offline'}`}></div>
+                  </div>
                 <div className="visitor-info">
                   <p className="visitor-name">{visitor.name}</p>
+                  <p className="visitor-mood">{visitor.mood}</p>
                   <p className="visitor-time">{visitor.time}</p>
-                  {visitor.isOnline && <div className="online-dot"></div>}
                 </div>
               </div>
             ))}

@@ -8,7 +8,7 @@
 .board {
   position: relative;
   width: 80%;
-  height: 94%;
+  height: 99%;
   /* border: 2px dashed #ccc; */
   background: url('/img/miniroom/map3.png');
   background-size: 100% 100%;
@@ -51,7 +51,7 @@
 }
 
 /* 최근 방문자 */
-.card-header {
+/* .card-header {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -61,91 +61,26 @@
   padding: 10px;
   background: linear-gradient(135deg, #ffeaa7, #fab1a0);
   border-radius: 10px 10px 0 0;
-}
-
-.visitor-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-items: flex-end;
-}
-
-.visitor-item {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-  padding: 8px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  width: 15rem;
-}
-
-.visitor-item:hover {
-  background: #e9ecef;
-  transform: translateX(3px);
-}
-
-.visitor-avatar {
-  position: relative;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-/* 
-.visitor-avatar .avatar-emoji {
-  font-size: 5px;
 } */
-/* .avatar-emoji {
-  font-size: 5px;
-} */
-.online-dot {
-  position: absolute;
-  bottom: 50%;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background: #00b894;
-  border-radius: 50%;
-  border: 2px solid white;
-  animation: pulse 2s infinite;
-  /* z-index: 5; */
-}
-
-.visitor-info {
-  position: relative;
-  flex: 1;
-}
-
-.visitor-name {
-  font-size: 13px;
-  font-weight: bold;
-  color: #2d3436;
-  margin: 0 0 2px 0;
-}
 
 .visitor-time {
-  font-size: 11px;
+  position: relative;
+  font-size: 10px;
   color: #636e72;
   margin: 0;
+  left: 7rem;
+  bottom: 1rem;
 }
 
 /* 친구 목록 */
-.friend-list {
+.friend-list, .visitor-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 10px;
 }
 
-.friend-item {
+.friend-item, .visitor-item {
   display: flex;
   align-items: center;
   gap: 22px;
@@ -156,12 +91,13 @@
   width: 15rem;
 }
 
-.friend-item:hover {
+
+.friend-item:hover, .visitor-item:hover {
   background: #e9ecef;
   transform: translateX(3px);
 }
 
-.friend-avatar {
+.friend-avatar, .visitor-avatar {
   position: relative;
   width: 43px;
   height: 40px;
@@ -197,18 +133,14 @@
   background: #636e72;
 }
 
-.friend-info {
-  flex: 1;
-}
-
-.friend-name {
+.friend-name, .visitor-name {
   font-size: 12px;
   font-weight: bold;
   color: #2d3436;
   margin: 0 0 2px 0;
 }
 
-.friend-mood {
+.friend-mood, .visitor-mood {
   font-size: 10px;
   color: #636e72;
   margin: 0;
