@@ -1,5 +1,427 @@
+/* 전체 페이지 스타일 */
 .photo-page {
-  padding: 2rem;
-  background-color: #f0f8ff;
-  color: #222;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff0e6; /* 부드러운 오렌지톤 배경 */
+  color: #3b3b3b;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.photo-page p {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  color: #5a5a5a;
+}
+
+/* 업로드 + 필터 영역 */
+.upload-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* 업로드 폼 */
+.upload-form {
+  background-color: #fff7e6;
+  border: 1px solid #ffd8a8;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 입력창 스타일 */
+.upload-form input[type="text"],
+.upload-form textarea,
+.upload-form select,
+.upload-form input[type="file"] {
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+  border: 1.5px solid #ffd6a5;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+}
+
+.upload-form input[type="text"]:focus,
+.upload-form textarea:focus,
+.upload-form select:focus,
+.upload-form input[type="file"]:focus {
+  border-color: #ffa94d;
+}
+
+/* 텍스트 에어리어 높이 조절 */
+.upload-form textarea {
+  min-height: 80px;
+}
+
+/* 버튼 그룹 */
+.upload-form > div {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.upload-form > div > button {
+  background: linear-gradient(45deg, #ff7f50, #e05228);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  min-width: 120px;
+  user-select: none;
+}
+
+/* 글쓰기 토글 버튼 */
+.toggle-upload {
+  margin: 20px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+.toggle-upload:hover {
+  background-color: #0056b3;
+}
+
+/* 필터 바 */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-bar select,
+.filter-bar input[type="text"] {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1.5px solid #ffd6a5;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  flex-grow: 1;
+}
+
+.filter-bar select:focus,
+.filter-bar input[type="text"]:focus {
+  border-color: #ffa94d;
+}
+
+.filter-bar button {
+  background: linear-gradient(45deg, #ffa94d, #e57c00);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-grow: 0;
+  min-width: 80px;
+  box-shadow: 0 3px 6px rgba(229, 124, 0, 0.6);
+  user-select: none;
+}
+
+.filter-bar button:hover {
+  background: linear-gradient(45deg, #e57c00, #b05f00);
+}
+
+/* 사진 리스트 그리드 */
+.photo-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가운데 정렬 */
+  justify-content: center;
+  min-height: 60vh; /* 화면 높이 고려하여 중앙 배치 */
+  gap: 20px;
+  padding: 20px;
+}
+/* 각 사진 카드 */
+.photo-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  /* width를 100%로 바꾸고 그리드 컬럼 너비에 맞게 자동으로 늘어나도록 */
+  width: 50%;
+  max-width: 900px;
+  height: 400px; /* 높이를 기존 180px에서 더 높게 조절 */
+  text-align: center;
+  background-color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.photo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 사진 */
+.photo-card img {
+  width: 100%;
+  max-width: 1500px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.photo-card img:hover {
+  transform: scale(1.05);
+}
+
+/* 제목 */
+.photo-card h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.2rem;
+  color: #d2691e;
+  font-weight: 700;
+}
+
+/* 내용 */
+.photo-card p {
+  margin: 0 0 8px 0;
+  color: #5a5a5a;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  user-select: text;
+}
+
+/* 카테고리 */
+.photo-card p strong {
+  color: #b35c00;
+}
+
+/* 버튼들 */
+.photo-card button {
+  background: linear-gradient(45deg, #ff7f50, #e05228);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.photo-card button:hover {
+  background: linear-gradient(45deg, #e05228, #b84318);
+}
+
+.photo-card button + button {
+  margin-left: 10px;
+}
+
+/* 페이징 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.pagination li {
+  list-style: none;
+  padding: 8px 14px;
+  background-color: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  user-select: none;
+}
+
+.pagination li:hover {
+  background-color: #ffa94d;
+  color: white;
+}
+
+.pagination li.active {
+  background-color: #ff7f00;
+  color: white;
+  font-weight: bold;
+}
+
+/* 상세보기 화면 */
+.detail-view {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 1100px;
+  margin: 0 auto;
+  user-select: text;
+}
+
+.detail-view h2 {
+  text-align: center;
+  color: #d2691e;
+} 
+.back-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  display: inline-block;
+  width: auto;
+  max-width: 200px;  /* 너비 제한 */
+  align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.detail-image {
+  width: 71%;
+  max-height: 450px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin: 0 auto 20px auto; /* 수평 가운데 정렬 */
+  display: block;           /* 가운데 정렬을 위해 block 설정 */
+  user-select: none;
+}
+
+.detail-content {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #4a4a4a;
+  white-space: pre-wrap;
+}
+
+/* 좋아요, 싫어요 버튼 상세보기 */
+.like-dislike-detail {
+  margin-bottom: 24px;
+}
+
+.like-dislike-detail button {
+  margin-right: 15px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background: #ffd6a5;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.like-dislike-detail button:hover {
+  background-color: #ffa94d;
+}
+
+/* 활성화 상태 스타일 */
+.like-dislike-detail button.active {
+  background-color: #ff7f00;
+  color: white;
+}
+
+/* 댓글 섹션 */
+.comments-section {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.comments-section h3 {
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #d2691e;
+}
+
+.comments-list {
+  max-height: 180px;
+  overflow-y: auto;
+  padding-left: 12px;
+  border-left: 3px solid #ffd6a5;
+  margin-bottom: 10px;
+}
+
+.comments-list li {
+  margin-bottom: 8px;
+  color: #5a5a5a;
+  line-height: 1.4;
+  user-select: text;
+}
+
+/* 댓글 입력창 */
+.comment-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #ffd6a5;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.comment-input:focus {
+  border-color: #ffa94d;
+}
+
+/* 댓글 등록 버튼 */
+.comment-submit {
+  margin-top: 8px;
+  background: linear-gradient(45deg, #ff7f50, #e05228);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.comment-submit:hover {
+  background: linear-gradient(45deg, #e05228, #b84318);
+}
+
+/* 모바일 대응 - 간단히 */
+@media (max-width: 700px) {
+  .photo-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .photo-card {
+    width: 100%;
+  }
+
+  .detail-view {
+    padding: 15px 16px;
+    max-width: 100%;
+  }
 }
