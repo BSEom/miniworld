@@ -1,3 +1,20 @@
+/* 회원가입 테스트 이동 버튼 */
+.register-move-btn {
+  margin-top: 10px;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #ff6b9d 0%, #786fa6 100%);
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+.register-move-btn:hover {
+  background: linear-gradient(90deg, #786fa6 0%, #ff6b9d 100%);
+}
 /* Header.css */
 .header {
   color: white;

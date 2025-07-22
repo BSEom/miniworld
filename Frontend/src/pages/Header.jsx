@@ -3,7 +3,7 @@ import './Header.css';
 import './Theme.css';
 import { getThemeClass } from '../utils/Theme';
 
-const Header = ({ visitCount, todayMood, setTodayMood }) => {
+const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
   const currentDate = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: '2-digit',
@@ -64,6 +64,9 @@ const Header = ({ visitCount, todayMood, setTodayMood }) => {
           <div className="logo-text">
               <h1>유빈이의 미니홈피</h1>
               <p className='now-status'>프로젝트 열씨미 합시당!! 😁</p>
+              <button className="register-move-btn" onClick={onRegisterClick}>
+                회원가입 테스트
+              </button>
           </div>
         </div>
         
