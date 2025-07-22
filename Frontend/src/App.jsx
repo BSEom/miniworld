@@ -9,19 +9,75 @@ import ProfilePage from './pages/ProfilePage';
 import GuestBookPage from './pages/GuestBookPage';
 import FriendsPage from './pages/FriendsPage';
 import { getThemeClass } from './utils/Theme';
+import WriteDiaryPage from './pages/WriteDiaryPage';
+
 import './App.css';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
   const [todayMood, setTodayMood] = useState('😊');
+  const [selectedDate, setSelectedDate] = useState(null);
 
+  // 일기 데이터
+  const [diaryEntries, setDiaryEntries] = useState([
+    {
+      id: 1,
+      date: '2025-07-11',
+      title: '오늘의 일기',
+      content: '오늘은 정말 좋은 하루였다. 친구들과 함께 카페에서 수다를 떨고, 새로운 책도 읽었다. 이런 평범한 일상이 얼마나 소중한지 다시 한번 느꼈다.',
+      weather: '맑음',
+      mood: '😊'
+    },
+    {
+      id: 2,
+      date: '2025-07-10',
+      title: '영화 관람 후기',
+      content: '오늘 본 영화가 정말 인상깊었다. 스토리도 좋고 연출도 훌륭했다. 다음에 또 보고 싶을 정도로 재미있었다.',
+      weather: '흐림',
+      mood: '😍'
+    },
+    {
+      id: 3,
+      date: '2025-07-09',
+      title: '새로운 취미',
+      content: '요즘 사진 찍는 재미에 푹 빠져있다. 일상의 소소한 순간들을 담아보니 세상이 더 아름답게 보인다.',
+      weather: '비',
+      mood: '🤔'
+    }
+  ]);
+
+  // 👉 일기 쓰기로 이동
+  const handleNavigateToWrite = (date) => {
+    setSelectedDate(date);
+    setCurrentPage('write');
+  };
+
+  // 👉 일기 저장
+  const handleSaveDiary = (newDiary) => {
+    setDiaryEntries((prev) => [...prev, newDiary]);
+    setCurrentPage('diary');
+    setSelectedDate(null);
+  };
+
+  // 👉 뒤로가기
+  const handleBack = () => {
+    setCurrentPage('diary');
+    setSelectedDate(null);
+  };
+
+  // 페이지 렌더링 분기
   const renderCurrentPage = (todayMood) => {
     switch (currentPage) {
       case 'home':
-        return <MiniRoom todayMood={todayMood}/>;
+        return <MiniRoom todayMood={todayMood} />;
       case 'diary':
-        return <DiaryPage />;
+        return (
+          <DiaryPage
+            diaryEntries={diaryEntries}
+            onNavigateToWrite={handleNavigateToWrite}
+          />
+        );
       case 'photos':
         return <PhotoPage />;
       case 'profile':
@@ -30,14 +86,22 @@ const App = () => {
         return <GuestBookPage />;
       case 'friends':
         return <FriendsPage />;
+      case 'write':
+        return (
+          <WriteDiaryPage
+            selectedDate={selectedDate}
+            onSaveDiary={handleSaveDiary}
+            onBack={handleBack}
+          />
+        );
       default:
-        return <MiniRoom todayMood={todayMood}/>;
+        return <MiniRoom todayMood={todayMood} />;
     }
   };
 
   return (
     <div className={`app ${getThemeClass(todayMood)}`}>
-      <div className='test'>
+      <div className="test">
         <div className="container">
           <Header
             visitCount={visitCount}
@@ -54,13 +118,17 @@ const App = () => {
                 {renderCurrentPage(todayMood)}
               </div>
               <div className="tag_area">
-                <Navigation currentPage={currentPage} onPageChange={setCurrentPage} todayMood={todayMood} />
+                <Navigation
+                  currentPage={currentPage}
+                  onPageChange={setCurrentPage}
+                  todayMood={todayMood}
+                />
               </div>
             </div>
           </div>
 
           <div className="nav-actions">
-            <button className={"action-btn settings-btn"}>
+            <button className="action-btn settings-btn">
               <span>⚙️</span>
             </button>
             <button className="action-btn logout-btn">
