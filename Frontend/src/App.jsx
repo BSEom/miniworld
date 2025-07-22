@@ -8,6 +8,7 @@ import PhotoPage from './pages/PhotoPage';
 import ProfilePage from './pages/ProfilePage';
 import GuestBookPage from './pages/GuestBookPage';
 import FriendsPage from './pages/FriendsPage';
+import RegisterTest from './pages/RegisterTest';
 import { getThemeClass } from './utils/Theme';
 import './App.css';
 
@@ -30,6 +31,8 @@ const App = () => {
         return <GuestBookPage />;
       case 'friends':
         return <FriendsPage />;
+      case 'register':
+        return <RegisterTest />;
       default:
         return <MiniRoom todayMood={todayMood}/>;
     }
@@ -43,6 +46,7 @@ const App = () => {
             visitCount={visitCount}
             todayMood={todayMood}
             setTodayMood={setTodayMood}
+            onRegisterClick={() => setCurrentPage('register')}
           />
           <div className="layout">
             <LeftBar

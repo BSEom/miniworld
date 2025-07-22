@@ -37,6 +37,9 @@ dependencies {
 	// Oracle DB 설정
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc11' // 운영용 Oracle
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Spring Security 설정
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {
