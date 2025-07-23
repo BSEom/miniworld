@@ -1,0 +1,246 @@
+.write-diary-page {
+  padding: 20px;
+  /* max-width: 800px; */
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* min-height: 600px; */
+  width: 100%;
+  max-height: 200px;
+  /* height: 100%; */
+}
+
+.write-diary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.back-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+}
+
+.write-diary-header h2 {
+  color: #333;
+  margin: 0;
+  font-size: 24px;
+}
+
+.write-date {
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.write-diary-content {
+  flex: 1;
+}
+
+.diary-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* height: 100%; */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 16px;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4ecdc4;
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+}
+
+.form-group textarea {
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 200px;
+  font-family: inherit;
+  line-height: 1.6;
+  transition: border-color 0.3s ease;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4ecdc4;
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.weather-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.weather-btn {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.weather-btn:hover {
+  border-color: #4ecdc4;
+  background: #f0fffe;
+}
+
+.weather-btn.selected {
+  background: #4ecdc4;
+  border-color: #4ecdc4;
+  color: white;
+}
+
+.mood-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mood-btn {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.mood-btn:hover {
+  border-color: #4ecdc4;
+  background: #f0fffe;
+  transform: scale(1.1);
+}
+
+.mood-btn.selected {
+  background: #4ecdc4;
+  border-color: #4ecdc4;
+  transform: scale(1.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.cancel-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.save-btn {
+  background: #4ecdc4;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+  background: #45b7aa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(78, 205, 196, 0.3);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .write-diary-page {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+  
+  .write-diary-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .weather-options, .mood-options {
+    justify-content: center;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .cancel-btn, .save-btn {
+    width: 100%;
+  }
+}
