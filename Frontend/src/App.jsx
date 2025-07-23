@@ -9,7 +9,7 @@ import ProfilePage from './pages/ProfilePage';
 import GuestBookPage from './pages/GuestBookPage';
 import FriendsPage from './pages/FriendsPage';
 import { getThemeClass } from './utils/Theme';
-import WriteDiaryPage from './pages/WriteDiaryPage';
+import WriteDiaryPage from './pages/DiaryWritePage';
 
 import './App.css';
 
@@ -126,7 +126,6 @@ const App = () => {
               </div>
             </div>
           </div>
-
           <div className="nav-actions">
             <button className="action-btn settings-btn">
               <span>⚙️</span>
