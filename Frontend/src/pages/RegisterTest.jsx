@@ -26,14 +26,20 @@ const RegisterTest = () => {
     birthDate: '',
     isPublic: 'Y',
   });
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [nicknameError, setNicknameError] = useState('');
   const [emailValid, setEmailValid] = useState(null);
   const [nicknameValid, setNicknameValid] = useState(null);
+  const [usernameValid, setUsernameValid] = useState(null);
   const [emailMsg, setEmailMsg] = useState('');
   const [nicknameMsg, setNicknameMsg] = useState('');
+  const [usernameMsg, setUsernameMsg] = useState('');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
 
   const debouncedEmail = useDebounce(form.email, 1000);
+  const debouncedUsername = useDebounce(form.username, 1000);
   const debouncedNickname = useDebounce(form.nickname, 1000);
 
   useEffect(() => {
@@ -83,9 +89,48 @@ const RegisterTest = () => {
     })();
   }, [debouncedNickname]);
 
+  useEffect(() => {
+    if (!debouncedUsername) {
+      setUsernameValid(null);
+      setUsernameMsg('');
+      return;
+    }
+    (async () => {
+      try {
+        const res = await axios.get(`/api/users/check-username?username=${debouncedUsername}`);
+        if (res.data) {
+          setUsernameValid(true);
+          setUsernameMsg('✅ 사용 가능한 아이디입니다.');
+        } else {
+          setUsernameValid(false);
+          setUsernameMsg('❌ 이미 사용 중인 아이디입니다.');
+        }
+      } catch {
+        setUsernameValid(false);
+        setUsernameMsg('❌ 닉네임 확인 중 오류 발생');
+      }
+    })();
+  }, [debouncedUsername]);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+
+      // 실시간 유효성 검사
+    if (name === 'username') {
+      const isValid = /^[a-zA-Z0-9]{4,12}$/.test(value);
+      setUsernameError(isValid ? '' : '❌ 아이디는 4~12자의 영문 또는 숫자만 가능합니다.');
+    }
+
+    if (name === 'password') {
+      const isValid = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/.test(value);
+      setPasswordError(isValid ? '' : '❌ 비밀번호는 8~20자, 영문/숫자/특수문자를 포함해야 합니다.');
+    }
+
+    if (name === 'nickname') {
+      const isValid = /^[가-힣a-zA-Z0-9]{2,10}$/.test(value);
+      setNicknameError(isValid ? '' : '❌ 닉네임은 2~10자, 한글/영문/숫자만 사용 가능합니다.');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -131,10 +176,15 @@ const RegisterTest = () => {
       <h2 className="signup-title">회원가입</h2>
       <form onSubmit={handleSubmit} className="register-form">
         <label>아이디</label>
+        <h5>아이디는 4 ~ 12자로 영문 또는 숫자만 입력 가능합니다.</h5>
         <input name="username" value={form.username} onChange={handleChange} required />
+        {usernameMsg && <div className={usernameValid ? 'signup-success' : 'signup-error'}>{usernameMsg}</div>}
+        {usernameError && <div className="signup-error">{usernameError}</div>}
 
         <label>비밀번호</label>
+        <h5>비밀번호는 8~20자로 영문, 숫자, 특수문자를 포함해야 합니다.</h5>
         <input name="password" type="password" value={form.password} onChange={handleChange} required />
+        {passwordError && <div className="signup-error">{passwordError}</div>}
 
         <label>비밀번호 확인</label>
         <input name="passwordCheck" type="password" value={form.passwordCheck} onChange={handleChange} required />
@@ -145,10 +195,10 @@ const RegisterTest = () => {
         )}
 
         <label>닉네임</label>
+        <h5>닉네임은 2~10자로 한글, 영문, 숫자만 사용할 수 있습니다.</h5>
         <input name="nickname" value={form.nickname} onChange={handleChange} required />
-        {nicknameMsg && (
-          <div className={nicknameValid === false ? 'signup-error' : 'signup-success'}>{nicknameMsg}</div>
-        )}
+        {nicknameMsg && <div className={nicknameValid ? 'signup-success' : 'signup-error'}>{nicknameMsg}</div>}
+        {nicknameError && <div className="signup-error">{nicknameError}</div>}
 
         <label>이메일</label>
         <input name="email" type="email" value={form.email} onChange={handleChange} required />
@@ -168,12 +218,11 @@ const RegisterTest = () => {
         <button type="submit" className="signup-btn" disabled={
           emailValid === false ||
           nicknameValid === false ||
-          !form.username ||
-          !form.password ||
-          !form.passwordCheck ||
-          !form.nickname ||
-          !form.email ||
-          form.password !== form.passwordCheck
+          usernameValid === false ||
+          !form.username || usernameError ||
+          !form.password || passwordError ||
+          !form.nickname || nicknameError ||
+          !form.email || form.password !== form.passwordCheck
         }>
           회원가입
         </button>

@@ -3,6 +3,8 @@ package com.pknu.miniworld.User.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.pknu.miniworld.Miniroom.Entity.MiniroomEntity;
+import com.pknu.miniworld.Miniroom.Repository.MiniroomRepository;
 import com.pknu.miniworld.User.DTO.UserDTO;
 import com.pknu.miniworld.User.Entity.UserEntity;
 import com.pknu.miniworld.User.Repository.UserRepository;
@@ -14,6 +16,19 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final MiniroomRepository miniroomRepository;
+
+    public UserEntity registerUser(UserEntity userDto) {
+        // 1. 사용자 저장
+        UserEntity savedUser = userRepository.save(userDto);
+
+        // 2. 미니룸 생성
+        MiniroomEntity miniroom = new MiniroomEntity();
+        miniroom.setUser(savedUser);
+        miniroom.setBackgroundImageUrl("/images/default_background.jpg"); // 기본값 설정 가능
+        miniroomRepository.save(miniroom);
+        return savedUser;
+    }
 
     public void register(UserDTO request) {
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -34,15 +49,17 @@ public class UserService {
         user.setBirthDate(request.getBirthDate());
         user.setIsPublic(request.getIsPublic());
 
-        userRepository.save(user);
+        registerUser(user);
     }
 
     public boolean isEmailAvailable(String email) {
     return !userRepository.existsByEmail(email);
 }
-
-public boolean isNicknameAvailable(String nickname) {
+    public boolean isNicknameAvailable(String nickname) {
     return !userRepository.existsByNickname(nickname);
+}
+    public boolean isUsernameAvailable(String username) {
+    return !userRepository.existsByUsername(username);
 }
 
 
