@@ -15,10 +15,13 @@
   flex-direction: column;
   gap: 1px;
 }
+.register-form h5 {
+  color: gray;
+}
 .register-form label {
   display: flex;
   flex-direction: column;
-  font-weight: 500;
+  font-weight: bold;
   gap: 5px;
 }
 .register-form input,
