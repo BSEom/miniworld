@@ -1,0 +1,313 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-app {
+  font-family: 'Malgun Gothic', sans-serif;
+  background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow: auto;
+}
+
+/* 배경 요소들 */
+.background-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-element {
+  position: absolute;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(even) {
+  animation-delay: -3s;
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-20px) rotate(5deg); 
+  }
+  66% { 
+    transform: translateY(10px) rotate(-3deg); 
+  }
+}
+
+.house {
+  width: 60px;
+  height: 50px;
+  background: #FFB6C1;
+  border-radius: 5px;
+  position: relative;
+  top: 10%;
+  left: 15%;
+}
+
+.house::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 25px solid #FF69B4;
+}
+
+.tree {
+  width: 15px;
+  height: 40px;
+  background: #8B4513;
+  border-radius: 3px;
+  position: relative;
+  top: 20%;
+  left: 80%;
+}
+
+.tree::before {
+  content: '';
+  position: absolute;
+  top: -25px;
+  left: -15px;
+  width: 45px;
+  height: 45px;
+  background: #228B22;
+  border-radius: 50%;
+}
+
+.car {
+  width: 50px;
+  height: 25px;
+  background: #FF6347;
+  border-radius: 10px;
+  position: relative;
+  top: 70%;
+  left: 10%;
+}
+
+.car::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 8px;
+  width: 12px;
+  height: 12px;
+  background: #333;
+  border-radius: 50%;
+  box-shadow: 22px 0 0 #333;
+}
+
+.balloon {
+  width: 30px;
+  height: 40px;
+  background: #FF1493;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: relative;
+  top: 30%;
+  left: 70%;
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: #333;
+}
+
+.circle-gold {
+  top: 60%;
+  left: 85%;
+  width: 40px;
+  height: 40px;
+  background: #FFD700;
+  border-radius: 50%;
+}
+
+.circle-pink {
+  top: 80%;
+  left: 60%;
+  width: 25px;
+  height: 25px;
+  background: #FF69B4;
+  border-radius: 50%;
+}
+
+/* 로그인 컨테이너 */
+.login-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 로고 */
+.logo {
+  margin-bottom: 30px;
+}
+
+.logo h1 {
+  color: #FF6B35;
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.logo .beta {
+  color: #888;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+/* 폼 요소들 */
+.login-form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-form-group input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.login-form-group input:focus {
+  outline: none;
+  border-color: #FF6B35;
+  background: white;
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+}
+
+.login-form-group input::placeholder {
+  color: #aaa;
+}
+
+/* 버튼 */
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #FF6B35, #FF8E53);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+/* 링크 */
+.links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.links a:hover {
+  color: #FF6B35;
+}
+
+/* 환영 메시지 */
+.welcome-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.welcome-message.show {
+  opacity: 1;
+  visibility: visible;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.welcome-btn {
+  margin-top: 20px;
+  width: auto;
+  padding: 10px 30px;
+  background: linear-gradient(135deg, #FF6B35, #FF8E53);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.welcome-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+}

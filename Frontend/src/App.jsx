@@ -11,11 +11,13 @@ import FriendsPage from './pages/FriendsPage';
 import RegisterTest from './pages/RegisterTest';
 import { getThemeClass } from './utils/Theme';
 import WriteDiaryPage from './pages/DiaryWritePage';
+import Signup from './pages/Signup';
+import Login from './pages/LoginPage';
 
 import './App.css';
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState('login');
   const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
   const [todayMood, setTodayMood] = useState('😊');
   const [selectedDate, setSelectedDate] = useState(null);
@@ -93,6 +95,10 @@ const App = () => {
   // 페이지 렌더링 분기
   const renderCurrentPage = (todayMood) => {
     switch (currentPage) {
+      case 'login':
+        return <Login goToSignup={() => setCurrentPage('signup')} />;
+      case 'signup':
+        return <Signup goToLogin={() => setCurrentPage('login')} />;
       case 'home':
         return <MiniRoom todayMood={todayMood} />;
       case 'diary':
@@ -127,6 +133,26 @@ const App = () => {
         return <MiniRoom todayMood={todayMood} />;
     }
   };
+
+    // ✅ 로그인/회원가입 전용 조건 렌더링
+  if (currentPage === 'login') {
+    return (
+      <div className="login-wrapper">
+        <Login 
+          goToSignup={() => setCurrentPage('signup')}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
+    );
+  }
+
+  if (currentPage === 'signup') {
+    return (
+      <div className="signup-wrapper">
+        <Signup goToLogin={() => setCurrentPage('login')} />
+      </div>
+    );
+  }
 
   return (
     <div className={`app ${getThemeClass(todayMood)}`}>

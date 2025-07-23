@@ -27,19 +27,18 @@ public class UserController {
     }
 
     @GetMapping("/check-email")
-    public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
+    public ResponseEntity<Boolean> checkEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(userService.isEmailAvailable(email));
     }
-    
+
     @GetMapping("/check-username")
-    public ResponseEntity<Boolean> checkUsername(@RequestParam String username) {
+    public ResponseEntity<Boolean> checkUsername(@RequestParam("username") String username) {
         return ResponseEntity.ok(userService.isUsernameAvailable(username));
     }
 
     @GetMapping("/check-nickname")
-    public ResponseEntity<Boolean> checkNickname(@RequestParam String nickname) {
+    public ResponseEntity<Boolean> checkNickname(@RequestParam("nickname") String nickname) {
         return ResponseEntity.ok(userService.isNicknameAvailable(nickname));
     }
-
 
 }
