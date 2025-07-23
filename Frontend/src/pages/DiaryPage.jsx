@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Calendar from './DiaryCalendar';
 import './DiaryPage.css';
+import './Theme.css';
+import { getThemeClass } from '../utils/Theme';
 
-const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries = [] }) => {
+const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMood = [] }) => {
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -55,15 +57,15 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries = [] }) =
   const selectedDiary = selectedDate ? getDiaryForDate(selectedDate) : null;
 
   return (
-    <div className="calendar-diary-page">
+    <div className={`calendar-diary-page ${getThemeClass(todayMood)}`}>
       <div className="calendar-header">
         <h2>📅 나의 다이어리 캘린더</h2>
-        <div className="month-navigation">
-          <button onClick={() => navigateMonth(-1)} className="nav-btn">‹</button>
-          <span className="current-month">
+        <div className="calendar-month-navigation">
+          <button onClick={() => navigateMonth(-1)} className={`calendar-nav-btn ${getThemeClass(todayMood)}`}>‹</button>
+          <span className="calendar-current-month">
             {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
           </span>
-          <button onClick={() => navigateMonth(1)} className="nav-btn">›</button>
+          <button onClick={() => navigateMonth(1)} className={`calendar-nav-btn ${getThemeClass(todayMood)}`}>›</button>
         </div>
       </div>
 
@@ -73,13 +75,14 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries = [] }) =
             currentDate={currentDate}
             diaryEntries={diaryEntries}
             onDateClick={handleDateClick}
+            todayMood={todayMood}
           />
         </div>
 
         <div className="diary-section">
           {selectedDate && (
             <div className="selected-date-info">
-              <div className="date-header">
+              <div className="calendar-date-header">
                 <h3>{formatDateForDisplay(formatDate(selectedDate))}</h3>
                 {showDiary && selectedDiary && (
                   <button className="write-btn" onClick={handleEditDiary}>

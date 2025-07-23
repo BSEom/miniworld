@@ -1,9 +1,3 @@
-.diary-indicator {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-}
-
 .mood-icon {
   font-size: 16px;
 }
@@ -12,12 +6,12 @@
   background: rgba(255, 255, 255, 0.95);
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); */
   overflow-y: auto;
   max-height: 480px;
 }
 
-.date-header {
+.calendar-date-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -133,7 +127,7 @@
     height: 60px;
   }
 
-  .date-header {
+  .calendar-date-header {
     flex-direction: column;
     gap: 10px;
     align-items: stretch;

@@ -96,7 +96,7 @@ const App = () => {
         return <MiniRoom todayMood={todayMood} />;
       case 'diary':
         return (
-          <DiaryPage
+          <DiaryPage todayMood={todayMood}
             diaryEntries={diaryEntries}
             onNavigateToWrite={handleNavigateToWrite}
             onNavigateToEdit={handleNavigateToEdit}
@@ -162,7 +162,7 @@ const App = () => {
               <span>🚪</span>
             </button>
           </div>
-          
+
         </div>
       </div>
     </div>

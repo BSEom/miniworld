@@ -53,6 +53,44 @@ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
   font-weight: bold;
 }
 
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-happy {
+  background: #F7CFD8
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-happy {
+  background: #fac1d4d5;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-happy:hover {
+background: #ff6b9cb4;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-happy {
+background: #E69DB8;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-happy {
+background: #978dca;
+color: white;
+}
+.calendar-day.has-diary.theme-happy:hover {
+background: #786fa6;
+}
+
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-happy {
+border: 3px solid #fd79a8;
+background: #ffe8f4;
+}
+
+
 
 
 
@@ -113,6 +151,41 @@ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
   font-weight: bold;
 }
 
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-play {
+  background: #a2d9f7
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-play {
+  background: #5AB2FF;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-play:hover {
+background: #188df3;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-play {
+background: #34699A;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-play {
+background: #4F959D;
+color: white;
+}
+.calendar-day.has-diary.theme-play:hover {
+background: #237983;
+}
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-play {
+border: 3px solid #34699A;
+background: #D4F6FF;
+}
+
 
 
 
@@ -167,13 +240,49 @@ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
   background: linear-gradient(135deg, #DAD2FF 0%, #52357bad 100%);
 }
 
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-sleepy {
+  background: #C0C9EE
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-sleepy {
+  background: #52357B;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-sleepy:hover {
+background: #188df3;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-sleepy {
+background: #7e5cadc4;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-sleepy {
+background: #474E93;
+color: white;
+}
+.calendar-day.has-diary.theme-sleepy:hover {
+background: #0a1468;
+}
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-sleepy {
+border: 3px solid #474E93;
+background: #EBEAFF;
+}
+
 
 
 
 
 /* theme-sad */
 /* 배경색 */
-.app.theme-sleepy {
+.app.theme-sad {
   background: linear-gradient(135deg, #274d6256 0%, #3c6b7542 50%, #62ccb133 100%);
 }
 
@@ -222,6 +331,42 @@ background-size: contain;
   background: linear-gradient(135deg, var(--tab-color, #0082c8), var(--tab-color-light, #52357bd5));
   color: white;
   font-weight: bold;
+}
+
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-sad {
+  background: #58A0C8
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-sad {
+  background: #34699A;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-sad:hover {
+background: #188df3;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-sad {
+background: #447d9bce;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-sad {
+background: #286ab1;
+color: white;
+}
+.calendar-day.has-diary.theme-sad:hover {
+background: #013872;
+}
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-sad {
+border: 3px solid #286ab1;
+background: #c7d9dd8a;
 }
 
 
@@ -277,5 +422,41 @@ background-size: contain;
   background: linear-gradient(135deg, var(--tab-color, #EB5B00), var(--tab-color-light, #FB9E3A));
   color: white;
   font-weight: bold;
+}
+
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-angry {
+  background: #fcef91d2
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-angry {
+  background: #FF894F;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-angry:hover {
+background: #e96b2c;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-angry {
+background: #fb9e3aec;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-angry {
+background: #E6521F;
+color: white;
+}
+.calendar-day.has-diary.theme-angry:hover {
+background: #c90202;
+}
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-angry {
+border: 3px solid #EB5B00;
+background: #FEF3E2;
 }
 

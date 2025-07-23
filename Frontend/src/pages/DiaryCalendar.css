@@ -1,6 +1,4 @@
 .calendar-diary-page {
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-/* min-height: 100vh; */
 height: 100%;
 width: 100%;
 padding: 20px;
@@ -15,7 +13,7 @@ margin-bottom: 20px;
 display: flex;
 justify-content: space-between;
 align-items: center;
-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+/* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); */
 }
 
 .calendar-header h2 {
@@ -24,14 +22,13 @@ color: #2d3436;
 font-size: 24px;
 }
 
-.month-navigation {
+.calendar-month-navigation {
 display: flex;
 align-items: center;
 gap: 20px;
 }
 
-.nav-btn {
-background: #6c5ce7;
+.calendar-nav-btn {
 color: white;
 border: none;
 width: 40px;
@@ -46,12 +43,11 @@ align-items: center;
 justify-content: center;
 }
 
-.nav-btn:hover {
-background: #5f3dc4;
+.calendar-nav-btn:hover {
 transform: scale(1.1);
 }
 
-.current-month {
+.calendar-current-month {
 font-size: 18px;
 font-weight: bold;
 color: #2d3436;
@@ -70,7 +66,7 @@ height: calc(100vh - 140px);
 background: rgba(255, 255, 255, 0.95);
 border-radius: 15px;
 padding: 20px;
-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+/* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); */
 height: 480px;
 }
 
@@ -80,8 +76,7 @@ grid-template-columns: repeat(7, 1fr);
 gap: 2px;
 }
 
-.day-header {
-background: #6c5ce7;
+.calendar-day-header {
 color: white;
 padding: 12px;
 text-align: center;
@@ -110,21 +105,20 @@ background: white;
 }
 
 .calendar-day:hover {
-background: #f8f9ff;
 transform: scale(1.05);
 box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
 }
 
-.calendar-day.has-diary {
-background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+/* .calendar-day.has-diary {
+background: linear-gradient(135deg, #86c1fc 0%, #2291e6 100%);
 color: white;
 }
 
 .calendar-day.has-diary:hover {
 background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%);
-}
+} */
 
-.calendar-day.today {
+/* .calendar-day.today {
 border: 3px solid #fd79a8;
 background: #ffe8f4;
 }
@@ -132,9 +126,17 @@ background: #ffe8f4;
 .calendar-day.today.has-diary {
 border: 3px solid #fd79a8;
 background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
-}
+} */
 
-.day-number {
+/* 달력 일자 디자인 */
+.calendar-day-number {
 font-size: 16px;
 font-weight: bold;
+}
+
+/* 달력 일자 위치 */
+.calendar-indicator {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
