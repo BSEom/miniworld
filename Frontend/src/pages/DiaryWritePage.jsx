@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DiaryWritePage.css';
 
-const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
+const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, initialDiary = null }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [weather, setWeather] = useState('맑음');
   const [mood, setMood] = useState('😊');
+
+  const isEditMode = !!initialDiary;
+
+  // 편집 모드일 때 초기값 설정
+  useEffect(() => {
+    if (initialDiary) {
+      setTitle(initialDiary.title);
+      setContent(initialDiary.content);
+      setWeather(initialDiary.weather);
+      setMood(initialDiary.mood);
+    }
+  }, [initialDiary]);
 
   const formatDateForDisplay = (date) => {
     if (!date) return new Date().toLocaleDateString('ko-KR');
@@ -29,8 +41,8 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
       return;
     }
 
-    const newDiary = {
-      id: Date.now(),
+    const diaryData = {
+      id: isEditMode ? initialDiary.id : Date.now(),
       date: formatDateForSave(selectedDate),
       title: title.trim(),
       content: content.trim(),
@@ -38,8 +50,14 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
       mood
     };
 
-    if (onSaveDiary) {
-      onSaveDiary(newDiary);
+    if (isEditMode) {
+      if (onUpdateDiary) {
+        onUpdateDiary(diaryData);
+      }
+    } else {
+      if (onSaveDiary) {
+        onSaveDiary(diaryData);
+      }
     }
 
     if (onBack) {
@@ -62,7 +80,7 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
     <div className="write-diary-page">
       <button onClick={onBack} className="back-btn">← 뒤로가기</button>
       <div className="write-diary-header">
-        <h2>✏️ 일기 쓰기</h2>
+        <h2>{isEditMode ? '✏️ 일기 수정' : '✏️ 일기 쓰기'}</h2>
         <div className="write-date">{formatDateForDisplay(selectedDate)}</div>
       </div>
 
@@ -126,7 +144,9 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
 
           <div className="diary-form-actions">
             <button onClick={onBack} className="diary-form-cancel-btn">취소</button>
-            <button onClick={handleSave} className="diary-form-save-btn">💾 저장하기</button>
+            <button onClick={handleSave} className="diary-form-save-btn">
+              💾 {isEditMode ? '수정완료' : '저장하기'}
+            </button>
           </div>
         </div>
       </div>

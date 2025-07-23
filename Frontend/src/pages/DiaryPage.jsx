@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Calendar from './DiaryCalendar';
 import './DiaryPage.css';
 
-const DiaryPage = ({ onNavigateToWrite, diaryEntries = [] }) => {
+const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries = [] }) => {
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -34,6 +34,13 @@ const DiaryPage = ({ onNavigateToWrite, diaryEntries = [] }) => {
   const handleWriteNewDiary = () => {
     if (onNavigateToWrite) {
       onNavigateToWrite(selectedDate);
+    }
+  };
+
+  const handleEditDiary = () => {
+    const diary = getDiaryForDate(selectedDate);
+    if (onNavigateToEdit && diary) {
+      onNavigateToEdit(selectedDate, diary);
     }
   };
 
@@ -72,7 +79,14 @@ const DiaryPage = ({ onNavigateToWrite, diaryEntries = [] }) => {
         <div className="diary-section">
           {selectedDate && (
             <div className="selected-date-info">
-              <h3>{formatDateForDisplay(formatDate(selectedDate))}</h3>
+              <div className="date-header">
+                <h3>{formatDateForDisplay(formatDate(selectedDate))}</h3>
+                {showDiary && selectedDiary && (
+                  <button className="write-btn" onClick={handleEditDiary}>
+                    ✏️ 편집
+                  </button>
+                )}
+              </div>
               {showDiary && selectedDiary ? (
                 <div className="diary-detail">
                   <div className="diary-meta">
@@ -92,7 +106,7 @@ const DiaryPage = ({ onNavigateToWrite, diaryEntries = [] }) => {
                       ? '오늘은 일기가 없어요'
                       : '이 날에는 일기가 없어요'}
                   </p>
-                  <button className="write-new-btn" onClick={handleWriteNewDiary}>
+                  <button className="write-btn" onClick={handleWriteNewDiary}>
                     ✏️ 새 일기 쓰기
                   </button>
                 </div>
