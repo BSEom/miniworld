@@ -1,7 +1,7 @@
 import React from 'react';
-import './Calendar.css'
+import './DiaryCalendar.css'
 
-const Calendar = ({ currentDate, diaryEntries, onDateClick }) => {
+const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick }) => {
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
@@ -69,4 +69,4 @@ const Calendar = ({ currentDate, diaryEntries, onDateClick }) => {
   );
 };
 
-export default Calendar;
+export default DiaryCalendar;
