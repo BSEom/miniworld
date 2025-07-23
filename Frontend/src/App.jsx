@@ -9,14 +9,14 @@ import PhotoPage from './pages/PhotoPage';
 import ProfilePage from './pages/ProfilePage';
 import GuestBookPage from './pages/GuestBookPage';
 import FriendsPage from './pages/FriendsPage';
-<<<<<<< Updated upstream
-=======
+
+
 import RegisterTest from './pages/RegisterTest';
 import { getThemeClass } from './utils/Theme';
 import WriteDiaryPage from './pages/DiaryWritePage';
 import DiaryCalendar from './pages/DiaryCalendar';
 
->>>>>>> Stashed changes
+
 import './App.css';
 
 const App = () => {
@@ -46,24 +46,24 @@ const App = () => {
     <div className="app">
       <div className='test'>
 
-      <div className="container">
-        <Header visitCount={visitCount} />
-        <div className="layout">
-          <LeftBar onPageChange={setCurrentPage} />
-          <div className="main-content">
-            <div className="content-area">
-              {renderCurrentPage()}
+        <div className="container">
+          <Header visitCount={visitCount} />
+          <div className="layout">
+            <LeftBar onPageChange={setCurrentPage} />
+            <div className="main-content">
+              <div className="content-area">
+                {renderCurrentPage()}
+              </div>
+              <div className="tag_area">
+                <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
+              </div>
             </div>
-          <div className="tag_area">
-            <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
-          </div>
           </div>
         </div>
-      </div>
-      {/* <div className='rightbar'>
+        {/* <div className='rightbar'>
           <RightBar onPageChange={setCurrentPage} />
       </div> */}
-    </div>
+      </div>
     </div>
   );
 };
