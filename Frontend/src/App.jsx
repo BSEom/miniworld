@@ -9,6 +9,14 @@ import PhotoPage from './pages/PhotoPage';
 import ProfilePage from './pages/ProfilePage';
 import GuestBookPage from './pages/GuestBookPage';
 import FriendsPage from './pages/FriendsPage';
+<<<<<<< Updated upstream
+=======
+import RegisterTest from './pages/RegisterTest';
+import { getThemeClass } from './utils/Theme';
+import WriteDiaryPage from './pages/DiaryWritePage';
+import DiaryCalendar from './pages/DiaryCalendar';
+
+>>>>>>> Stashed changes
 import './App.css';
 
 const App = () => {
