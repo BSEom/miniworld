@@ -1,14 +1,13 @@
 .write-diary-page {
   padding: 20px;
-  /* max-width: 800px; */
   margin: 0 auto;
   background: white;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* min-height: 600px; */
   width: 100%;
-  max-height: 200px;
-  /* height: 100%; */
+  height: auto;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 .write-diary-header {
@@ -29,6 +28,7 @@
   cursor: pointer;
   font-size: 14px;
   transition: all 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .back-btn:hover {
@@ -55,23 +55,35 @@
 .diary-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  /* height: 100%; */
+  gap: 25px;
 }
 
-.form-group {
+.diary-form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
-.form-group label {
+.diary-weather-mood-group {
+  display: flex;
+  gap: 100px;
+}
+
+.diary-weather,
+.diary-mood {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.diary-form-group label {
   font-weight: 600;
   color: #333;
   font-size: 16px;
+  margin-bottom: 5px;
 }
 
-.form-group input {
+.diary-form-group input {
   padding: 12px;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
@@ -79,13 +91,13 @@
   transition: border-color 0.3s ease;
 }
 
-.form-group input:focus {
+.diary-form-group input:focus {
   outline: none;
   border-color: #4ecdc4;
   box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
 }
 
-.form-group textarea {
+.diary-form-group textarea {
   padding: 15px;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
@@ -97,79 +109,13 @@
   transition: border-color 0.3s ease;
 }
 
-.form-group textarea:focus {
+.diary-form-group textarea:focus {
   outline: none;
   border-color: #4ecdc4;
   box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.weather-options {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.weather-btn {
-  background: #f8f9fa;
-  border: 2px solid #e0e0e0;
-  padding: 10px 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 14px;
-}
-
-.weather-btn:hover {
-  border-color: #4ecdc4;
-  background: #f0fffe;
-}
-
-.weather-btn.selected {
-  background: #4ecdc4;
-  border-color: #4ecdc4;
-  color: white;
-}
-
-.mood-options {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.mood-btn {
-  background: #f8f9fa;
-  border: 2px solid #e0e0e0;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 20px;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.mood-btn:hover {
-  border-color: #4ecdc4;
-  background: #f0fffe;
-  transform: scale(1.1);
-}
-
-.mood-btn.selected {
-  background: #4ecdc4;
-  border-color: #4ecdc4;
-  transform: scale(1.1);
-}
-
-.form-actions {
+.diary-form-actions {
   display: flex;
   gap: 15px;
   justify-content: center;
@@ -178,7 +124,7 @@
   border-top: 2px solid #f0f0f0;
 }
 
-.cancel-btn {
+.diary-form-cancel-btn {
   background: #6c757d;
   color: white;
   border: none;
@@ -189,12 +135,12 @@
   transition: all 0.3s ease;
 }
 
-.cancel-btn:hover {
+.diary-form-cancel-btn:hover {
   background: #5a6268;
   transform: translateY(-2px);
 }
 
-.save-btn {
+.diary-form-save-btn {
   background: #4ecdc4;
   color: white;
   border: none;
@@ -206,10 +152,30 @@
   transition: all 0.3s ease;
 }
 
-.save-btn:hover {
+.diary-form-save-btn:hover {
   background: #45b7aa;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(78, 205, 196, 0.3);
+}
+
+.diary-select-box {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  appearance: none;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23999' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.diary-select-box:focus {
+  outline: none;
+  border-color: #4ecdc4;
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
 }
 
 /* 반응형 디자인 */
@@ -226,21 +192,12 @@
     text-align: center;
   }
   
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .weather-options, .mood-options {
-    justify-content: center;
-  }
-  
-  .form-actions {
+  .diary-form-actions {
     flex-direction: column;
     gap: 10px;
   }
   
-  .cancel-btn, .save-btn {
+  .diary-form-cancel-btn, .diary-form-save-btn {
     width: 100%;
   }
 }

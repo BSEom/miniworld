@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Calendar from './Calendar';
+import Calendar from './DiaryCalendar';
 import './DiaryPage.css';
 
 const DiaryPage = ({ onNavigateToWrite, diaryEntries = [] }) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Calendar.css'
+import './DiaryCalendar.css'
 
 const Calendar = ({ currentDate, diaryEntries, onDateClick }) => {
   const getDaysInMonth = (date) => {
@@ -69,4 +69,4 @@ const Calendar = ({ currentDate, diaryEntries, onDateClick }) => {
   );
 };
 
-export default Calendar;
+export default DiaryCalendar;

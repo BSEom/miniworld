@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './WriteDiaryPage.css';
+import './DiaryWritePage.css';
 
 const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
   const [title, setTitle] = useState('');
@@ -41,8 +41,7 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
     if (onSaveDiary) {
       onSaveDiary(newDiary);
     }
-    
-    // 저장 후 뒤로가기
+
     if (onBack) {
       onBack();
     }
@@ -51,22 +50,60 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
   const weatherOptions = [
     { value: '맑음', emoji: '☀️', label: '맑음' },
     { value: '흐림', emoji: '☁️', label: '흐림' },
-    { value: '비', emoji: '🌧️', label: '비' }
+    { value: '비', emoji: '🌧️', label: '비' },
+    { value: '눈', emoji: '🌨️', label: '눈' },
+    { value: '안개', emoji: '🌫️', label: '안개' },
+    { value: '번개', emoji: '⛈️', label: '번개' }
   ];
 
   const moodOptions = ['😊', '😍', '🤔', '🥹', '😢', '😡', '😴', '🤗'];
 
   return (
     <div className="write-diary-page">
+      <button onClick={onBack} className="back-btn">← 뒤로가기</button>
       <div className="write-diary-header">
-        <button onClick={onBack} className="back-btn">← 뒤로가기</button>
         <h2>✏️ 일기 쓰기</h2>
         <div className="write-date">{formatDateForDisplay(selectedDate)}</div>
       </div>
-            
+
       <div className="write-diary-content">
         <div className="diary-form">
-          <div className="form-group">
+
+          <div className="diary-form-group">
+            <div className='diary-weather-mood-group'>
+              <div className='diary-weather'>
+                <label htmlFor="weather-select">날씨</label>
+                <select
+                  id="weather-select"
+                  value={weather}
+                  onChange={(e) => setWeather(e.target.value)}
+                  className="diary-select-box"
+                >
+                  {weatherOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.emoji} {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className='diary-mood'>
+                <label htmlFor="mood-select">기분</label>
+                <select
+                  id="mood-select"
+                  value={mood}
+                  onChange={(e) => setMood(e.target.value)}
+                  className="diary-select-box"
+                  >
+                  {moodOptions.map(moodOption => (
+                    <option key={moodOption} value={moodOption}>
+                      {moodOption}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <label htmlFor="title">제목</label>
             <input
               type="text"
@@ -75,10 +112,8 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="일기 제목을 입력하세요"
               maxLength={50}
-            />
-          </div>
+              />
 
-          <div className="form-group">
             <label htmlFor="content">내용</label>
             <textarea
               id="content"
@@ -86,46 +121,12 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
               onChange={(e) => setContent(e.target.value)}
               placeholder="오늘 하루는 어땠나요? 자유롭게 적어보세요!"
               rows={10}
-            />
+              />
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>날씨</label>
-              <div className="weather-options">
-                {weatherOptions.map(option => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    className={`weather-btn ${weather === option.value ? 'selected' : ''}`}
-                    onClick={() => setWeather(option.value)}
-                  >
-                    {option.emoji} {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label>기분</label>
-              <div className="mood-options">
-                {moodOptions.map(moodOption => (
-                  <button
-                    key={moodOption}
-                    type="button"
-                    className={`mood-btn ${mood === moodOption ? 'selected' : ''}`}
-                    onClick={() => setMood(moodOption)}
-                  >
-                    {moodOption}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="form-actions">
-            <button onClick={onBack} className="cancel-btn">취소</button>
-            <button onClick={handleSave} className="save-btn">💾 저장하기</button>
+          <div className="diary-form-actions">
+            <button onClick={onBack} className="diary-form-cancel-btn">취소</button>
+            <button onClick={handleSave} className="diary-form-save-btn">💾 저장하기</button>
           </div>
         </div>
       </div>
@@ -133,4 +134,4 @@ const WriteDiaryPage = ({ onBack, onSaveDiary, selectedDate }) => {
   );
 };
 
-export default WriteDiaryPage;
+export default DiaryWritePage;
