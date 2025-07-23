@@ -159,7 +159,9 @@ const MiniRoom = (todayMood) => {
         onClick={handleBoardClick}
       >
         {imageList.map((item) => (
-          <div className='img_frame'
+          <div 
+            key={item.id}  
+            className='img_frame'
             style={{
                 position: 'absolute',
                 left: positions[item.id]?.left || 0,
