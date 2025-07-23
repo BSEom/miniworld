@@ -19,6 +19,7 @@ const App = () => {
   const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
   const [todayMood, setTodayMood] = useState('😊');
   const [selectedDate, setSelectedDate] = useState(null);
+  const [diaryToEdit, setDiaryToEdit] = useState(null); // 수정할 일기
 
   // 일기 데이터
   const [diaryEntries, setDiaryEntries] = useState([
@@ -48,23 +49,45 @@ const App = () => {
     }
   ]);
 
-  // 👉 일기 쓰기로 이동
+  // 👉 새 일기 쓰기로 이동
   const handleNavigateToWrite = (date) => {
     setSelectedDate(date);
+    setDiaryToEdit(null); // 새 일기 쓰기 모드
     setCurrentPage('write');
   };
 
-  // 👉 일기 저장
+  // 👉 일기 편집으로 이동
+  const handleNavigateToEdit = (date, diary) => {
+    setSelectedDate(date);
+    setDiaryToEdit(diary); // 편집 모드
+    setCurrentPage('write');
+  };
+
+  // 👉 새 일기 저장
   const handleSaveDiary = (newDiary) => {
     setDiaryEntries((prev) => [...prev, newDiary]);
     setCurrentPage('diary');
     setSelectedDate(null);
+    setDiaryToEdit(null);
   };
 
   // 👉 뒤로가기
   const handleBack = () => {
     setCurrentPage('diary');
     setSelectedDate(null);
+    setDiaryToEdit(null);
+  };
+  
+  // 👉 일기 수정
+  const handleUpdateDiary = (updatedDiary) => {
+    setDiaryEntries((prev) => 
+      prev.map((diary) => 
+        diary.id === updatedDiary.id ? updatedDiary : diary
+      )
+    );
+    setCurrentPage('diary');
+    setSelectedDate(null);
+    setDiaryToEdit(null);
   };
 
   // 페이지 렌더링 분기
@@ -77,6 +100,7 @@ const App = () => {
           <DiaryPage
             diaryEntries={diaryEntries}
             onNavigateToWrite={handleNavigateToWrite}
+            onNavigateToEdit={handleNavigateToEdit}
           />
         );
       case 'photos':
@@ -94,7 +118,9 @@ const App = () => {
           <WriteDiaryPage
             selectedDate={selectedDate}
             onSaveDiary={handleSaveDiary}
+            onUpdateDiary={handleUpdateDiary}
             onBack={handleBack}
+            initialDiary={diaryToEdit} // 편집모드면 기존 일기 데이터 전달
           />
         );
       default:
@@ -130,6 +156,8 @@ const App = () => {
               </div>
             </div>
           </div>
+
+          {/* 수정 및 로그아웃 */}
           <div className="nav-actions">
             <button className="action-btn settings-btn">
               <span>⚙️</span>
@@ -138,6 +166,7 @@ const App = () => {
               <span>🚪</span>
             </button>
           </div>
+          
         </div>
       </div>
     </div>
