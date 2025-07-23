@@ -5,8 +5,12 @@
 }
 
 .login-app {
-  font-family: 'Malgun Gothic', sans-serif;
-  background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+  font-family: "Malgun Gothic", sans-serif;
+  /* background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%); */
+  background-image: url("/img/background_img/test2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   min-height: 100vh;
   position: relative;
   overflow: auto;
@@ -33,21 +37,22 @@
 }
 
 @keyframes float {
-  0%, 100% { 
-    transform: translateY(0px) rotate(0deg); 
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
   }
-  33% { 
-    transform: translateY(-20px) rotate(5deg); 
+  33% {
+    transform: translateY(-20px) rotate(5deg);
   }
-  66% { 
-    transform: translateY(10px) rotate(-3deg); 
+  66% {
+    transform: translateY(10px) rotate(-3deg);
   }
 }
 
 .house {
   width: 60px;
   height: 50px;
-  background: #FFB6C1;
+  background: #ffb6c1;
   border-radius: 5px;
   position: relative;
   top: 10%;
@@ -55,7 +60,7 @@
 }
 
 .house::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -20px;
   left: -10px;
@@ -63,13 +68,13 @@
   height: 0;
   border-left: 40px solid transparent;
   border-right: 40px solid transparent;
-  border-bottom: 25px solid #FF69B4;
+  border-bottom: 25px solid #ff69b4;
 }
 
 .tree {
   width: 15px;
   height: 40px;
-  background: #8B4513;
+  background: #8b4513;
   border-radius: 3px;
   position: relative;
   top: 20%;
@@ -77,20 +82,20 @@
 }
 
 .tree::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -25px;
   left: -15px;
   width: 45px;
   height: 45px;
-  background: #228B22;
+  background: #228b22;
   border-radius: 50%;
 }
 
 .car {
   width: 50px;
   height: 25px;
-  background: #FF6347;
+  background: #ff6347;
   border-radius: 10px;
   position: relative;
   top: 70%;
@@ -98,7 +103,7 @@
 }
 
 .car::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 8px;
@@ -112,7 +117,7 @@
 .balloon {
   width: 30px;
   height: 40px;
-  background: #FF1493;
+  background: #ff1493;
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   position: relative;
   top: 30%;
@@ -120,7 +125,7 @@
 }
 
 .balloon::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -135,7 +140,7 @@
   left: 85%;
   width: 40px;
   height: 40px;
-  background: #FFD700;
+  background: #ffd700;
   border-radius: 50%;
 }
 
@@ -144,7 +149,7 @@
   left: 60%;
   width: 25px;
   height: 25px;
-  background: #FF69B4;
+  background: #ff69b4;
   border-radius: 50%;
 }
 
@@ -177,7 +182,7 @@
 }
 
 .logo h1 {
-  color: #FF6B35;
+  color: #ff6b35;
   font-size: 2.5em;
   font-weight: bold;
   margin-bottom: 5px;
@@ -207,7 +212,7 @@
 
 .login-form-group input:focus {
   outline: none;
-  border-color: #FF6B35;
+  border-color: #ff6b35;
   background: white;
   box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
 }
@@ -220,7 +225,7 @@
 .login-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #FF6B35, #FF8E53);
+  background: linear-gradient(135deg, #ff6b35, #ff8e53);
   color: white;
   border: none;
   border-radius: 10px;
@@ -256,7 +261,7 @@
 }
 
 .links a:hover {
-  color: #FF6B35;
+  color: #ff6b35;
 }
 
 /* 환영 메시지 */
@@ -297,7 +302,7 @@
   margin-top: 20px;
   width: auto;
   padding: 10px 30px;
-  background: linear-gradient(135deg, #FF6B35, #FF8E53);
+  background: linear-gradient(135deg, #ff6b35, #ff8e53);
   color: white;
   border: none;
   border-radius: 10px;

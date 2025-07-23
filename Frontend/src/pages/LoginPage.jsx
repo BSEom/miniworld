@@ -1,25 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import './LoginPage.css';
+import React, { useState, useEffect } from "react";
+import "./LoginPage.css";
 
 const LoginPage = ({ setCurrentPage, goToSignup }) => {
   const [formData, setFormData] = useState({
-    loginId: '',
-    loginPassword: ''
+    loginId: "",
+    loginPassword: "",
   });
   const [showWelcome, setShowWelcome] = useState(false);
-  const [welcomeMessage, setWelcomeMessage] = useState('');
+  const [welcomeMessage, setWelcomeMessage] = useState("");
 
   // 임시 사용자 데이터
   const tempUsers = [
-    { id: 'test@test.com', password: '1234', nickname: '테스트유저', avatar: '😊' },
-    { id: 'user@user.com', password: 'user', nickname: '사용자', avatar: '👤' }
+    {
+      id: "test@test.com",
+      password: "1234",
+      nickname: "테스트유저",
+      avatar: "😊",
+    },
+    { id: "user@user.com", password: "user", nickname: "사용자", avatar: "👤" },
   ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -28,49 +33,51 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
     const { loginId, loginPassword } = formData;
 
     if (!loginId || !loginPassword) {
-      alert('아이디와 비밀번호를 모두 입력해주세요.');
+      alert("아이디와 비밀번호를 모두 입력해주세요.");
       return;
     }
 
-    const user = tempUsers.find(u => u.id === loginId && u.password === loginPassword);
-    
+    const user = tempUsers.find(
+      (u) => u.id === loginId && u.password === loginPassword
+    );
+
     if (user) {
       setWelcomeMessage(`${user.nickname}님, 로그인 성공! ${user.avatar}`);
       setShowWelcome(true);
 
       // ✅ 잠깐 환영 메시지 보여준 후 미니룸으로 전환
       setTimeout(() => {
-        setCurrentPage('home');
+        setCurrentPage("home");
       }, 1000);
     } else {
-      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleLogin();
     }
   };
 
   useEffect(() => {
-    document.addEventListener('keypress', handleKeyPress);
+    document.addEventListener("keypress", handleKeyPress);
     return () => {
-      document.removeEventListener('keypress', handleKeyPress);
+      document.removeEventListener("keypress", handleKeyPress);
     };
   }, [formData]);
 
   return (
     <div className="login-app">
       {/* 배경 요소들 */}
-      <div className="background-elements">
+      {/* <div className="background-elements">
         <div className="floating-element house"></div>
         <div className="floating-element tree"></div>
         <div className="floating-element car"></div>
         <div className="floating-element balloon"></div>
         <div className="floating-element circle-gold"></div>
         <div className="floating-element circle-pink"></div>
-      </div>
+      </div> */}
 
       {/* 로그인 컨테이너 */}
       <div className="login-container">
@@ -107,8 +114,12 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
           </button>
 
           <div className="links">
-            <a href="#" onClick={goToSignup}>아이디/비밀번호 찾기</a>
-            <a href="#" onClick={goToSignup}>회원가입</a>
+            <a href="#" onClick={goToSignup}>
+              아이디/비밀번호 찾기
+            </a>
+            <a href="#" onClick={goToSignup}>
+              회원가입
+            </a>
           </div>
         </div>
       </div>
