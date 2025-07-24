@@ -6,7 +6,6 @@ const GuestBookPage = () => {
     {
       id: 1,
       name: '홍길동',
-      title: '첫 글이에요!',
       content: '안녕하세요, 반가워요 :)',
       isPrivate: false,
       image: null,
@@ -15,17 +14,18 @@ const GuestBookPage = () => {
       comments: [],
     },
   ]);
+
   const [formData, setFormData] = useState({
     name: '',
-    title: '',
     content: '',
     isPrivate: false,
     image: null,
   });
-  const [commentText, setCommentText] = useState('');
+
+  const [commentTexts, setCommentTexts] = useState({});
   const [replyTexts, setReplyTexts] = useState({});
   const [currentUser, setCurrentUser] = useState('나');
-  const [mode, setMode] = useState('list'); // 'list' | 'write'
+  const [mode, setMode] = useState('list');
   const [searchQuery, setSearchQuery] = useState('');
 
   const handlePostSubmit = () => {
@@ -38,29 +38,41 @@ const GuestBookPage = () => {
       pinned: false,
     };
     setPosts((prev) => [newPost, ...prev]);
-    setFormData({ name: '', title: '', content: '', isPrivate: false, image: null });
+    setFormData({
+      name: '',
+      content: '',
+      isPrivate: false,
+      image: null,
+    });
     setMode('list');
   };
 
-  const handleCommentAdd = (postId, parentId = null, isReply = false) => {
-    const text = isReply ? replyTexts[parentId] : commentText.trim();
+  const handleCommentAdd = (postId, parentId = null, isReply = false, replyTo = '') => {
+    const text = isReply
+      ? replyTexts[parentId]?.trim()
+      : commentTexts[postId]?.trim();
     if (!text) return;
+
+    const fullText = isReply && replyTo ? `${text}` : text;
+
     const newComment = {
       id: Date.now(),
-      text,
+      text: fullText,
       author: currentUser,
       date: new Date().toISOString(),
       parentId,
     };
     setPosts((prev) =>
       prev.map((p) =>
-        p.id === postId ? { ...p, comments: [...(p.comments || []), newComment] } : p
+        p.id === postId
+          ? { ...p, comments: [...(p.comments || []), newComment] }
+          : p
       )
     );
     if (isReply) {
       setReplyTexts((prev) => ({ ...prev, [parentId]: '' }));
     } else {
-      setCommentText('');
+      setCommentTexts((prev) => ({ ...prev, [postId]: '' }));
     }
   };
 
@@ -79,13 +91,21 @@ const GuestBookPage = () => {
     );
   };
 
+  const handleTogglePin = (postId) => {
+    setPosts((prev) =>
+      prev.map((p) =>
+        p.id === postId ? { ...p, pinned: !p.pinned } : p
+      )
+    );
+  };
+
   const renderComments = (comments, parentId = null, postId, depth = 0) => {
     return comments
       .filter((c) => c.parentId === parentId)
       .map((c) => (
         <div key={c.id} className="comment" style={{ marginLeft: depth * 20 }}>
           <div className="comment-header">
-            {c.author} | {formatDate(c.date)}
+            <strong>{c.author === currentUser ? '🏠 ' : ''}{c.author}</strong> | {formatDate(c.date)}
             {c.author === currentUser && (
               <button onClick={() => handleCommentDelete(postId, c.id)}>삭제</button>
             )}
@@ -100,7 +120,7 @@ const GuestBookPage = () => {
                 setReplyTexts((prev) => ({ ...prev, [c.id]: e.target.value }))
               }
             />
-            <button onClick={() => handleCommentAdd(postId, c.id, true)}>등록</button>
+            <button onClick={() => handleCommentAdd(postId, c.id, true, c.author)}>등록</button>
           </div>
           {renderComments(comments, c.id, postId, depth + 1)}
         </div>
@@ -110,7 +130,9 @@ const GuestBookPage = () => {
   const formatDate = (iso) => new Date(iso).toLocaleString();
 
   const filteredPosts = posts
-    .filter((post) => post.title.includes(searchQuery) || post.content.includes(searchQuery))
+    .filter((post) =>
+      post.content.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     .sort((a, b) => b.pinned - a.pinned || new Date(b.date) - new Date(a.date));
 
   return (
@@ -133,29 +155,26 @@ const GuestBookPage = () => {
                 <div className="post-header">
                   <span>
                     {post.name}
-                    {post.pinned && ' [고정글]'}
+                    {post.pinned && ' 📌'}
                   </span>
                   <span>{formatDate(post.date)}</span>
                 </div>
-                {!post.isPrivate || post.name === currentUser ? (
-                  <>
-                    {post.title && <h4>{post.title}</h4>}
-                    <p className="post-content">{post.content}</p>
-                    {post.image && (
-                      <div className="post-image">
-                        <img
-                          src={URL.createObjectURL(post.image)}
-                          alt="업로드 이미지"
-                        />
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <p className="post-content">🔒 비밀글입니다.</p>
-                )}
-
+                  <p className="post-content">
+                    {post.isPrivate && post.name !== currentUser ? '🔒 비밀글입니다.' : post.content}
+                  </p>
                 <div className="post-actions">
-                  <button onClick={() => setPosts((prev) => prev.filter((p) => p.id !== post.id))}>
+                  <button onClick={() => handleTogglePin(post.id)}>
+                    {post.pinned ? '고정 해제' : '고정'}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (post.pinned) {
+                        alert('고정된 글은 먼저 고정을 해제해야 삭제할 수 있습니다.');
+                      } else {
+                        setPosts((prev) => prev.filter((p) => p.id !== post.id));
+                      }
+                    }}
+                  >
                     삭제
                   </button>
                 </div>
@@ -171,8 +190,10 @@ const GuestBookPage = () => {
                     <input
                       type="text"
                       placeholder="댓글 작성"
-                      value={commentText}
-                      onChange={(e) => setCommentText(e.target.value)}
+                      value={commentTexts[post.id] || ''}
+                      onChange={(e) =>
+                        setCommentTexts((prev) => ({ ...prev, [post.id]: e.target.value }))
+                      }
                     />
                     <button onClick={() => handleCommentAdd(post.id)}>등록</button>
                   </div>
@@ -189,21 +210,12 @@ const GuestBookPage = () => {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
-          <input
-            type="text"
-            placeholder="제목 (선택)"
-            value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          />
           <textarea
             placeholder="내용"
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
           />
-          <input
-            type="file"
-            onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
-          />
+
           <div className="form-options">
             <label>
               비밀글

@@ -1,7 +1,8 @@
 .guestbook-page {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 20px;
   color: #333;
   background-color: #e9f7fb;
   overflow-y: auto;
@@ -21,6 +22,22 @@
   border-radius: 6px;
   border: 1px solid #ccc;
   width: 60%;
+}
+
+/* 글쓰기 버튼 스타일 */
+.guestbook-top button {
+  background-color: #4fc3f7;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+/* 글쓰기 버튼 hover 효과 */
+.guestbook-top button:hover {
+  background-color: #039be5;
 }
 
 /* 게시글 리스트 */
@@ -65,17 +82,20 @@
   margin-top: 0.5rem;
 }
 
-/* 게시글 버튼 */
+/* 고정/삭제 버튼 간격 */
 .post-actions button {
-  background-color: #ff7b7b;
-  color: white;
-  padding: 0.3rem 0.7rem;
-  font-size: 0.9rem;
+  background-color: #ff8a80;
   border: none;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  margin-right: 10px;
   cursor: pointer;
-  margin-top: 0.5rem;
 }
+
+.post-actions button:last-child {
+  margin-right: 0;
+}
+
 
 .post-actions button:hover {
   background-color: #e05a5a;
@@ -112,38 +132,67 @@
 
 .reply-form {
   display: flex;
-  gap: 0.4rem;
-  margin-top: 0.4rem;
+  flex-direction: column;
+  margin-top: 6px;
+  margin-left: 10px;
 }
 
-.reply-form input[type="text"],
-.comment-form input[type="text"] {
-  flex: 1;
-  padding: 0.4rem;
+.reply-label {
   font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 4px;
+}
+.reply-form input {
+  padding: 6px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 5px;
+  margin-bottom: 6px;
 }
 
-.reply-form button,
-.comment-form button {
-  padding: 0.4rem 0.7rem;
-  font-size: 0.9rem;
-  background-color: #58a6ff;
+.reply-form button {
+  align-self: flex-start;
+  padding: 4px 10px;
+  background-color: #42a5f5;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.reply-form button:hover,
-.comment-form button:hover {
-  background-color: #1f76d3;
+.reply-form button:hover {
+  background-color: #1e88e5;
 }
 
 .no-comments {
   font-size: 0.9rem;
   color: #666;
+}
+
+/* 댓글 입력창과 등록 버튼 간격 */
+.comment-form {
+  display: flex;
+  gap: 8px; /* 입력창과 버튼 사이 간격 */
+  margin-top: 10px;
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.comment-form button {
+  background-color: #42a5f5;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #1e88e5;
 }
 
 /* 글쓰기 폼 */
@@ -168,12 +217,6 @@
   border: 1px solid #ccc;
   width: 100%;
   box-sizing: border-box;
-}
-
-/* 텍스트 영역 */
-.guestbook-form textarea {
-  resize: vertical;
-  min-height: 100px;
 }
 
 /* 옵션들 (비밀글 체크 등) */
