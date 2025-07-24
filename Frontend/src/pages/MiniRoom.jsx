@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './MiniRoom.css';
-import { getThemeClass } from '../utils/Theme';
+import { loadMiniroomState, saveMiniroomState } from '../utils/useMiniroomStorage';
+import RightBar from './RightBar';
+import ItemList from './ItemList';
 
 const MiniRoom = (todayMood) => {
   const boardRef = useRef(null);  // board 정보 접근용
@@ -10,70 +12,19 @@ const MiniRoom = (todayMood) => {
   const [flippedItems, setFlippedItems] = useState({}); // object 반전 여부 저장용
   const [grabbingId, setGrabbingId] = useState(null); // 드래그 중인 obj id 저장용 
   const [selectedId, setSelectedId] = useState(null); // 선택 object id 저장
+  const [isEditable, setIsEditable] = useState(false); // 수정 가능 여부
+  
+  const [myItemList, setMyItemList] = useState([  // 미니룸 아이템 목록
+    
+  ])
 
-  // 최근 방문자
-  const recentVisitors = [
-    { name: '정현', status:'온라인', time: '2분전', avatar: '😊', mood:'집에 가고 싶어요...' },
-    { name: '은지', status:'자리비움', time: '5분전', avatar: '😄', mood:'드라마 보는중...' },
-    { name: '서영', status:'오프라인', time: '1시간전', avatar: '😉', mood:'bye bye🤚' },
-    { name: '보성', status:'온라인', time: '3시간전', avatar: '🤓', mood:'안녕하세요' }
-  ];
-  // 일촌 친구
-  const ilchonFriends = [
-    { name: '정민', status: '온라인', avatar: '😎', mood: '행복해요~' },
-    { name: '은희', status: '자리비움', avatar: '🤗', mood: '미궁게임 하는중..' },
-    { name: '혜빈', status: '온라인', avatar: '😋', mood: '공부중..' },
-    { name: '혜미', status: '오프라인', avatar: '😴', mood: 'bye bye🤚' }
-  ];
-  // 미니룸 아이템 이미지 목록
-  const imageList = [
-    { id: 'img1', src: 'img/miniroom/table.gif', flipped: false },
-    { id: 'img2', src: 'img/miniroom/window.gif', flipped: false },
-    { id: 'img3', src: 'img/miniroom/chair.gif', flipped: false, width: 33 },
-    { id: 'img4', src: 'img/miniroom/ddd.gif', flipped: false }
-  ];
+
   // 초기 위치 로드
-  // useEffect(() => {
-  //   const saved = {};
-  //   imageList.forEach(({ id }) => {
-  //     const data = localStorage.getItem(id);
-  //     if (data) {
-  //       saved[id] = JSON.parse(data);
-  //     } else {
-  //       saved[id] = {
-  //         left: Math.random() * 300,
-  //         top: Math.random() * 200,
-  //       };
-  //     }
-  //   });
-  //   setPositions(saved);
-  // }, []);
-
-
   useEffect(() => {
-    const savedPositions = {};
-    const savedFlips = {};
-
-    imageList.forEach(({ id, flipped }) => {
-      const data = localStorage.getItem(id);
-      if (data) {
-        const parsed = JSON.parse(data);
-        savedPositions[id] = {
-          left: parsed.left,
-          top: parsed.top
-        };
-        savedFlips[id] = parsed.flipped ?? false;
-      } else {
-        savedPositions[id] = {
-          left: Math.random() * 300,
-          top: Math.random() * 200
-        };
-        savedFlips[id] = flipped;
-      }
-    });
-
-    setPositions(savedPositions);
-    setFlippedItems(savedFlips);
+    const { items, positions, flipped } = loadMiniroomState();
+    setMyItemList(items);
+    setPositions(positions);
+    setFlippedItems(flipped);
   }, []);
 
   const handleMouseDown = (e, id) => {
@@ -113,10 +64,26 @@ const MiniRoom = (todayMood) => {
   const handleMouseUp = () => {
     draggingRef.current.isDragging = false;
     setGrabbingId(null);
+
+    saveMiniroomState(myItemList, positions, flippedItems);
   };
 
   const handleClickDelete = () => {
-    console.log("삭제 클릭함");
+    if (!selectedId) return;
+
+    const updatedItems = myItemList.filter(item => item.id !== selectedId);
+    const updatedPositions = { ...positions };
+    const updatedFlipped = { ...flippedItems };
+
+    delete updatedPositions[selectedId];
+    delete updatedFlipped[selectedId];
+
+    setMyItemList(updatedItems);
+    setPositions(updatedPositions);
+    setFlippedItems(updatedFlipped);
+    setSelectedId(null);
+
+    saveMiniroomState(updatedItems, updatedPositions, updatedFlipped);
   };
 
   const handleClickTurn = (id) => {
@@ -128,11 +95,7 @@ const MiniRoom = (todayMood) => {
       };
 
       // 저장 위치도 함께 반영(localstorage 기준)
-      const saved = JSON.parse(localStorage.getItem(id));
-      localStorage.setItem(id, JSON.stringify({
-        ...saved,
-        flipped: updated[id]
-      }));
+      saveMiniroomState(myItemList, positions, updated);
 
       return updated;
     });
@@ -149,6 +112,40 @@ const MiniRoom = (todayMood) => {
     }
   };
 
+  const handleEditBtnClick = () => {
+    if (isEditable) {
+      setSelectedId(null);
+      setIsEditable(false);
+    } else {
+      setIsEditable(true);
+    }
+  };
+
+  const handleAddItem = (item) => {
+    const newId = item.name;
+    const newItem = {
+      id: newId,
+      src: item.imagePath,
+      flipped: false
+    };
+
+    const newPosition = {
+      left: Math.random() * 300,
+      top: Math.random() * 200
+    };
+
+    const updatedItems = [...myItemList, newItem];
+    const updatedPositions = { ...positions, [newId]: newPosition };
+    const updatedFlipped = { ...flippedItems, [newId]: false };
+
+    setMyItemList(updatedItems);
+    setPositions(updatedPositions);
+    setFlippedItems(updatedFlipped);
+
+    saveMiniroomState(updatedItems, updatedPositions, updatedFlipped);
+  };
+
+
   return (
     <div className="miniroom_container">
       <div
@@ -157,8 +154,9 @@ const MiniRoom = (todayMood) => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onClick={handleBoardClick}
+        style={{ pointerEvents: isEditable ? "auto" : "none"}}
       >
-        {imageList.map((item) => (
+        {myItemList.map((item) => (
           <div 
             key={item.id}  
             className='img_frame'
@@ -191,58 +189,14 @@ const MiniRoom = (todayMood) => {
               />
             </div>
           </div>
-          ))}
-        </div>
-      <div className='rightbar'>
-
-      {/* 일촌 친구 */}
-      <div className="friends-card">
-        <div className={`card-header ${getThemeClass(todayMood.todayMood)}`}>
-        <span>💕 일촌 친구</span>
-        </div>
-        <div className="card-body">
-          <div className="friend-list">
-            {ilchonFriends.slice(0, 4).map((friend, index) => (
-              <div key={index} className="friend-item">
-                <div className="friend-avatar">
-                  <span className="friend-avatar">{friend.avatar}</span>
-                  <div className={`status-dot ${friend.status === '온라인' ? 'online' : friend.status === '자리비움' ? 'away' : 'offline'}`}></div>
-                </div>
-                <div className="friend-info">
-                  <p className="friend-name">{friend.name}</p>
-                  <p className="friend-mood">{friend.mood}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
-      {/* 최근 방문자 */}
-      <div className="visitors-card">
-        <div className={`card-header ${getThemeClass(todayMood.todayMood)}`}>
-        <span>👋</span>
-        <span>최근 방문자</span>
-        </div>
-        <div className="card-body">
-          <div className="visitor-list">
-            {recentVisitors.slice(0, 3).map((visitor, index) => (
-              <div key={index} className="visitor-item">
-                <div className="visitor-avatar">
-                  <span className="avatar">{visitor.avatar}</span>
-                  <div className={`status-dot ${visitor.status === '온라인' ? 'online' : visitor.status === '자리비움' ? 'away' : 'offline'}`}></div>
-                  </div>
-                <div className="visitor-info">
-                  <p className="visitor-name">{visitor.name}</p>
-                  <p className="visitor-mood">{visitor.mood}</p>
-                  <p className="visitor-time">{visitor.time}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className='side_wrapper'>
+        {isEditable ? <ItemList onItemClick={handleAddItem} myItemList={myItemList}/>: <RightBar todayMood={todayMood.todayMood}/>}
       </div>
+  
+      {isEditable ? <button className='btn_edit' onClick={handleEditBtnClick}>완료</button> : <button className='btn_edit' onClick={handleEditBtnClick}>수정</button>}  
     </div>
-  </div>
   );
 };
 

@@ -38,6 +38,9 @@ dependencies {
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc11' // 운영용 Oracle
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+	// MongoDB 설정
+	implementation "org.springframework.boot:spring-boot-starter-data-mongodb"
+
 	// Spring Security 설정
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 }

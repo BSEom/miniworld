@@ -7,7 +7,8 @@
 
 .board {
   position: relative;
-  width: 80%;
+  /* width: 80%; */
+  width: 760px;
   height: 94%;
   /* border: 2px dashed #ccc; */
   background: url('/img/miniroom/map3.png');
@@ -310,4 +311,19 @@
 
 .flipped {
   transform: scaleX(-1);
+}
+
+.btn_edit {
+  position: absolute;
+  background-color: greenyellow;
+  
+  bottom: 5px;
+  
+  
+}
+
+.side_wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center; 
 }
