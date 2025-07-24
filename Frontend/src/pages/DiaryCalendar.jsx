@@ -1,7 +1,9 @@
 import React from 'react';
 import './DiaryCalendar.css'
+import './Theme.css';
+import { getThemeClass } from '../utils/Theme';
 
-const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick }) => {
+const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick, todayMood }) => {
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
@@ -27,7 +29,7 @@ const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick }) => {
   const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
 
   const dayHeaders = dayNames.map(day => (
-    <div key={day} className="day-header">{day}</div>
+    <div key={day} className={`calendar-day-header ${getThemeClass(todayMood)}`}>{day}</div>
   ));
 
   const days = [];
@@ -46,13 +48,13 @@ const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick }) => {
     days.push(
       <div
         key={day}
-        className={`calendar-day ${diary ? 'has-diary' : ''} ${isToday ? 'today' : ''}`}
+        className={`calendar-day ${diary ? 'has-diary' : ''} ${isToday ? 'today' : ''} ${getThemeClass(todayMood)}`}
         onClick={() => onDateClick(dateObj)}
       >
-        <span className="day-number">{day}</span>
+        <span className="calendar-day-number">{day}</span>
         {diary && (
-          <div className="diary-indicator">
-            <span className="mood-icon">{diary.mood}</span>
+          <div className="calendar-indicator">
+            <span>{diary.mood}</span>
           </div>
         )}
       </div>
