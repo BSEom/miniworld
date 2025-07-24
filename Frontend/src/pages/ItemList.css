@@ -9,7 +9,7 @@
 }
 
 .item_list_box td{
-    background-color: rgba(0, 0, 0, 0.308);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 15px;
 }
 
@@ -22,10 +22,11 @@
     padding: 10px;
     text-align: center;
     cursor: pointer;
+    transition: ease 0.2s;
 }
 
-.item_cell:hover {
-    transform: scale(1.2);
+.item_cell:not(.exists):hover {
+    transform: scale(1.1);
 }
 
 .item_cell.exists {
