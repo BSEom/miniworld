@@ -137,3 +137,10 @@
     align-self: flex-end;
   }
 }
+
+.diary-lock-icon {
+  font-size: 14px;
+  margin-left: 6px;
+  position: relative;
+  top: -2px;
+}

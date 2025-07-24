@@ -54,6 +54,7 @@ const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick, todayMood }) =>
         <span className="calendar-day-number">{day}</span>
         {diary && (
           <div className="calendar-indicator">
+            {diary.isPublic === "N" && <span className="calendar-lock-icon">🔒</span>}
             <span>{diary.mood}</span>
           </div>
         )}

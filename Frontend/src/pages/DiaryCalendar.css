@@ -109,25 +109,6 @@ transform: scale(1.05);
 box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
 }
 
-/* .calendar-day.has-diary {
-background: linear-gradient(135deg, #86c1fc 0%, #2291e6 100%);
-color: white;
-}
-
-.calendar-day.has-diary:hover {
-background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%);
-} */
-
-/* .calendar-day.today {
-border: 3px solid #fd79a8;
-background: #ffe8f4;
-}
-
-.calendar-day.today.has-diary {
-border: 3px solid #fd79a8;
-background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
-} */
-
 /* 달력 일자 디자인 */
 .calendar-day-number {
 font-size: 16px;
@@ -139,4 +120,22 @@ font-weight: bold;
   position: absolute;
   bottom: 5px;
   right: 5px;
+}
+
+/* 달력 공개 비공개 여부 표시 */
+.calendar-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  margin-top: 3px;
+  font-size: 16px;
+}
+
+.calendar-lock-icon {
+  position: relative;
+  font-size: 14px;
+  color: #666;
+  bottom: 48px;
+  right: 43px;
 }

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from 'axios';
+import React, { useState, useEffect } from "react";
 import Header from "./pages/Header";
 import LeftBar from "./pages/LeftBar";
 import Navigation from "./pages/Navigation";
@@ -23,36 +24,20 @@ const App = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [diaryToEdit, setDiaryToEdit] = useState(null); // 수정할 일기
 
-  // 일기 데이터
-  const [diaryEntries, setDiaryEntries] = useState([
-    {
-      id: 1,
-      date: "2025-07-11",
-      title: "오늘의 일기",
-      content:
-        "오늘은 정말 좋은 하루였다. 친구들과 함께 카페에서 수다를 떨고, 새로운 책도 읽었다. 이런 평범한 일상이 얼마나 소중한지 다시 한번 느꼈다.",
-      weather: "맑음",
-      mood: "😊",
-    },
-    {
-      id: 2,
-      date: "2025-07-10",
-      title: "영화 관람 후기",
-      content:
-        "오늘 본 영화가 정말 인상깊었다. 스토리도 좋고 연출도 훌륭했다. 다음에 또 보고 싶을 정도로 재미있었다.",
-      weather: "흐림",
-      mood: "😍",
-    },
-    {
-      id: 3,
-      date: "2025-07-09",
-      title: "새로운 취미",
-      content:
-        "요즘 사진 찍는 재미에 푹 빠져있다. 일상의 소소한 순간들을 담아보니 세상이 더 아름답게 보인다.",
-      weather: "비",
-      mood: "🤔",
-    },
-  ]);
+  // 일기 데이터 불러오기
+useEffect(() => {
+  const fetchDiaries = async () => {
+    try {
+      const res = await axios.get('/api/diaries/1'); // 유저 ID는 예시로 1
+      setDiaryEntries(res.data);
+    } catch (error) {
+      console.error('일기 데이터 불러오기 실패:', error);
+    }
+  };
+
+  fetchDiaries();
+}, []);
+
 
   // 👉 새 일기 쓰기로 이동
   const handleNavigateToWrite = (date) => {
@@ -69,11 +54,21 @@ const App = () => {
   };
 
   // 👉 새 일기 저장
-  const handleSaveDiary = (newDiary) => {
-    setDiaryEntries((prev) => [...prev, newDiary]);
-    setCurrentPage("diary");
-    setSelectedDate(null);
-    setDiaryToEdit(null);
+  const handleSaveDiary = async (newDiary) => {
+    try {
+      const formattedDiary = {
+        ...newDiary,
+        isPublic: newDiary.isPublic === true || newDiary.isPublic === "Y" ? "Y" : "N",
+        userId: 1, // 유저 ID 예시
+      };
+      const res = await axios.post('/api/diaries', formattedDiary);
+      setDiaryEntries((prev) => [...prev, res.data]);
+      setCurrentPage("diary");
+      setSelectedDate(null);
+      setDiaryToEdit(null);
+    } catch (error) {
+      console.error('일기 저장 실패:', error);
+    }
   };
 
   // 👉 뒤로가기
@@ -84,13 +79,18 @@ const App = () => {
   };
 
   // 👉 일기 수정
-  const handleUpdateDiary = (updatedDiary) => {
-    setDiaryEntries((prev) =>
-      prev.map((diary) => (diary.id === updatedDiary.id ? updatedDiary : diary))
-    );
-    setCurrentPage("diary");
-    setSelectedDate(null);
-    setDiaryToEdit(null);
+  const handleUpdateDiary = async (updatedDiary) => {
+    try {
+      const res = await axios.put(`/api/diaries/${updatedDiary.id}`, updatedDiary);
+      setDiaryEntries((prev) =>
+        prev.map((diary) => (diary.id === updatedDiary.id ? res.data : diary))
+      );
+      setCurrentPage("diary");
+      setSelectedDate(null);
+      setDiaryToEdit(null);
+    } catch (error) {
+      console.error('일기 수정 실패:', error);
+    }
   };
 
   // 페이지 렌더링 분기

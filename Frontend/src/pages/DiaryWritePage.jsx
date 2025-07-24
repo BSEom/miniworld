@@ -6,6 +6,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
   const [content, setContent] = useState('');
   const [weather, setWeather] = useState('맑음');
   const [mood, setMood] = useState('😊');
+   const [isPublic, setIsPublic] = useState(true);
 
   const isEditMode = !!initialDiary;
 
@@ -16,6 +17,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       setContent(initialDiary.content);
       setWeather(initialDiary.weather);
       setMood(initialDiary.mood);
+      setIsPublic(initialDiary.isPublic ?? true);
     }
   }, [initialDiary]);
 
@@ -47,7 +49,8 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       title: title.trim(),
       content: content.trim(),
       weather,
-      mood
+      mood,
+      isPublic
     };
 
     if (isEditMode) {
@@ -118,6 +121,18 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
                       {moodOption}
                     </option>
                   ))}
+                </select>
+              </div>
+               <div className='diary-visibility'>
+                <label htmlFor="public-select">공개여부</label>
+                <select
+                  id="public-select"
+                  value={isPublic ? 'true' : 'false'}
+                  onChange={(e) => setIsPublic(e.target.value === 'true')}
+                  className="diary-select-box"
+                >
+                  <option value="true">공개</option>
+                  <option value="false">비공개</option>
                 </select>
               </div>
             </div>

@@ -70,7 +70,8 @@
 }
 
 .diary-weather,
-.diary-mood {
+.diary-mood,
+.diary-visibility {
   display: flex;
   align-items: center;
   gap: 15px;
