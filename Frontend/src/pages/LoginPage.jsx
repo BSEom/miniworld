@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./LoginPage.css";
+
+axios.defaults.withCredentials = true;
 
 const LoginPage = ({ setCurrentPage, goToSignup }) => {
   const [formData, setFormData] = useState({
-    loginId: "",
-    loginPassword: "",
+    email: "",
+    password: "",
   });
   const [showWelcome, setShowWelcome] = useState(false);
   const [welcomeMessage, setWelcomeMessage] = useState("");
-
-  // 임시 사용자 데이터
-  const tempUsers = [
-    {
-      id: "test@test.com",
-      password: "1234",
-      nickname: "테스트유저",
-      avatar: "😊",
-    },
-    { id: "user@user.com", password: "user", nickname: "사용자", avatar: "👤" },
-  ];
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,29 +22,34 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
     }));
   };
 
-  // ✅ 로그인 성공 후 미니룸으로 이동
-  const handleLogin = () => {
-    const { loginId, loginPassword } = formData;
+  const handleLogin = async () => {
+    const { email, password } = formData;
 
-    if (!loginId || !loginPassword) {
-      alert("아이디와 비밀번호를 모두 입력해주세요.");
+    if (!email || !password) {
+      alert("이메일과 비밀번호를 모두 입력해주세요.");
       return;
     }
 
-    const user = tempUsers.find(
-      (u) => u.id === loginId && u.password === loginPassword
-    );
+    try {
+      const res = await axios.post(
+        "/api/users/login",
+        { email, password },
+        { withCredentials: true }
+      );
 
-    if (user) {
-      setWelcomeMessage(`${user.nickname}님, 로그인 성공! ${user.avatar}`);
+      const { nickname } = res.data;
+
+      setWelcomeMessage(`${nickname}님, 로그인 성공! 🎉`);
       setShowWelcome(true);
-
-      // ✅ 잠깐 환영 메시지 보여준 후 미니룸으로 전환
       setTimeout(() => {
-        setCurrentPage("home");
+        setCurrentPage("home"); // 또는 navigate('/') 사용 가능
       }, 1000);
-    } else {
-      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    } catch (err) {
+      if (err.response?.status === 401) {
+        alert("❌ 이메일 또는 비밀번호가 올바르지 않습니다.");
+      } else {
+        alert("❌ 로그인 실패: " + (err.response?.data?.message || err.message));
+      }
     }
   };
 
@@ -60,26 +59,8 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("keypress", handleKeyPress);
-    return () => {
-      document.removeEventListener("keypress", handleKeyPress);
-    };
-  }, [formData]);
-
   return (
     <div className="login-app">
-      {/* 배경 요소들 */}
-      {/* <div className="background-elements">
-        <div className="floating-element house"></div>
-        <div className="floating-element tree"></div>
-        <div className="floating-element car"></div>
-        <div className="floating-element balloon"></div>
-        <div className="floating-element circle-gold"></div>
-        <div className="floating-element circle-pink"></div>
-      </div> */}
-
-      {/* 로그인 컨테이너 */}
       <div className="login-container">
         <div className="login-box">
           <div className="logo">
@@ -90,22 +71,24 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
           <div className="login-form-group">
             <input
               type="text"
-              name="loginId"
-              value={formData.loginId}
+              name="email"
+              value={formData.email}
               onChange={handleInputChange}
-              placeholder="아이디(이메일)"
+              placeholder="이메일"
               required
+              onKeyPress={handleKeyPress}
             />
           </div>
 
           <div className="login-form-group">
             <input
               type="password"
-              name="loginPassword"
-              value={formData.loginPassword}
+              name="password"
+              value={formData.password}
               onChange={handleInputChange}
               placeholder="비밀번호"
               required
+              onKeyPress={handleKeyPress}
             />
           </div>
 
@@ -124,7 +107,6 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
         </div>
       </div>
 
-      {/* 환영 메시지 */}
       {showWelcome && (
         <div className="welcome-message show">
           <h2>환영합니다! 🎉</h2>

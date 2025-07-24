@@ -1,8 +1,5 @@
 package com.pknu.miniworld.User.Service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.pknu.miniworld.Miniroom.Entity.MiniroomEntity;
 import com.pknu.miniworld.Miniroom.Repository.MiniroomRepository;
 import com.pknu.miniworld.User.DTO.UserDTO;
@@ -10,36 +7,19 @@ import com.pknu.miniworld.User.Entity.UserEntity;
 import com.pknu.miniworld.User.Repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final MiniroomRepository miniroomRepository;
 
-    public UserEntity registerUser(UserEntity userDto) {
-        // 1. 사용자 저장
-        UserEntity savedUser = userRepository.save(userDto);
-
-        // 2. 미니룸 생성
-        MiniroomEntity miniroom = new MiniroomEntity();
-        miniroom.setUser(savedUser);
-        miniroom.setBackgroundImageUrl("/images/default_background.jpg"); // 기본값 설정 가능
-        miniroomRepository.save(miniroom);
-        return savedUser;
-    }
-
     public void register(UserDTO request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
-        }
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
-        }
-        if (userRepository.existsByNickname(request.getNickname())) {
-            throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
-        }
+        validateDuplicate(request);
 
         UserEntity user = new UserEntity();
         user.setUsername(request.getUsername());
@@ -49,18 +29,47 @@ public class UserService {
         user.setBirthDate(request.getBirthDate());
         user.setIsPublic(request.getIsPublic());
 
-        registerUser(user);
+        UserEntity savedUser = userRepository.save(user);
+
+        // 미니룸 생성
+        MiniroomEntity miniroom = new MiniroomEntity();
+        miniroom.setUser(savedUser);
+        miniroom.setBackgroundImageUrl("/images/default_background.jpg");
+        miniroomRepository.save(miniroom);
+    }
+
+    private void validateDuplicate(UserDTO request) {
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
+        }
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
+        }
+        if (userRepository.existsByNickname(request.getNickname())) {
+            throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
+        }
     }
 
     public boolean isEmailAvailable(String email) {
-    return !userRepository.existsByEmail(email);
-}
+        return !userRepository.existsByEmail(email);
+    }
+
     public boolean isNicknameAvailable(String nickname) {
-    return !userRepository.existsByNickname(nickname);
-}
+        return !userRepository.existsByNickname(nickname);
+    }
+
     public boolean isUsernameAvailable(String username) {
-    return !userRepository.existsByUsername(username);
-}
+        return !userRepository.existsByUsername(username);
+    }
 
+    public UserEntity authenticate(String email, String rawPassword) {
+        return userRepository.findByEmail(email)
+                .filter(user -> passwordEncoder.matches(rawPassword, user.getPassword()))
+                .orElse(null);
+    }
 
+    // 추가: 사용자 ID로 사용자 찾기
+    public UserEntity findByUserId(Long userId) {
+        return userRepository.findByUserId(userId).orElse(null);
+    }
 }
