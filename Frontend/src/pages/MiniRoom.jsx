@@ -8,9 +8,6 @@ const MiniRoom = (todayMood) => {
   const boardRef = useRef(null);  // board 정보 접근용
   const imageRefs = useRef({});   // image 정보 접근용
   const draggingRef = useRef({ isDragging: false, offsetX: 0, offsetY: 0, targetId: null });  // 드래그 중인 요소 접근용
-  const [positions, setPositions] = useState({});   // 위치 저장용
-  const [flippedItems, setFlippedItems] = useState({}); // object 반전 여부 저장용
-  const [grabbingId, setGrabbingId] = useState(null); // 드래그 중인 obj id 저장용 
   const [selectedId, setSelectedId] = useState(null); // 선택 object id 저장
   const [isEditable, setIsEditable] = useState(false); // 수정 가능 여부
   
@@ -18,14 +15,23 @@ const MiniRoom = (todayMood) => {
     
   ])
 
+  const [userId, setUserId] = useState(163);
 
-  // 초기 위치 로드
+
   useEffect(() => {
-    const { items, positions, flipped } = loadMiniroomState();
-    setMyItemList(items);
-    setPositions(positions);
-    setFlippedItems(flipped);
-  }, []);
+    const fetchMiniroomState = async () => {
+      try {
+        const items = await loadMiniroomState(userId);
+        setMyItemList(Array.isArray(items) ? items : []);
+        console.log("미니룸 배열",items);
+      } catch (error) {
+        console.error("미니룸 상태 불러오기 실패:", error);
+        setMyItemList([]);
+      }
+    };
+    fetchMiniroomState();
+  }, [userId]);
+
 
   const handleMouseDown = (e, id) => {
     
@@ -35,70 +41,49 @@ const MiniRoom = (todayMood) => {
       offsetY: e.nativeEvent.offsetY,
       targetId: id
     };
-    setGrabbingId(id);
     setSelectedId(id);
   };
 
   const handleMouseMove = (e) => {
     const { isDragging, offsetX, offsetY, targetId } = draggingRef.current;
     const el = imageRefs.current[targetId];
+    if (!isDragging || !targetId || !el) return;
 
-    if (!isDragging || !targetId) return;
+    const boardRect = boardRef.current.getBoundingClientRect();
+    let newX = e.clientX - boardRect.left - offsetX;
+    let newY = e.clientY - boardRect.top - offsetY;
 
-    if (!el) return;
+    newX = Math.max(0, Math.min(newX, boardRef.current.offsetWidth - el.offsetWidth));
+    newY = Math.max(0, Math.min(newY, boardRef.current.offsetHeight - el.offsetHeight));
 
-    const boardRect = boardRef.current.getBoundingClientRect();     // board의 크기, 위치 정보를 가져와 저장
-    let newLeft = e.clientX - boardRect.left - offsetX;     // 드래그 중인 object의 위치 조정
-    let newTop = e.clientY - boardRect.top - offsetY;
-
-    newLeft = Math.max(0, Math.min(newLeft, boardRef.current.offsetWidth - el.offsetWidth));
-    newTop = Math.max(0, Math.min(newTop, boardRef.current.offsetHeight - el.offsetHeight));
-
-    setPositions(prev => {
-      const updated = { ...prev, [targetId]: { left: newLeft, top: newTop } };
-      localStorage.setItem(targetId, JSON.stringify(updated[targetId]));
-      return updated;
-    });
+    setMyItemList(prev =>
+      prev.map(item =>
+        item.itemId === targetId
+          ? { ...item, position: { x: newX, y: newY } }
+          : item
+      )
+    );
   };
 
   const handleMouseUp = () => {
     draggingRef.current.isDragging = false;
-    setGrabbingId(null);
-
-    saveMiniroomState(myItemList, positions, flippedItems);
+  
   };
 
   const handleClickDelete = () => {
     if (!selectedId) return;
-
-    const updatedItems = myItemList.filter(item => item.id !== selectedId);
-    const updatedPositions = { ...positions };
-    const updatedFlipped = { ...flippedItems };
-
-    delete updatedPositions[selectedId];
-    delete updatedFlipped[selectedId];
-
-    setMyItemList(updatedItems);
-    setPositions(updatedPositions);
-    setFlippedItems(updatedFlipped);
+    setMyItemList(prev => prev.filter(item => item.itemId !== selectedId));
     setSelectedId(null);
-
-    saveMiniroomState(updatedItems, updatedPositions, updatedFlipped);
   };
+
 
   const handleClickTurn = (id) => {
     console.log("반전 클릭함")
-    setFlippedItems(prev => {
-      const updated = {
-        ...prev,
-        [id]: !prev[id]
-      };
-
-      // 저장 위치도 함께 반영(localstorage 기준)
-      saveMiniroomState(myItemList, positions, updated);
-
-      return updated;
-    });
+    setMyItemList(prev =>
+      prev.map(item =>
+        item.itemId === id ? { ...item, flipped: !item.flipped } : item
+      )
+    );
   };
 
   const handleClickClose = () => {
@@ -112,8 +97,14 @@ const MiniRoom = (todayMood) => {
     }
   };
 
-  const handleEditBtnClick = () => {
+  const handleEditBtnClick = async () => {
     if (isEditable) {
+      try {
+        await saveMiniroomState(userId, myItemList); // myItemList만 전송!
+        console.log("✅ 서버 저장 완료");
+      } catch (err) {
+        console.error("❌ 서버 저장 실패:", err);
+      }
       setSelectedId(null);
       setIsEditable(false);
     } else {
@@ -121,28 +112,17 @@ const MiniRoom = (todayMood) => {
     }
   };
 
+
   const handleAddItem = (item) => {
     const newId = item.name;
     const newItem = {
-      id: newId,
-      src: item.imagePath,
-      flipped: false
+      itemId: newId,
+      position: { x: Math.random() * 300, y: Math.random() * 200 },
+      size: { width: null, height: null }, // 또는 기본값
+      flipped: false,
+      itemSrc: item.imagePath
     };
-
-    const newPosition = {
-      left: Math.random() * 300,
-      top: Math.random() * 200
-    };
-
-    const updatedItems = [...myItemList, newItem];
-    const updatedPositions = { ...positions, [newId]: newPosition };
-    const updatedFlipped = { ...flippedItems, [newId]: false };
-
-    setMyItemList(updatedItems);
-    setPositions(updatedPositions);
-    setFlippedItems(updatedFlipped);
-
-    saveMiniroomState(updatedItems, updatedPositions, updatedFlipped);
+    setMyItemList(prev => [...prev, newItem]);
   };
 
 
@@ -158,33 +138,32 @@ const MiniRoom = (todayMood) => {
       >
         {myItemList.map((item) => (
           <div 
-            key={item.id}  
+            key={item.itemId}  
             className='img_frame'
             style={{
-                position: 'absolute',
-                left: positions[item.id]?.left || 0,
-                top: positions[item.id]?.top || 0,
-                // cursor: grabbingId === item.id ? 'grabbing' : 'grab'
+              position: 'absolute',
+              left: item.position?.x || 0,
+              top: item.position?.y || 0,
             }}
-            ref={(el) => (imageRefs.current[item.id] = el)}
+            ref={(el) => (imageRefs.current[item.itemId] = el)}
           >
-            {selectedId == item.id && (
+            {selectedId == item.itemId && (
               <div className='toolbar'>
                 <button id='btn_delete' onClick={handleClickDelete}></button>
-                <button id='btn_turn' onClick={() => handleClickTurn(item.id)}></button>
+                <button id='btn_turn' onClick={() => handleClickTurn(item.itemId)}></button>
                 <button id='btn_close' onClick={handleClickClose}></button>
               </div>
             )}
 
             <div className='draggable-box'
-              onMouseDown={(e) => handleMouseDown(e, item.id)}
+              onMouseDown={(e) => handleMouseDown(e, item.itemId)}
             > 
               <img
-                key={item.id}
-                id={item.id}
-                src={item.src}
-                alt={item.id}
-                className={`draggable ${flippedItems[item.id] ? 'flipped' : ''}`}
+                key={item.itemId}
+                id={item.itemId}
+                src={item.itemSrc}
+                alt={item.itemId}
+                className={`draggable ${item.flipped ? 'flipped' : ''}`}
                 draggable={false}
               />
             </div>
@@ -195,7 +174,9 @@ const MiniRoom = (todayMood) => {
         {isEditable ? <ItemList onItemClick={handleAddItem} myItemList={myItemList}/>: <RightBar todayMood={todayMood.todayMood}/>}
       </div>
   
-      {isEditable ? <button className='btn_edit' onClick={handleEditBtnClick}>완료</button> : <button className='btn_edit' onClick={handleEditBtnClick}>수정</button>}  
+      <button className='btn_edit' onClick={handleEditBtnClick}>
+        {isEditable ? '완료' : '수정'}
+      </button>  
     </div>
   );
 };

@@ -11,7 +11,8 @@ const ItemList = ({ onItemClick, myItemList }) => {
             try {
                 const res = await axios.get('/api/minirooms/items'); 
                 setItems(res.data);
-                console.log(res.data) 
+                console.log(res.data)
+                console.log("실행")
             } catch (error) {
                 console.error('데이터 불러오기 실패:', error);
             }
@@ -25,7 +26,7 @@ const ItemList = ({ onItemClick, myItemList }) => {
         rows.push(items.slice(i, i + 3));
     }
 
-    const usedNames = new Set(myItemList.map(item => item.id));
+    const usedNames = new Set(myItemList.map(item => item.itemId));
 
     return (
         <div className="item_list_box">
@@ -44,7 +45,7 @@ const ItemList = ({ onItemClick, myItemList }) => {
                                 </td>
                             ))}
                             {/* 홀수일 때 빈 칸 채우기 */}
-                            {row.length < 2 && <td></td>}
+                            {/* {row.length < 3 && <td></td>} */}
                         </tr>
                     ))}
                 </tbody>
