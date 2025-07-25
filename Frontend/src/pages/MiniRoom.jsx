@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './MiniRoom.css';
 import { loadMiniroomState, saveMiniroomState } from '../utils/useMiniroomStorage';
 import RightBar from './RightBar';
@@ -15,10 +16,20 @@ const MiniRoom = (todayMood) => {
     
   ])
 
-  const [userId, setUserId] = useState(163);
+  // const [userId, setUserId] = useState(163);
+  const { userId: userIdParam } = useParams();
+  const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    // 파라미터가 바뀔 때마다 userId를 갱신
+    console.log(userIdParam)
+    if (userIdParam) setUserId(Number(userIdParam));
+  }, [userIdParam]);
 
 
   useEffect(() => {
+    if (!userId) return;
+    
     const fetchMiniroomState = async () => {
       try {
         const items = await loadMiniroomState(userId);
