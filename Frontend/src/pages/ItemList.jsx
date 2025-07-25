@@ -44,8 +44,6 @@ const ItemList = ({ onItemClick, myItemList }) => {
                                         }}/>   
                                 </td>
                             ))}
-                            {/* 홀수일 때 빈 칸 채우기 */}
-                            {/* {row.length < 3 && <td></td>} */}
                         </tr>
                     ))}
                 </tbody>
