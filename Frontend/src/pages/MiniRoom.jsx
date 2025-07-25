@@ -8,9 +8,6 @@ const MiniRoom = (todayMood) => {
   const boardRef = useRef(null);  // board 정보 접근용
   const imageRefs = useRef({});   // image 정보 접근용
   const draggingRef = useRef({ isDragging: false, offsetX: 0, offsetY: 0, targetId: null });  // 드래그 중인 요소 접근용
-  const [positions, setPositions] = useState({});   // 위치 저장용
-  const [flippedItems, setFlippedItems] = useState({}); // object 반전 여부 저장용
-  const [grabbingId, setGrabbingId] = useState(null); // 드래그 중인 obj id 저장용 
   const [selectedId, setSelectedId] = useState(null); // 선택 object id 저장
   const [isEditable, setIsEditable] = useState(false); // 수정 가능 여부
   
@@ -20,14 +17,6 @@ const MiniRoom = (todayMood) => {
 
   const [userId, setUserId] = useState(163);
 
-
-  // 초기 위치 로드
-  // useEffect(() => {
-  //   const { miniroomId, items, positions, size, flipped } = loadMiniroomState(163);  // 임시 userId
-  //   setMyItemList(items);
-  //   setPositions(positions);
-  //   setFlippedItems(flipped);
-  // }, []);
 
   useEffect(() => {
     const fetchMiniroomState = async () => {
@@ -43,9 +32,6 @@ const MiniRoom = (todayMood) => {
     fetchMiniroomState();
   }, [userId]);
 
-  useEffect(() => {
-    console.log("myItemList 변경됨:", myItemList);
-  }, [myItemList]);
 
   const handleMouseDown = (e, id) => {
     
@@ -55,7 +41,6 @@ const MiniRoom = (todayMood) => {
       offsetY: e.nativeEvent.offsetY,
       targetId: id
     };
-    setGrabbingId(id);
     setSelectedId(id);
   };
 
@@ -82,7 +67,7 @@ const MiniRoom = (todayMood) => {
 
   const handleMouseUp = () => {
     draggingRef.current.isDragging = false;
-    setGrabbingId(null);
+  
   };
 
   const handleClickDelete = () => {
