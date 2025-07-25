@@ -10,7 +10,7 @@ const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
     day: '2-digit'
   }).replace(/\. /g, '.').replace('.', '');
   // const [todayMood, setTodayMood] = useState('😊');
-  const moodOptions = ['😊', '😄', '😆', '🥰', '🤗', '😎', '😴', '🤗', '😵‍💫','😢','🥹', '😡'];
+  const moodOptions = ['😊', '😄', '😆', '🥰', '🤗', '😎', '✈️', '😴', '😵‍💫','😢','🥹', '😡'];
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const moodRef = useRef(null);
   // const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });

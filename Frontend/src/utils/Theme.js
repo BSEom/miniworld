@@ -8,6 +8,7 @@ export const getThemeClass = (mood) => {
     case '🤗':
       return 'theme-happy';
     case '😎':
+    case '✈️':
       return 'theme-play';
     case '😴':
       return 'theme-sleepy';

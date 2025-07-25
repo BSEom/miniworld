@@ -24,7 +24,7 @@ public class DiaryController {
 
     // 전체 조회
     @GetMapping("/{userId}")
-    public List<DiaryDTO> getUserDiaries(@PathVariable Long userId) {
+    public List<DiaryDTO> getUserDiaries(@PathVariable("userId") Long userId) {
         return diaryService.getUserDiaries(userId);
     }
 

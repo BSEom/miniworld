@@ -6,7 +6,6 @@ import com.pknu.miniworld.Diary.Repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,8 +24,7 @@ public class DiaryService {
                 .mood(dto.getMood())
                 .weather(dto.getWeather())
                 .isPublic(dto.getIsPublic())
-                .createdAt(dto.getCreatedAt() != null ? dto.getCreatedAt() : LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
+                .selectDate(dto.getSelectDate() != null ? dto.getSelectDate() : LocalDateTime.now())
                 .build();
 
         DiaryEntity saved = diaryRepository.save(diary);
@@ -35,7 +33,10 @@ public class DiaryService {
 
     // 전체 조회
     public List<DiaryDTO> getUserDiaries(Long userId) {
-        return diaryRepository.findByUserId(userId).stream()
+        System.out.println("📌 사용자 ID: " + userId);
+        List<DiaryEntity> diaries = diaryRepository.findByUserId(userId);
+        System.out.println("📌 일기 개수: " + diaries.size());
+        return diaries.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
@@ -48,7 +49,7 @@ public class DiaryService {
         diary.setMood(dto.getMood());
         diary.setWeather(dto.getWeather());
         diary.setIsPublic(dto.getIsPublic());
-        diary.setUpdatedAt(LocalDateTime.now());
+        diary.setSelectDate(dto.getSelectDate());
         DiaryEntity updated = diaryRepository.save(diary);
         return convertToDto(updated);
     }
@@ -56,15 +57,6 @@ public class DiaryService {
     // 삭제
     public void deleteDiary(Long id) {
         diaryRepository.deleteById(id);
-    }
-
-    // ⭐ 누락된 메서드 추가
-    private LocalDateTime parseUserDate(String dateStr) {
-        try {
-            return LocalDate.parse(dateStr).atStartOfDay();
-        } catch (Exception e) {
-            return LocalDateTime.now();
-        }
     }
 
     // 변환 메서드
@@ -77,8 +69,7 @@ public class DiaryService {
                 .mood(diary.getMood())
                 .weather(diary.getWeather())
                 .isPublic(diary.getIsPublic())
-                .createdAt(diary.getCreatedAt())
-                .updatedAt(diary.getUpdatedAt())
+                .selectDate(diary.getSelectDate())
                 .build();
     }
 }

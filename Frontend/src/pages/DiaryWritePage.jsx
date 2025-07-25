@@ -47,7 +47,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
     // 편집 모드: id 포함
     const diaryData = {
       id: initialDiary.id,
-      date: formatDateForSave(selectedDate),
+      selectDate: formatDateForSave(selectedDate),
       title: title.trim(),
       content: content.trim(),
       weather,
@@ -60,7 +60,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
   } else {
     // 새 일기: id 없음
     const diaryData = {
-      date: formatDateForSave(selectedDate),
+      selectDate: formatDateForSave(selectedDate),
       title: title.trim(),
       content: content.trim(),
       weather,

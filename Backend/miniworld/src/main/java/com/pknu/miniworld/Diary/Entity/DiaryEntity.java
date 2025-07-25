@@ -36,20 +36,6 @@ public class DiaryEntity {
     @Column(name = "IS_PUBLIC")
     private String isPublic; // 'Y' / 'N'
 
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
-
-    @Column(name = "UPDATED_AT")
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-}
+    @Column(name = "SELECT_DATE")
+    private LocalDateTime selectDate;
 }
