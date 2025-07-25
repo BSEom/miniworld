@@ -37,12 +37,12 @@ const LoginPage = () => {
         { withCredentials: true }
       );
 
-      const { nickname } = res.data;
+      const { nickname, userId } = res.data;
 
       setWelcomeMessage(`${nickname}님, 로그인 성공! 🎉`);
       setShowWelcome(true);
       setTimeout(() => {
-        navigate("/home");
+        navigate(`/home/${userId}`);
       }, 1000);
     } catch (err) {
       if (err.response?.status === 401) {

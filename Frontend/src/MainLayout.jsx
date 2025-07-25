@@ -39,7 +39,7 @@ const MainLayout = ({
             <div className="main-content">
               <div className={`content-area ${getThemeClass(todayMood)}`}> 
                 <Routes>
-                  <Route path="/home" element={<MiniRoom todayMood={todayMood} />} />
+                  <Route path="/home/:userId" element={<MiniRoom todayMood={todayMood} />} />
                   <Route path="/diary" element={
                     <DiaryPage
                       todayMood={todayMood}
