@@ -5,7 +5,7 @@ import "./LoginPage.css";
 
 axios.defaults.withCredentials = true;
 
-const LoginPage = ({ setCurrentPage, goToSignup }) => {
+const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,7 +42,7 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
       setWelcomeMessage(`${nickname}님, 로그인 성공! 🎉`);
       setShowWelcome(true);
       setTimeout(() => {
-        setCurrentPage("home"); // 또는 navigate('/') 사용 가능
+        navigate("/home");
       }, 1000);
     } catch (err) {
       if (err.response?.status === 401) {
@@ -97,12 +97,8 @@ const LoginPage = ({ setCurrentPage, goToSignup }) => {
           </button>
 
           <div className="links">
-            <a href="#" onClick={goToSignup}>
-              아이디/비밀번호 찾기
-            </a>
-            <a href="#" onClick={goToSignup}>
-              회원가입
-            </a>
+            <a href="#" onClick={() => navigate("/signup")}>아이디/비밀번호 찾기</a>
+            <a href="#" onClick={() => navigate("/signup")}>회원가입</a>
           </div>
         </div>
       </div>
