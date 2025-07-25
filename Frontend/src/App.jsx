@@ -23,12 +23,15 @@ const App = () => {
   const [todayMood, setTodayMood] = useState("😊");
   const [selectedDate, setSelectedDate] = useState(null);
   const [diaryToEdit, setDiaryToEdit] = useState(null); // 수정할 일기
+  const [diaryEntries, setDiaryEntries] = useState([]);
+
+  const test_USER_ID = 162;
 
   // 일기 데이터 불러오기
 useEffect(() => {
   const fetchDiaries = async () => {
     try {
-      const res = await axios.get('/api/diaries/1'); // 유저 ID는 예시로 1
+      const res = await axios.get(`/api/diaries/${test_USER_ID}`); // 유저 ID는 유빈이 id 예시로
       setDiaryEntries(res.data);
     } catch (error) {
       console.error('일기 데이터 불러오기 실패:', error);
@@ -59,15 +62,21 @@ useEffect(() => {
       const formattedDiary = {
         ...newDiary,
         isPublic: newDiary.isPublic === true || newDiary.isPublic === "Y" ? "Y" : "N",
-        userId: 1, // 유저 ID 예시
+        userId: test_USER_ID, // 유저 ID 예시(유빈)
+        createdAt: selectedDate || new Date().toISOString().split('T')[0] // ⭐ 여기서 selectedDate를 createdAt으로 전달
       };
-      const res = await axios.post('/api/diaries', formattedDiary);
+     const res = await axios.post('/api/diaries', formattedDiary, {
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      });
       setDiaryEntries((prev) => [...prev, res.data]);
       setCurrentPage("diary");
       setSelectedDate(null);
       setDiaryToEdit(null);
     } catch (error) {
       console.error('일기 저장 실패:', error);
+      console.error('에러 상세:', error.response?.data);
     }
   };
 

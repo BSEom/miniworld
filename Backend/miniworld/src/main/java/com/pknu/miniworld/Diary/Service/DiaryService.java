@@ -6,15 +6,15 @@ import com.pknu.miniworld.Diary.Repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-
 public class DiaryService {
-        private final DiaryRepository diaryRepository;
+    private final DiaryRepository diaryRepository;
 
     // 저장
     public DiaryDTO saveDiary(DiaryDTO dto) {
@@ -24,8 +24,8 @@ public class DiaryService {
                 .content(dto.getContent())
                 .mood(dto.getMood())
                 .weather(dto.getWeather())
-                .isPublic(dto.isPublic() ? "Y" : "N")
-                .createdAt(LocalDateTime.now())
+                .isPublic(dto.getIsPublic())
+                .createdAt(dto.getCreatedAt() != null ? dto.getCreatedAt() : LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
 
@@ -47,7 +47,7 @@ public class DiaryService {
         diary.setContent(dto.getContent());
         diary.setMood(dto.getMood());
         diary.setWeather(dto.getWeather());
-        diary.setIsPublic(dto.isPublic() ? "Y" : "N");
+        diary.setIsPublic(dto.getIsPublic());
         diary.setUpdatedAt(LocalDateTime.now());
         DiaryEntity updated = diaryRepository.save(diary);
         return convertToDto(updated);
@@ -56,6 +56,15 @@ public class DiaryService {
     // 삭제
     public void deleteDiary(Long id) {
         diaryRepository.deleteById(id);
+    }
+
+    // ⭐ 누락된 메서드 추가
+    private LocalDateTime parseUserDate(String dateStr) {
+        try {
+            return LocalDate.parse(dateStr).atStartOfDay();
+        } catch (Exception e) {
+            return LocalDateTime.now();
+        }
     }
 
     // 변환 메서드
@@ -67,9 +76,9 @@ public class DiaryService {
                 .content(diary.getContent())
                 .mood(diary.getMood())
                 .weather(diary.getWeather())
-                .isPublic("Y".equals(diary.getIsPublic()))
-                .createdAt(diary.getCreatedAt().toString())
-                .updatedAt(diary.getUpdatedAt().toString())
+                .isPublic(diary.getIsPublic())
+                .createdAt(diary.getCreatedAt())
+                .updatedAt(diary.getUpdatedAt())
                 .build();
     }
 }

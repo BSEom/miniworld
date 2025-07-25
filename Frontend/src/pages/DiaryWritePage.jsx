@@ -43,8 +43,10 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       return;
     }
 
+      if (isEditMode) {
+    // 편집 모드: id 포함
     const diaryData = {
-      id: isEditMode ? initialDiary.id : Date.now(),
+      id: initialDiary.id,
       date: formatDateForSave(selectedDate),
       title: title.trim(),
       content: content.trim(),
@@ -52,21 +54,28 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       mood,
       isPublic
     };
-
-    if (isEditMode) {
-      if (onUpdateDiary) {
-        onUpdateDiary(diaryData);
-      }
-    } else {
-      if (onSaveDiary) {
-        onSaveDiary(diaryData);
-      }
+    if (onUpdateDiary) {
+      onUpdateDiary(diaryData);
     }
-
-    if (onBack) {
-      onBack();
+  } else {
+    // 새 일기: id 없음
+    const diaryData = {
+      date: formatDateForSave(selectedDate),
+      title: title.trim(),
+      content: content.trim(),
+      weather,
+      mood,
+      isPublic
+    };
+    if (onSaveDiary) {
+      onSaveDiary(diaryData);
     }
-  };
+  }
+
+  if (onBack) {
+    onBack();
+  }
+};
 
   const weatherOptions = [
     { value: '맑음', emoji: '☀️', label: '맑음' },

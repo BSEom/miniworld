@@ -17,6 +17,8 @@ public class DiaryController {
     // 저장
     @PostMapping
     public DiaryDTO save(@RequestBody DiaryDTO dto) {
+        System.out.println("받은 일기 데이터: " + dto); // 디버깅용
+        System.out.println("✅ mood 필드: " + dto.getMood()); 
         return diaryService.saveDiary(dto);
     }
 

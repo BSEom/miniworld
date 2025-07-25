@@ -1,6 +1,11 @@
 package com.pknu.miniworld.Diary.DTO;
 
-import lombok.*;
+import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +18,7 @@ public class DiaryDTO {
     private String content;
     private String mood;
     private String weather;
-    private boolean isPublic;
-    private String createdAt;
-    private String updatedAt;
+    private String isPublic;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
