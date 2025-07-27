@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import './DiaryWritePage.css';
 
+/**
+ * DiaryWritePage: 일기 작성/수정 페이지 컴포넌트
+ * props:
+ * - onBack: 뒤로가기 함수
+ * - onSaveDiary: 새 일기 저장 함수
+ * - onUpdateDiary: 기존 일기 수정 함수
+ * - selectedDate: 현재 선택된 날짜
+ * - initialDiary: 수정할 기존 일기 데이터 (없으면 작성 모드)
+ */
+
 const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, initialDiary = null }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [weather, setWeather] = useState('맑음');
   const [mood, setMood] = useState('😊');
-   const [isPublic, setIsPublic] = useState(true);
+   const [isPublic, setIsPublic] = useState(true); // true: 공개, false: 비공개
 
-  const isEditMode = !!initialDiary;
+  const isEditMode = !!initialDiary; // 수정 모드 여부
 
   // 편집 모드일 때 초기값 설정
   useEffect(() => {
@@ -21,12 +31,14 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
     }
   }, [initialDiary]);
 
+  // 날짜를 UI에 출력용 포맷 (예: 2025.07.27)
   const formatDateForDisplay = (date) => {
     if (!date) return new Date().toLocaleDateString('ko-KR');
     const dateObj = new Date(date);
     return `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
   };
 
+  // 날짜를 저장용 포맷 (yyyy-mm-dd)
   const formatDateForSave = (date) => {
     if (!date) {
       const today = new Date();
@@ -37,6 +49,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
     return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`;
   };
 
+  // 저장 또는 수정 완료 버튼 클릭 시
   const handleSave = () => {
     if (!title.trim() || !content.trim()) {
       alert('제목과 내용을 모두 입력해주세요!');
@@ -77,6 +90,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
   }
 };
 
+  // 선택 옵션들
   const weatherOptions = [
     { value: '맑음', emoji: '☀️', label: '맑음' },
     { value: '흐림', emoji: '☁️', label: '흐림' },
@@ -99,6 +113,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       <div className="write-diary-content">
         <div className="diary-form">
 
+          {/* 날씨, 기분, 공개 여부 선택 */}
           <div className="diary-form-group">
             <div className='diary-weather-mood-group'>
               <div className='diary-weather'>
@@ -146,6 +161,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
               </div>
             </div>
 
+            {/* 제목 및 내용 입력 */}
             <label htmlFor="title">제목</label>
             <input
               type="text"
@@ -165,7 +181,8 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
               rows={10}
               />
           </div>
-
+          
+          {/* 저장/취소 버튼 */}
           <div className="diary-form-actions">
             <button onClick={onBack} className="diary-form-cancel-btn">취소</button>
             <button onClick={handleSave} className="diary-form-save-btn">
