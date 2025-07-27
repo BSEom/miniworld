@@ -24,7 +24,7 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMoo
 
   const getDiaryForDate = (date) => {
     const dateStr = formatDate(date);
-    return diaryEntries.find(entry => entry.date === dateStr);
+    return diaryEntries.find(entry => formatDate(new Date(entry.selectDate)) === dateStr);
   };
 
   const handleDateClick = (date) => {
@@ -97,9 +97,14 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMoo
                       {selectedDiary.weather === '맑음' ? '☀️' : selectedDiary.weather === '흐림' ? '☁️' : '🌧️'}
                       {selectedDiary.weather}
                     </span>
-                    <span className="mood">{selectedDiary.mood}</span>
+                    <span className="mood">
+                      {selectedDiary.mood}
+                    </span>
                   </div>
-                  <h4>{selectedDiary.title}</h4>
+                  <h4>
+                    {selectedDiary.title}
+                    {selectedDiary.isPublic === "N" && <span className="diary-lock-icon">🔒</span>}
+                  </h4>
                   <p>{selectedDiary.content}</p>
                 </div>
               ) : (

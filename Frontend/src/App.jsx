@@ -1,86 +1,104 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import Header from "./pages/Header";
-import LeftBar from "./pages/LeftBar";
-import Navigation from "./pages/Navigation";
-import MiniRoom from "./pages/MiniRoom";
-import DiaryPage from "./pages/DiaryPage";
-import PhotoPage from "./pages/PhotoPage";
-import ProfilePage from "./pages/ProfilePage";
-import GuestBookPage from "./pages/GuestBookPage";
-import FriendsPage from "./pages/FriendsPage";
-import { getThemeClass } from "./utils/Theme";
-import WriteDiaryPage from "./pages/DiaryWritePage";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/LoginPage";
 import "./App.css";
 import MainLayout from "./MainLayout";
+
 
 const AppContent = () => {
   const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
   const [todayMood, setTodayMood] = useState("😊");
   const [selectedDate, setSelectedDate] = useState(null);
   const [diaryToEdit, setDiaryToEdit] = useState(null);
-  const [diaryEntries, setDiaryEntries] = useState([
-    {
-      id: 1,
-      date: "2025-07-11",
-      title: "오늘의 일기",
-      content:
-        "오늘은 정말 좋은 하루였다. 친구들과 함께 카페에서 수다를 떨고, 새로운 책도 읽었다. 이런 평범한 일상이 얼마나 소중한지 다시 한번 느꼈다.",
-      weather: "맑음",
-      mood: "😊",
-    },
-    {
-      id: 2,
-      date: "2025-07-10",
-      title: "영화 관람 후기",
-      content:
-        "오늘 본 영화가 정말 인상깊었다. 스토리도 좋고 연출도 훌륭했다. 다음에 또 보고 싶을 정도로 재미있었다.",
-      weather: "흐림",
-      mood: "😍",
-    },
-    {
-      id: 3,
-      date: "2025-07-09",
-      title: "새로운 취미",
-      content:
-        "요즘 사진 찍는 재미에 푹 빠져있다. 일상의 소소한 순간들을 담아보니 세상이 더 아름답게 보인다.",
-      weather: "비",
-      mood: "🤔",
-    },
-  ]);
+  const [diaryEntries, setDiaryEntries] = useState([]);
   const navigate = useNavigate();
+  // localStorage에서 userId 읽기
+  const userId = localStorage.getItem("userId");
+
+   // 일기 데이터 불러오기
+
+useEffect(() => {
+  if (!userId) return;
+  const fetchDiaries = async () => {
+    try {
+      const res = await axios.get(`/api/diaries/${userId}`);
+      setDiaryEntries(res.data);
+    } catch (error) {
+      console.error('일기 데이터 불러오기 실패:', error);
+    }
+  };
+  fetchDiaries();
+}, [userId]);
+
 
   // 페이지 이동 함수들
   const handleNavigateToWrite = (date) => {
     setSelectedDate(date);
     setDiaryToEdit(null);
-    navigate("/write");
+    if (userId) {
+      navigate(`/write/${userId}`);
+    }
   };
   const handleNavigateToEdit = (date, diary) => {
     setSelectedDate(date);
     setDiaryToEdit(diary);
-    navigate("/write");
+    if (userId) {
+      navigate(`/write/${userId}`);
+    }
   };
-  const handleSaveDiary = (newDiary) => {
-    setDiaryEntries((prev) => [...prev, newDiary]);
-    setSelectedDate(null);
-    setDiaryToEdit(null);
-    navigate("/diary");
+   // 👉 새 일기 저장
+  const handleSaveDiary = async (newDiary) => {
+    try {
+      const formattedDiary = {
+        ...newDiary,
+        isPublic: newDiary.isPublic === true || newDiary.isPublic === "Y" ? "Y" : "N",
+        userId: userId, // localStorage에서 가져온 userId 사용
+        selectDate: selectedDate
+          ? new Date(selectedDate).toLocaleDateString('sv-SE')
+          : new Date().toLocaleDateString('sv-SE')
+      };
+      const res = await axios.post('/api/diaries', formattedDiary, {
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      });
+      setDiaryEntries((prev) => [...prev, res.data]);
+      // 저장 후 다이어리 페이지로 이동
+      setSelectedDate(null);
+      setDiaryToEdit(null);
+      if (userId) {
+        navigate(`/diary/${userId}`);
+      }
+    } catch (error) {
+      console.error('일기 저장 실패:', error);
+      console.error('에러 상세:', error.response?.data);
+    }
   };
   const handleBack = () => {
     setSelectedDate(null);
     setDiaryToEdit(null);
-    navigate("/diary");
+    if (userId) {
+      navigate(`/diary/${userId}`);
+    }
   };
-  const handleUpdateDiary = (updatedDiary) => {
-    setDiaryEntries((prev) =>
-      prev.map((diary) => (diary.id === updatedDiary.id ? updatedDiary : diary))
-    );
-    setSelectedDate(null);
-    setDiaryToEdit(null);
-    navigate("/diary");
+
+  // 👉 일기 수정
+  const handleUpdateDiary = async (updatedDiary) => {
+    try {
+      const res = await axios.put(`/api/diaries/${updatedDiary.id}`, updatedDiary);
+      setDiaryEntries((prev) =>
+        prev.map((diary) => (diary.id === updatedDiary.id ? res.data : diary))
+      );
+      setSelectedDate(null);
+      setDiaryToEdit(null);
+      if (userId) {
+        navigate(`/diary/${userId}`);
+      }
+    } catch (error) {
+      console.error('일기 수정 실패:', error);
+    }
   };
 
   return (
