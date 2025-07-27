@@ -1,36 +1,27 @@
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import Header from "./pages/Header";
-import LeftBar from "./pages/LeftBar";
-import Navigation from "./pages/Navigation";
-import MiniRoom from "./pages/MiniRoom";
-import DiaryPage from "./pages/DiaryPage";
-import PhotoPage from "./pages/PhotoPage";
-import ProfilePage from "./pages/ProfilePage";
-import GuestBookPage from "./pages/GuestBookPage";
-import FriendsPage from "./pages/FriendsPage";
-import { getThemeClass } from "./utils/Theme";
-import WriteDiaryPage from "./pages/DiaryWritePage";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/LoginPage";
 import "./App.css";
 import MainLayout from "./MainLayout";
 
 const AppContent = () => {
+  const { userId } = useParams();
+
   const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
   const [todayMood, setTodayMood] = useState("😊");
   const [selectedDate, setSelectedDate] = useState(null);
   const [diaryToEdit, setDiaryToEdit] = useState(null); // 수정할 일기
   const [diaryEntries, setDiaryEntries] = useState([]);
 
-  const test_USER_ID = 162;
+  // const test_USER_ID = 162;
 
   // 일기 데이터 불러오기
 useEffect(() => {
   const fetchDiaries = async () => {
     try {
-      const res = await axios.get(`/api/diaries/${test_USER_ID}`); // 유저 ID는 유빈이 id 예시로
+      const res = await axios.get(`/api/diaries/${userId}`); // 유저 ID는 유빈이 id 예시로
       setDiaryEntries(res.data);
     } catch (error) {
       console.error('일기 데이터 불러오기 실패:', error);
@@ -45,12 +36,12 @@ useEffect(() => {
   const handleNavigateToWrite = (date) => {
     setSelectedDate(date);
     setDiaryToEdit(null);
-    navigate("/write");
+    navigate(`/write/${userId}`);
   };
   const handleNavigateToEdit = (date, diary) => {
     setSelectedDate(date);
     setDiaryToEdit(diary);
-    navigate("/write");
+    navigate(`/write/${userId}`);
   };
 
   // 👉 새 일기 저장
@@ -59,7 +50,7 @@ useEffect(() => {
       const formattedDiary = {
         ...newDiary,
         isPublic: newDiary.isPublic === true || newDiary.isPublic === "Y" ? "Y" : "N",
-        userId: test_USER_ID, // 유저 ID 예시(유빈)
+        userId,
         selectDate: selectedDate
           ? new Date(selectedDate).toLocaleDateString('sv-SE')
           : new Date().toLocaleDateString('sv-SE')
@@ -70,7 +61,7 @@ useEffect(() => {
         },
       });
       setDiaryEntries((prev) => [...prev, res.data]);
-      setCurrentPage("diary");
+      navigate(`/diary/${userId}`);
       setSelectedDate(null);
       setDiaryToEdit(null);
     } catch (error) {
@@ -98,14 +89,15 @@ useEffect(() => {
       console.error('일기 수정 실패:', error);
     }
   };
-
+  
+  const navigate = useNavigate();
   return (
     <Routes>
       {/* 로그인/회원가입은 별도 전체화면 */}
-      <Route path="/login" element={<Login goToSignup={() => navigate("/signup")} setCurrentPage={navigate} />} />
+      <Route path="/login" element={<Login goToSignup={() => navigate("/signup")} />} />
       <Route path="/signup" element={<Signup goToLogin={() => navigate("/login")} />} />
       {/* 나머지는 공통 레이아웃 */}
-      <Route path="/*" element={
+      <Route path="/:userId/*" element={
         <MainLayout
           visitCount={visitCount}
           todayMood={todayMood}

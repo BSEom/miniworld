@@ -23,6 +23,7 @@ const MainLayout = ({
   const handleLogout = async () => {
     try {
       await axios.post("/api/users/logout", {}, { withCredentials: true });
+      localStorage.removeItem("userId");
       navigate("/login"); // 성공 시에만 이동
     } catch (e) {
       alert("로그아웃 실패: " + (e.response?.data?.message || e.message));
@@ -40,7 +41,7 @@ const MainLayout = ({
               <div className={`content-area ${getThemeClass(todayMood)}`}> 
                 <Routes>
                   <Route path="/home/:userId" element={<MiniRoom todayMood={todayMood} />} />
-                  <Route path="/diary" element={
+                  <Route path="/diary/:userId" element={
                     <DiaryPage
                       todayMood={todayMood}
                       diaryEntries={diaryEntries}
@@ -52,7 +53,7 @@ const MainLayout = ({
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/guestbook" element={<GuestBookPage />} />
                   <Route path="/friends" element={<FriendsPage />} />
-                  <Route path="/write" element={
+                  <Route path="/write/:userId" element={
                     <WriteDiaryPage
                       selectedDate={selectedDate}
                       onSaveDiary={handleSaveDiary}

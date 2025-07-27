@@ -40,6 +40,7 @@ const LoginPage = () => {
       const { nickname, userId } = res.data;
 
       setWelcomeMessage(`${nickname}님, 로그인 성공! 🎉`);
+      localStorage.setItem("userId", userId);
       setShowWelcome(true);
       setTimeout(() => {
         navigate(`/home/${userId}`);
