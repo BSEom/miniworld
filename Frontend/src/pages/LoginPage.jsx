@@ -42,6 +42,8 @@ const LoginPage = () => {
       setWelcomeMessage(`${nickname}님, 로그인 성공! 🎉`);
       localStorage.setItem("userId", userId);
       setShowWelcome(true);
+      // userId를 localStorage에 저장
+      localStorage.setItem("userId", userId);
       setTimeout(() => {
         navigate(`/home/${userId}`);
       }, 1000);

@@ -105,7 +105,6 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMoo
                     {selectedDiary.title}
                     {selectedDiary.isPublic === "N" && <span className="diary-lock-icon">🔒</span>}
                   </h4>
-                 
                   <p>{selectedDiary.content}</p>
                 </div>
               ) : (
