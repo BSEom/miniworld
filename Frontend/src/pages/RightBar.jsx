@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getThemeClass } from '../utils/Theme';
-// import './RightBar.css';
+import './RightBar.css';
 
 const RightBar = (todayMood) => {
 

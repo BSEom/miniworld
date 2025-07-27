@@ -14,9 +14,10 @@ public class MiniroomItems {
     @Id
     private String id;
 
-    private String miniroomId;
+    private Long miniroomId;
     private String itemId;
-    private Object postion;
-    private Object size;
+    private Position position;
+    private Size size;
     private boolean flipped;
+    private String itemSrc;
 }
