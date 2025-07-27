@@ -23,6 +23,8 @@ const MainLayout = ({
   const handleLogout = async () => {
     try {
       await axios.post("/api/users/logout", {}, { withCredentials: true });
+      // 로그아웃 시 localStorage에서 userId 삭제
+      localStorage.removeItem("userId");
       navigate("/login"); // 성공 시에만 이동
     } catch (e) {
       alert("로그아웃 실패: " + (e.response?.data?.message || e.message));
