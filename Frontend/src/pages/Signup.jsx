@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import "./Signup.css";
 // axios 라이브러리 import (HTTP 통신)
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // 📌 디바운스 커스텀 훅
 function useDebounce(value, delay) {
@@ -15,7 +16,7 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
-const Signup = ({ goToLogin }) => {
+const Signup = () => {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -41,6 +42,8 @@ const Signup = ({ goToLogin }) => {
   const debouncedEmail = useDebounce(form.email, 1000);
   const debouncedUsername = useDebounce(form.username, 1000);
   const debouncedNickname = useDebounce(form.nickname, 1000);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -178,7 +181,7 @@ const Signup = ({ goToLogin }) => {
       setEmailValid(null);
       setNicknameValid(null);
       setUsernameValid(null);
-      goToLogin();
+      navigate("/login");
     } catch (err) {
       setError(err.response?.data || "❌ 오류 발생");
     }
@@ -188,9 +191,7 @@ const Signup = ({ goToLogin }) => {
     <div className="signup-app">
       <div className="signup-container">
         <form onSubmit={handleSubmit} className="signup-box">
-          <button className="signup-back-btn" onClick={goToLogin}>
-            ← 뒤로가기
-          </button>
+          <button className="signup-back-btn" type="button" onClick={() => navigate("/login")}>← 뒤로가기</button>
           <div className="singup-logo">
             <h1>🚏기분 정거장</h1>
             <div className="singup-beta">회원가입</div>

@@ -7,8 +7,8 @@
 
 .board {
   position: relative;
-  /* width: 80%; */
-  width: 760px;
+  width: 80%;
+  /* width: 760px; */
   height: 94%;
   /* border: 2px dashed #ccc; */
   background: url('/img/miniroom/map3.png');
@@ -44,222 +44,6 @@
 .draggable.dragging {
   cursor: grabbing;
   z-index: 20;
-}
-.rightbar {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* 최근 방문자 */
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 10px;
-  border-radius: 10px 10px 0 0;
-}
-
-.visitor-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-items: flex-end;
-}
-
-.visitor-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  padding: 8px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  width: 15rem;
-}
-
-.visitor-item:hover {
-  background: #e9ecef;
-  transform: translateX(3px);
-}
-
-.visitor-avatar {
-  position: relative;
-  width: 39px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-
-.online-dot {
-  position: absolute;
-  bottom: -4px;
-  right: 114%;
-  width: 8px;
-  height: 8px;
-  background: #00b894;
-  border-radius: 50%;
-  border: 2px solid white;
-  animation: pulse 2s infinite;
-  /* z-index: 5; */
-}
-
-.status-dot {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-.status-dot.online {
-  background: #00b894;
-  animation: pulse 2s infinite;
-}
-
-.status-dot.away {
-  background: #fdcb6e;
-}
-
-.status-dot.offline {
-  background: #636e72;
-}
-
-.visitor-info {
-  position: relative;
-  flex: 1;
-}
-
-.visitor-name {
-  font-size: 12px;
-  font-weight: bold;
-  color: #2d3436;
-  margin: 0 0 2px 0;
-}
-
-
-.visitor-mood{
-  font-size: 10px;
-  color: #636e72;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.visitor-time {
-  display: flex;
-  font-size: 10px;
-  color: #636e72;
-  margin: 0;
-}
-
-/* 친구 목록 */
-.friend-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.friend-item {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  padding: 8px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  width: 15rem;
-}
-
-
-.friend-item:hover {
-  background: #e9ecef;
-  transform: translateX(3px);
-}
-
-.friend-avatar {
-  position: relative;
-  width: 43px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(133, 42, 175, 0.1);
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-
-.status-dot {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-.status-dot.online {
-  background: #00b894;
-  animation: pulse 2s infinite;
-}
-
-.status-dot.away {
-  background: #fdcb6e;
-}
-
-.status-dot.offline {
-  background: #636e72;
-}
-
-.friend-info {
-  flex: 1;
-}
-
-.friend-name {
-  font-size: 12px;
-  font-weight: bold;
-  color: #2d3436;
-  margin: 0 0 2px 0;
-}
-
-.friend-mood {
-  font-size: 10px;
-  color: #636e72;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.view-all-btn {
-  width: 100%;
-  padding: 8px;
-  background: linear-gradient(135deg, #ff7675, #d63031);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.view-all-btn:hover {
-  background: linear-gradient(135deg, #d63031, #b71c1c);
-  transform: translateY(-2px);
 }
 
 .img_frame {
@@ -319,11 +103,11 @@
   
   bottom: 5px;
   
-  
 }
 
 .side_wrapper {
     flex: 1;
     display: flex;
     justify-content: center; 
+    min-width: 240px;
 }
