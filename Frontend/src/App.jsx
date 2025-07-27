@@ -8,8 +8,6 @@ import MainLayout from "./MainLayout";
 
 
 const AppContent = () => {
-  const { userId } = useParams();
-
   const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
   const [todayMood, setTodayMood] = useState("😊");
   const [selectedDate, setSelectedDate] = useState(null);
@@ -103,29 +101,13 @@ useEffect(() => {
     }
   };
 
-  // 👉 일기 수정
-  const handleUpdateDiary = async (updatedDiary) => {
-    try {
-      const res = await axios.put(`/api/diaries/${updatedDiary.id}`, updatedDiary);
-      setDiaryEntries((prev) =>
-        prev.map((diary) => (diary.id === updatedDiary.id ? res.data : diary))
-      );
-      setCurrentPage("diary");
-      setSelectedDate(null);
-      setDiaryToEdit(null);
-    } catch (error) {
-      console.error('일기 수정 실패:', error);
-    }
-  };
-  
-  const navigate = useNavigate();
   return (
     <Routes>
       {/* 로그인/회원가입은 별도 전체화면 */}
-      <Route path="/login" element={<Login goToSignup={() => navigate("/signup")} />} />
+      <Route path="/login" element={<Login goToSignup={() => navigate("/signup")} setCurrentPage={navigate} />} />
       <Route path="/signup" element={<Signup goToLogin={() => navigate("/login")} />} />
       {/* 나머지는 공통 레이아웃 */}
-      <Route path="/:userId/*" element={
+      <Route path="/*" element={
         <MainLayout
           visitCount={visitCount}
           todayMood={todayMood}
