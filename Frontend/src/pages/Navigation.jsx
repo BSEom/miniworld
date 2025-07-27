@@ -2,7 +2,7 @@
 import React from 'react';
 import './Navigation.css';
 import { getThemeClass } from '../utils/Theme';
-import { useMatch } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 const Navigation = ({ onPageChange, todayMood }) => {
@@ -21,21 +21,19 @@ const Navigation = ({ onPageChange, todayMood }) => {
     <nav className="navigation">
       <div className="nav-container">
         <div className="nav-tabs">
-          {navItems.map(item => {
-            const match = useMatch(item.path); // ✅ map 안에서 선언
-
-            return (
-              <button 
-                key={item.id}
-                className={`nav-tab ${getThemeClass(todayMood)} ${match ? 'active' : ''}`}
-                onClick={() => onPageChange(item.path)}
-              >
-                <span className="nav-icon">{item.icon}</span>
-                <span className="nav-label">{item.label}</span>
-                {match && <div className="active-indicator"></div>}
-              </button>
-            );
-          })}
+          {navItems.map(item => (
+            <button 
+              key={item.id}
+              className={`nav-tab ${getThemeClass(todayMood)} ${location.pathname === item.path ? 'active' : ''}`}
+              onClick={() => onPageChange(item.path)}
+            >
+              <span className="nav-icon">{item.icon}</span>
+              <span className="nav-label">{item.label}</span>
+              {location.pathname === item.path && (
+                <div className="active-indicator"></div>
+              )}
+            </button>
+          ))}
         </div>
       </div>
     </nav>
