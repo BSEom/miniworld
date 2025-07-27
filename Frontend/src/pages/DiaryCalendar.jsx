@@ -21,8 +21,12 @@ const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick, todayMood }) =>
 
   const getDiaryForDate = (day) => {
     const dateStr = formatDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
-    return diaryEntries.find(entry => entry.date === dateStr);
+    return diaryEntries.find(entry => {
+      const entryDate = new Date(entry.selectDate); // selectDate는 ISO 문자열
+      return formatDate(entryDate) === dateStr;
+    });
   };
+
 
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDayOfMonth = getFirstDayOfMonth(currentDate);

@@ -24,7 +24,7 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMoo
 
   const getDiaryForDate = (date) => {
     const dateStr = formatDate(date);
-    return diaryEntries.find(entry => entry.date === dateStr);
+    return diaryEntries.find(entry => formatDate(new Date(entry.selectDate)) === dateStr);
   };
 
   const handleDateClick = (date) => {

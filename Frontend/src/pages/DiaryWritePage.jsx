@@ -52,7 +52,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       content: content.trim(),
       weather,
       mood,
-      isPublic
+      isPublic: isPublic ? "Y" : "N",
     };
     if (onUpdateDiary) {
       onUpdateDiary(diaryData);
@@ -65,7 +65,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       content: content.trim(),
       weather,
       mood,
-      isPublic
+       isPublic: isPublic ? "Y" : "N",
     };
     if (onSaveDiary) {
       onSaveDiary(diaryData);

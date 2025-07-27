@@ -2,7 +2,7 @@ package com.pknu.miniworld.Diary.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "DIARIES")
@@ -37,5 +37,5 @@ public class DiaryEntity {
     private String isPublic; // 'Y' / 'N'
 
     @Column(name = "SELECT_DATE")
-    private LocalDateTime selectDate;
+    private LocalDate selectDate;
 }

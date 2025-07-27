@@ -6,7 +6,7 @@ import com.pknu.miniworld.Diary.Repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +24,7 @@ public class DiaryService {
                 .mood(dto.getMood())
                 .weather(dto.getWeather())
                 .isPublic(dto.getIsPublic())
-                .selectDate(dto.getSelectDate() != null ? dto.getSelectDate() : LocalDateTime.now())
+                .selectDate(dto.getSelectDate() != null ? dto.getSelectDate() : LocalDate.now())
                 .build();
 
         DiaryEntity saved = diaryRepository.save(diary);
@@ -49,7 +49,7 @@ public class DiaryService {
         diary.setMood(dto.getMood());
         diary.setWeather(dto.getWeather());
         diary.setIsPublic(dto.getIsPublic());
-        diary.setSelectDate(dto.getSelectDate());
+        diary.setSelectDate(dto.getSelectDate() != null ? dto.getSelectDate() : LocalDate.now());
         DiaryEntity updated = diaryRepository.save(diary);
         return convertToDto(updated);
     }

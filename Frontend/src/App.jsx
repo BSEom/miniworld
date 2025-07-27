@@ -64,8 +64,8 @@ useEffect(() => {
         isPublic: newDiary.isPublic === true || newDiary.isPublic === "Y" ? "Y" : "N",
         userId: test_USER_ID, // 유저 ID 예시(유빈)
         selectDate: selectedDate
-          ? new Date(selectedDate).toISOString() // "2025-07-25T00:00:00.000Z"
-          : new Date().toISOString()
+          ? new Date(selectedDate).toLocaleDateString('sv-SE')
+          : new Date().toLocaleDateString('sv-SE')
       };
      const res = await axios.post('/api/diaries', formattedDiary, {
         headers: {
