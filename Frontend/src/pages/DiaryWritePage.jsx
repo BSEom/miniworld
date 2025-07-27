@@ -6,6 +6,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
   const [content, setContent] = useState('');
   const [weather, setWeather] = useState('맑음');
   const [mood, setMood] = useState('😊');
+   const [isPublic, setIsPublic] = useState(true);
 
   const isEditMode = !!initialDiary;
 
@@ -16,6 +17,7 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       setContent(initialDiary.content);
       setWeather(initialDiary.weather);
       setMood(initialDiary.mood);
+      setIsPublic(initialDiary.isPublic ?? true);
     }
   }, [initialDiary]);
 
@@ -41,29 +43,39 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
       return;
     }
 
+      if (isEditMode) {
+    // 편집 모드: id 포함
     const diaryData = {
-      id: isEditMode ? initialDiary.id : Date.now(),
-      date: formatDateForSave(selectedDate),
+      id: initialDiary.id,
+      selectDate: formatDateForSave(selectedDate),
       title: title.trim(),
       content: content.trim(),
       weather,
-      mood
+      mood,
+      isPublic: isPublic ? "Y" : "N",
     };
-
-    if (isEditMode) {
-      if (onUpdateDiary) {
-        onUpdateDiary(diaryData);
-      }
-    } else {
-      if (onSaveDiary) {
-        onSaveDiary(diaryData);
-      }
+    if (onUpdateDiary) {
+      onUpdateDiary(diaryData);
     }
-
-    if (onBack) {
-      onBack();
+  } else {
+    // 새 일기: id 없음
+    const diaryData = {
+      selectDate: formatDateForSave(selectedDate),
+      title: title.trim(),
+      content: content.trim(),
+      weather,
+      mood,
+       isPublic: isPublic ? "Y" : "N",
+    };
+    if (onSaveDiary) {
+      onSaveDiary(diaryData);
     }
-  };
+  }
+
+  if (onBack) {
+    onBack();
+  }
+};
 
   const weatherOptions = [
     { value: '맑음', emoji: '☀️', label: '맑음' },
@@ -118,6 +130,18 @@ const DiaryWritePage = ({ onBack, onSaveDiary, onUpdateDiary, selectedDate, init
                       {moodOption}
                     </option>
                   ))}
+                </select>
+              </div>
+               <div className='diary-visibility'>
+                <label htmlFor="public-select">공개여부</label>
+                <select
+                  id="public-select"
+                  value={isPublic ? 'true' : 'false'}
+                  onChange={(e) => setIsPublic(e.target.value === 'true')}
+                  className="diary-select-box"
+                >
+                  <option value="true">공개</option>
+                  <option value="false">비공개</option>
                 </select>
               </div>
             </div>

@@ -10,7 +10,7 @@ const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
     day: '2-digit'
   }).replace(/\. /g, '.').replace('.', '');
   // const [todayMood, setTodayMood] = useState('😊');
-  const moodOptions = ['😊', '😄', '😆', '🥰', '🤗', '😎', '😴', '🤗', '😵‍💫','😢','🥹', '😡'];
+  const moodOptions = ['😊', '😄', '😆', '🥰', '🤗', '😎', '✈️', '😴', '😵‍💫','😢','🥹', '😡'];
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const moodRef = useRef(null);
   // const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
@@ -64,9 +64,6 @@ const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
           <div className="logo-text">
               <h1>유빈이의 미니홈피</h1>
               <p className='now-status'>프로젝트 열씨미 합시당!! 😁</p>
-              <button className="register-move-btn" onClick={onRegisterClick}>
-                회원가입 테스트
-              </button>
           </div>
         </div>
         

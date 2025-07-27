@@ -42,7 +42,7 @@ const MainLayout = ({
               <div className={`content-area ${getThemeClass(todayMood)}`}> 
                 <Routes>
                   <Route path="/home/:userId" element={<MiniRoom todayMood={todayMood} />} />
-                  <Route path="/diary" element={
+                  <Route path="/diary/:userId" element={
                     <DiaryPage
                       todayMood={todayMood}
                       diaryEntries={diaryEntries}
@@ -50,11 +50,11 @@ const MainLayout = ({
                       onNavigateToEdit={handleNavigateToEdit}
                     />
                   } />
-                  <Route path="/photos" element={<PhotoPage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/guestbook" element={<GuestBookPage />} />
-                  <Route path="/friends" element={<FriendsPage />} />
-                  <Route path="/write" element={
+                  <Route path="/photos/:userId" element={<PhotoPage />} />
+                  <Route path="/profile/:userId" element={<ProfilePage />} />
+                  <Route path="/guestbook/:userId" element={<GuestBookPage />} />
+                  <Route path="/friends/:userId" element={<FriendsPage />} />
+                  <Route path="/write/:userId" element={
                     <WriteDiaryPage
                       selectedDate={selectedDate}
                       onSaveDiary={handleSaveDiary}

@@ -21,7 +21,10 @@ const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick, todayMood }) =>
 
   const getDiaryForDate = (day) => {
     const dateStr = formatDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
-    return diaryEntries.find(entry => entry.date === dateStr);
+    return diaryEntries.find(entry => {
+      const entryDate = new Date(entry.selectDate); // selectDate는 ISO 문자열
+      return formatDate(entryDate) === dateStr;
+    });
   };
 
   const daysInMonth = getDaysInMonth(currentDate);
@@ -54,6 +57,7 @@ const DiaryCalendar = ({ currentDate, diaryEntries, onDateClick, todayMood }) =>
         <span className="calendar-day-number">{day}</span>
         {diary && (
           <div className="calendar-indicator">
+            {diary.isPublic === "N" && <span className="calendar-lock-icon">🔒</span>}
             <span>{diary.mood}</span>
           </div>
         )}

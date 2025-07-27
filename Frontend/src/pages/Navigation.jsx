@@ -10,11 +10,11 @@ const Navigation = ({ onPageChange, todayMood }) => {
   const userId = localStorage.getItem("userId");
   const navItems = [
     { id: 'home', label: '홈', icon: '🏠', path: userId ? `/home/${userId}` : '/home' },
-    { id: 'profile', label: '프로필', icon: '👤', path: '/profile' },
-    { id: 'diary', label: '다이어리', icon: '📔', path: '/diary' },
-    { id: 'photos', label: '사진첩', icon: '📸', path: '/photos' },
-    { id: 'guestbook', label: '방명록', icon: '💌', path: '/guestbook' },
-    { id: 'friends', label: '친구', icon: '👥', path: '/friends' }
+    { id: 'profile', label: '프로필', icon: '👤', path: userId ? `/profile/${userId}` : '/profile' },
+    { id: 'diary', label: '다이어리', icon: '📔', path: userId ? `/diary/${userId}` : '/diary' },
+    { id: 'photos', label: '사진첩', icon: '📸', path: userId ? `/photos/${userId}` : '/photos' },
+    { id: 'guestbook', label: '방명록', icon: '💌', path: userId ? `/guestbook/${userId}` : '/guestbook' },
+    { id: 'friends', label: '친구', icon: '👥', path: userId ? `/friends/${userId}` : '/friends' }
   ];
 
   return (
