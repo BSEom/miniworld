@@ -3,3 +3,100 @@
   background-color: #e0f7fa;
   color: #222;
 }
+
+#friend_searchbar {
+  width: 260px;
+  padding: 12px 16px;
+  border: 1.5px solid #aaa;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  margin-bottom: 10px;
+  background: #f8fafd;
+}
+
+#friend_searchbar:focus {
+  border: 1.5px solid #4682f0;
+  box-shadow: 0 2px 12px rgba(70,130,240,0.08);
+  background: #fff;
+}
+
+
+.user_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user_list_item {
+  cursor: pointer;
+  padding: 14px 18px 10px 18px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  transition: background 0.18s, border 0.18s;
+  border: 1.5px solid transparent;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user_list_item:hover,
+.user_list_item:focus {
+  background: #f3f7fa;
+  border: 1.5px solid #a2bfff;
+  outline: none;
+}
+
+.user_list_main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user_nickname {
+  font-size: 1.19rem;
+  font-weight: 700;
+  color: #212d45;
+}
+
+.user_status_dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 5px;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 1.5px rgba(0,0,0,0.13);
+}
+
+/* 상태별 색상 */
+.status_ACTIVE {
+  background: #3cd458;
+}
+.status_INACTIVE {
+  background: #fb2d2d;
+}
+.status_offline,
+.status_none,
+.status_BANNED {
+  background: #bbb;
+}
+
+.user_username {
+  font-size: 0.93rem;
+  color: #8ea1b6;
+  margin-top: 2px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.user_list_empty {
+  padding: 16px 8px;
+  color: #b7bcc8;
+  text-align: center;
+  font-size: 1rem;
+}
