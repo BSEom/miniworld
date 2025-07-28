@@ -9,7 +9,13 @@
 /* 공통 카드 스타일 */
 .menu-card,
 /* .bgm-card, */
-.visitors-card,
+.visitors-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+}
 .friends-card {
   background: white;
   border-radius: 15px;
