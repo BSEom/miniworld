@@ -40,6 +40,7 @@ const LoginPage = () => {
       const { nickname, userId } = res.data;
 
       setWelcomeMessage(`${nickname}님, 로그인 성공! 🎉`);
+      localStorage.setItem("userId", userId);
       setShowWelcome(true);
       // userId를 localStorage에 저장
       localStorage.setItem("userId", userId);
@@ -99,7 +100,7 @@ const LoginPage = () => {
           </button>
 
           <div className="links">
-            <a href="#" onClick={() => navigate("/signup")}>아이디/비밀번호 찾기</a>
+            <a href="#" onClick={() => navigate("/IdPwFind")}>아이디/비밀번호 찾기</a>
             <a href="#" onClick={() => navigate("/signup")}>회원가입</a>
           </div>
         </div>
