@@ -3,14 +3,23 @@
 .app.theme-happy {
   background: linear-gradient(135deg, #fecfef8f 0%, #fecfef4d 50%, #fecfef1e 100%);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 /* 헤더 배경색 */
 .header.theme-happy {
   background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #786fa6 100%);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 /* 헤더 애니메이션 */
 .header.theme-happy::before {
 background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path transform='translate(0,8) scale(0.15)' d='M50 30 C50 20, 70 20, 70 40 C70 55, 50 70, 50 70 C50 70, 30 55, 30 40 C30 20, 50 20, 50 30 Z' fill='white' opacity='0.2'/><path transform='translate(55, 30) scale(0.1)' d='M50 30 C50 20, 70 20, 70 40 C70 55, 50 70, 50 70 C50 70, 30 55, 30 40 C30 20, 50 20, 50 30 Z' fill='white' opacity='0.15'/><path transform='translate(20, 60) scale(0.15)' d='M50 30 C50 20, 70 20, 70 40 C70 55, 50 70, 50 70 C50 70, 30 55, 30 40 C30 20, 50 20, 50 30 Z' fill='white' opacity='0.1'/></svg>");
 }
+<<<<<<< HEAD
 /* 프로필 카드 배경색 */
 .profile-card.theme-happy {
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
@@ -45,18 +54,53 @@ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
 }
 /* 네비게이션 탭 배경색 */
 /* theme-happy 탭에 적용될 색상 */
+=======
+
+/* 왼쪽 프로필 카드 배경색 */
+.profile-card.theme-happy {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  box-shadow: 0 8px 25px rgba(148, 4, 9, 0.3);
+  border: 3px solid #ffb3ba;
+}
+
+/* 왼쪽 bgm 테마 */
+.bgm-player.theme-happy {
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #d39dff 100%);
+}
+.play-btn.theme-happy {
+  background: rgba(248, 246, 246, 0.2);
+}
+
+/* 콘텐츠 영역 테두리 */
+.content-area.theme-happy {
+  border: 3px solid #ffb3ba;
+}
+
+/* 미니룸 친구 헤더 */
+.card-header.theme-happy {
+  color: #2d3436;
+  background: linear-gradient(135deg, #FFE2E2, #FFCFCF);
+}
+
+/* 네비게이션 탭 배경색 */
+>>>>>>> main
 .nav-tab.theme-happy:hover {
   background: linear-gradient(135deg, var(--tab-color, #fac1d4d5), var(--tab-color-light, #ff6b9c5e));
   color: white;
   transform: translateY(-2px);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 .nav-tab.theme-happy.active {
   background: linear-gradient(135deg, var(--tab-color, #ff6b9d), var(--tab-color-light, #ff6b9d20));
   color: white;
   font-weight: bold;
 }
 
+<<<<<<< HEAD
 /* theme-play */
 .header.theme-play {
   background: linear-gradient(135deg, #667db6, #0082c8);
@@ -67,12 +111,158 @@ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
 .app.theme-sleepy {
   background: linear-gradient(135deg, #274d6256 0%, #3c6b7542 50%, #62ccb133 100%);
 }
+=======
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-happy {
+  background: #F7CFD8
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-happy {
+  background: #fac1d4d5;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-happy:hover {
+background: #ff6b9cb4;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-happy {
+background: #E69DB8;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-happy {
+background: #978dca;
+color: white;
+}
+.calendar-day.has-diary.theme-happy:hover {
+background: #786fa6;
+}
+
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-happy {
+border: 3px solid #fd79a8;
+background: #ffe8f4;
+}
+
+
+
+
+
+
+
+/* theme-play */
+
+/* 배경색 */
+.app.theme-play {
+  background: linear-gradient(135deg, #97e7e271 0%, #97e7e215 50%, #97e7e271 100%);
+}
+
+/* 헤더 배경 */
+.header.theme-play {
+  background: linear-gradient(135deg, #5AB2FF, #A0DEFF);
+}
+/* 헤더 애니메이션 */
+.header.theme-play::before {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'><g fill='white' opacity='0.3'><ellipse cx='25' cy='35' rx='12' ry='8'/><ellipse cx='35' cy='30' rx='15' ry='10'/><ellipse cx='45' cy='35' rx='10' ry='7'/><ellipse cx='15' cy='30' rx='8' ry='6'/></g><g fill='white' opacity='0.2'><ellipse cx='120' cy='20' rx='10' ry='6'/><ellipse cx='130' cy='18' rx='12' ry='8'/><ellipse cx='140' cy='20' rx='8' ry='5'/><ellipse cx='110' cy='18' rx='6' ry='4'/></g><g fill='white' opacity='0.25'><ellipse cx='160' cy='70' rx='8' ry='5'/><ellipse cx='170' cy='68' rx='10' ry='7'/><ellipse cx='180' cy='70' rx='7' ry='4'/><ellipse cx='150' cy='68' rx='5' ry='3'/></g></svg>") repeat-x;
+}
+
+/* 왼쪽 프로필 카드 배경색 */
+.profile-card.theme-play {
+  background: linear-gradient(135deg, #6AD4DD 0%, #97E7E1 50%, #F8F6E3 100%);
+  box-shadow: 0 8px 25px #64b2b9;
+  border: 3px solid #97E7E1;
+}
+
+/* 왼쪽 bgm 테마 */
+.bgm-player.theme-play {
+  color: white;
+  background: linear-gradient(135deg, #86B6F6 0%, #a9cbf7 100%);
+}
+.play-btn.theme-play {
+  background: rgba(248, 246, 227, 0.356)
+}
+
+/* 콘텐츠 영역 테두리 */
+.content-area.theme-play {
+  border: 3px solid #97E7E1;
+}
+
+/* 미니룸 친구 헤더 */
+.card-header.theme-play {
+  color: #2d3436;
+  background: linear-gradient(135deg, #98c8f1bb, #97e7e269);
+}
+
+/* 네비게이션 탭 배경색 */
+.nav-tab.theme-play:hover {
+  background: linear-gradient(135deg, var(--tab-color, #98c8f1bb), var(--tab-color-light, #97E7E1));
+  color: white;
+  transform: translateY(-2px);
+}
+.nav-tab.theme-play.active {
+  background: linear-gradient(135deg, var(--tab-color, #62aff3), var(--tab-color-light, #97e7e269));
+  color: white;
+  font-weight: bold;
+}
+
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-play {
+  background: #a2d9f7
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-play {
+  background: #5AB2FF;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-play:hover {
+background: #188df3;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-play {
+background: #34699A;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-play {
+background: #4F959D;
+color: white;
+}
+.calendar-day.has-diary.theme-play:hover {
+background: #237983;
+}
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-play {
+border: 3px solid #34699A;
+background: #D4F6FF;
+}
+
+
+
+
+
+/* theme-sleepy */
+/* 배경색 */
+.app.theme-sleepy {
+  background: linear-gradient(135deg, #274d6256 0%, #3c6b7542 50%, #62ccb133 100%);
+}
+/* 헤더 배경 */
+>>>>>>> main
 .header.theme-sleepy {
   background: linear-gradient(135deg, #648DB3 0%, #5459AC 50%, #52357B 100%);
 }
 .header.theme-sleepy::before {
   background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon transform='scale(0.7)' points='10,2 12,8 18,8 13,12 15,18 10,14 5,18 7,12 2,8 8,8' fill='white' opacity='0.4'/><polygon transform='scale(0.5)' points='60,20 62,26 68,26 63,30 65,36 60,32 55,36 57,30 52,26 58,26' fill='white' opacity='0.2'/><polygon transform='scale(0.5)' points='80,60 82,66 88,66 83,70 85,76 80,72 75,76 77,70 72,66 78,66' fill='white' opacity='0.1'/></svg>");
 }
+<<<<<<< HEAD
 .profile-card.theme-sleepy {
   background: linear-gradient(135deg, #648DB3 0%, #648db3b0 50%, #648db350 100%);
   border: 3px solid #648db350;
@@ -94,20 +284,102 @@ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
   display: flex;
 }
 
+=======
+
+/* 왼쪽 프로필 배경 */
+.profile-card.theme-sleepy {
+  background: linear-gradient(135deg, #648DB3 0%, #648db3b0 50%, #648db350 100%);
+  border: 3px solid #648db3b0;
+}
+
+/* 왼쪽 bgm */
+.bgm-player.theme-sleepy {
+  background: linear-gradient(135deg, #7F8CAA 0%, #333446 100%);
+}
+.play-btn.theme-sleepy {
+  background: rgba(255, 255, 255, 0.473);
+}
+
+/* 테두리색 */
+.content-area.theme-sleepy {
+  border: 3px solid #648db3b0;
+}
+
+/* 오른쪽 탭 */
+>>>>>>> main
 .nav-tab.theme-sleepy:hover {
   background: linear-gradient(135deg, var(--tab-color, #648DB3), var(--tab-color-light, #648db350));
   color: white;
   transform: translateY(-2px);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 .nav-tab.theme-sleepy.active {
   background: linear-gradient(135deg, var(--tab-color, #648db3), var(--tab-color-light, #52357bd5));
   color: white;
   font-weight: bold;
 }
 
+<<<<<<< HEAD
 
 /* theme-sad */
+=======
+/* 미니룸 친구 헤더 */
+.card-header.theme-sleepy {
+  color: #2d3436;
+  background: linear-gradient(135deg, #DAD2FF 0%, #52357bad 100%);
+}
+
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-sleepy {
+  background: #C0C9EE
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-sleepy {
+  background: #52357B;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-sleepy:hover {
+background: #188df3;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-sleepy {
+background: #7e5cadc4;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-sleepy {
+background: #474E93;
+color: white;
+}
+.calendar-day.has-diary.theme-sleepy:hover {
+background: #0a1468;
+}
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-sleepy {
+border: 3px solid #474E93;
+background: #EBEAFF;
+}
+
+
+
+
+
+/* theme-sad */
+/* 배경색 */
+.app.theme-sad {
+  background: linear-gradient(135deg, #274d6256 0%, #3c6b7542 50%, #62ccb133 100%);
+}
+
+/* 헤더 배경 */
+>>>>>>> main
 .header.theme-sad {
   background: linear-gradient(135deg, #667db6, #0082c8);
 }
@@ -116,10 +388,16 @@ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
 background-repeat: repeat;
 background-size: contain;
 }
+<<<<<<< HEAD
+=======
+
+/* 왼쪽 프로필 배경 */
+>>>>>>> main
 .profile-card.theme-sad {
   background: linear-gradient(135deg, #667db6 50%, #0082c8 100%);
   border: 3px solid #667db6;
 }
+<<<<<<< HEAD
 .content-area.theme-sad {
   background: white;
   border-radius: 15px;
@@ -154,3 +432,164 @@ background-size: contain;
   overflow: hidden;
   display: flex;
 }
+=======
+
+/* 왼쪽 bgm */
+.bgm-player.theme-sad {
+  background: linear-gradient(135deg, #27548A 0%, #183B4E 100%);
+}
+.play-btn.theme-sad {
+  background: rgba(255, 255, 255, 0.473);
+}
+
+/* 테두리 */
+.content-area.theme-sad {
+  border: 3px solid #667db6;
+}
+
+/* 미니룸 친구 헤더 */
+.card-header.theme-sad {
+  color: #2d3436;
+  background: linear-gradient(135deg, #c9ddf5cc 0%, #9fb3dfce 100%);
+}
+
+/* 오른쪽 탭 */
+.nav-tab.theme-sad:hover {
+  background: linear-gradient(135deg, var(--tab-color, #0082c8), var(--tab-color-light, #648db350));
+  color: white;
+  transform: translateY(-2px);
+}
+.nav-tab.theme-sad.active {
+  background: linear-gradient(135deg, var(--tab-color, #0082c8), var(--tab-color-light, #52357bd5));
+  color: white;
+  font-weight: bold;
+}
+
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-sad {
+  background: #58A0C8
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-sad {
+  background: #34699A;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-sad:hover {
+background: #188df3;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-sad {
+background: #447d9bce;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-sad {
+background: #286ab1;
+color: white;
+}
+.calendar-day.has-diary.theme-sad:hover {
+background: #013872;
+}
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-sad {
+border: 3px solid #286ab1;
+background: #c7d9dd8a;
+}
+
+
+
+
+
+/* theme-angry */
+/* 배경색 */
+.app.theme-angry {
+    background: linear-gradient(135deg, #fff1856c 0%, #fff18546 50%, #fff18521 100%);
+}
+
+/* 헤더 배경 */
+.header.theme-angry {
+    background: linear-gradient(135deg, #ea3014b0 0%, #E6521F 50%, #FB9E3A 100%);
+}
+.header.theme-angry::before {
+   background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='flame1' cx='50%25' cy='70%25' r='60%25'><stop offset='0%25' style='stop-color:%23ffff44;stop-opacity:0.8'/><stop offset='30%25' style='stop-color:%23ff6600;stop-opacity:0.6'/><stop offset='70%25' style='stop-color:%23ff0000;stop-opacity:0.3'/></radialGradient></defs><path transform='translate(15,10) scale(0.15)' d='M60 100 C50 95, 35 85, 25 70 C15 55, 20 40, 30 30 C35 25, 45 20, 50 10 C52 8, 54 5, 60 0 C66 5, 68 8, 70 10 C75 20, 85 25, 90 30 C100 40, 105 55, 95 70 C85 85, 70 95, 60 100 Z M60 100 C58 98, 50 90, 45 80 C40 70, 42 60, 48 50 C52 45, 58 40, 60 30 C62 40, 68 45, 72 50 C78 60, 80 70, 75 80 C70 90, 62 98, 60 100 Z M60 100 C59 99, 55 95, 52 88 C49 81, 50 75, 54 68 C57 63, 59 58, 60 50 C61 58, 63 63, 66 68 C70 75, 71 81, 68 88 C65 95, 61 99, 60 100 Z' fill='url(%23flame1)'/><path transform='translate(20,70) scale(0.1)' d='M60 100 C50 95, 35 85, 25 70 C15 55, 20 40, 30 30 C35 25, 45 20, 50 10 C52 8, 54 5, 60 0 C66 5, 68 8, 70 10 C75 20, 85 25, 90 30 C100 40, 105 55, 95 70 C85 85, 70 95, 60 100 Z M60 100 C58 98, 50 90, 45 80 C40 70, 42 60, 48 50 C52 45, 58 40, 60 30 C62 40, 68 45, 72 50 C78 60, 80 70, 75 80 C70 90, 62 98, 60 100 Z M60 100 C59 99, 55 95, 52 88 C49 81, 50 75, 54 68 C57 63, 59 58, 60 50 C61 58, 63 63, 66 68 C70 75, 71 81, 68 88 C65 95, 61 99, 60 100 Z' fill='url(%23flame1)'/><path transform='translate(45,40) scale(0.1)' d='M60 100 C50 95, 35 85, 25 70 C15 55, 20 40, 30 30 C35 25, 45 20, 50 10 C52 8, 54 5, 60 0 C66 5, 68 8, 70 10 C75 20, 85 25, 90 30 C100 40, 105 55, 95 70 C85 85, 70 95, 60 100 Z M60 100 C58 98, 50 90, 45 80 C40 70, 42 60, 48 50 C52 45, 58 40, 60 30 C62 40, 68 45, 72 50 C78 60, 80 70, 75 80 C70 90, 62 98, 60 100 Z M60 100 C59 99, 55 95, 52 88 C49 81, 50 75, 54 68 C57 63, 59 58, 60 50 C61 58, 63 63, 66 68 C70 75, 71 81, 68 88 C65 95, 61 99, 60 100 Z' fill='url(%23flame1)'/></svg>");
+   right: 8%;
+}
+
+/* 왼쪽 프로필 배경 */
+.profile-card.theme-angry {
+  background: linear-gradient(135deg, #ea3014b0 0%, #E6521F 50%, #FB9E3A 100%);
+  border: 3px solid #FB9E3A;
+}
+.content-area.theme-angry {
+  border: 3px solid #FB9E3A;
+}
+
+/* bgm 테마 */
+.bgm-player.theme-angry {
+  color: white;
+  background: linear-gradient(135deg, #E78B48, #BE3D2A);
+}
+.play-btn.theme-angry {
+  background: #ffefc8c4;
+}
+
+/* 미니룸 친구 헤더 */
+.card-header.theme-angry {
+  color: #2d3436;
+  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+}
+
+/* 네비게이션 탭 배경색 */
+.nav-tab.theme-angry:hover {
+  background: linear-gradient(135deg, var(--tab-color, #FB9E3A), var(--tab-color-light, #FCEF91));
+  color: white;
+  transform: translateY(-2px);
+}
+.nav-tab.theme-angry.active {
+  background: linear-gradient(135deg, var(--tab-color, #EB5B00), var(--tab-color-light, #FB9E3A));
+  color: white;
+  font-weight: bold;
+}
+
+/* 다이어리 테마 */
+/* ① 배경 */
+.calendar-diary-page.theme-angry {
+  background: #fcef91d2
+}
+
+/* ② 달 < > 배경색 */
+.calendar-nav-btn.theme-angry {
+  background: #FF894F;
+}
+
+/* ③ 달 < > 호버 배경색 */
+.calendar-nav-btn.theme-angry:hover {
+background: #e96b2c;
+}
+
+/* ④ 달력 헤더색 */
+.calendar-day-header.theme-angry {
+background: #fb9e3aec;
+}
+
+/* ⑤ 일기 작성 완료 해당일 배경색 */
+.calendar-day.has-diary.theme-angry {
+background: #E6521F;
+color: white;
+}
+.calendar-day.has-diary.theme-angry:hover {
+background: #c90202;
+}
+
+/* ⑥ 오늘 날짜 표시 배경 */
+.calendar-day.today.theme-angry {
+border: 3px solid #EB5B00;
+background: #FEF3E2;
+}
+
+>>>>>>> main

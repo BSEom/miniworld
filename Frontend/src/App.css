@@ -29,7 +29,24 @@ body > * {
   display: flex;
   flex-direction: row;
   gap: 15px;
+  /* height: 68vh; */
 }
+<<<<<<< HEAD
+=======
+
+/* 테두리 */
+.content-area {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  height: 39rem;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+}
+
+>>>>>>> main
 /* 공통 버튼 스타일 */
 .btn {
   padding: 8px 16px;
@@ -62,49 +79,6 @@ body > * {
 .btn-secondary:hover {
   background: linear-gradient(45deg, #8888ff, #aaaaff);
   transform: translateY(-2px);
-}
-
-/* 입력 폼 스타일 */
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #666;
-}
-
-.form-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #ff99cc;
-}
-
-.form-textarea {
-  width: 100%;
-  padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  resize: vertical;
-  min-height: 100px;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
-}
-
-.form-textarea:focus {
-  outline: none;
-  border-color: #ff99cc;
 }
 
 .test {
@@ -141,13 +115,47 @@ body > * {
   align-items: stretch;
   border-radius: 0 18px 18px 0;
 }
+
+/* 설정, 로그아웃 */
+.nav-actions {
+  display: flex;
+  position: relative;
+  justify-content: right;
+  top: 2%;
+  gap: 5px;
+  padding: 0 15px;
+}
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+.settings-btn:hover {
+  background: linear-gradient(135deg, #393E46, #222831);
+  color: white;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #954C2E, #3B060A);
+  color: white;
+}
+
+
 .container {
   z-index: 3;
   padding: 20px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   width: 80%;
-  height: 55rem;
-  margin-top: 20px;
+  height: 100%;
+  margin: 20px;
 } 
 
 /* 반응형 디자인 */

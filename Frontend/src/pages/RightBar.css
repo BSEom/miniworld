@@ -1,11 +1,10 @@
-/* Sidebar.css */
-.sidebar {
-  width: 280px;
+.rightbar {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
+<<<<<<< HEAD
 /* 공통 카드 스타일 */
 .menu-card,
 /* .bgm-card, */
@@ -22,27 +21,36 @@
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border: 2px solid #e0e0e0;
+=======
+/* 최근 방문자 */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+>>>>>>> main
 }
 
-/* .card-body {
-  padding: 15px;
-} */
-
-/* 방문자 목록 */
 .visitor-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  justify-items: flex-end;
 }
 
 .visitor-item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 22px;
   padding: 8px;
   background: #f8f9fa;
   border-radius: 10px;
   transition: all 0.3s ease;
+  width: 15rem;
 }
 
 .visitor-item:hover {
@@ -52,8 +60,8 @@
 
 .visitor-avatar {
   position: relative;
-  width: 35px;
-  height: 35px;
+  width: 39px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,21 +70,40 @@
   border: 2px solid #fff;
 }
 
-.visitor-avatar .avatar-emoji {
-  font-size: 18px;
-}
-
 .online-dot {
   position: absolute;
-  bottom: 50%;
-  right: 0;
-  width: 10px;
-  height: 10px;
+  bottom: -4px;
+  right: 114%;
+  width: 8px;
+  height: 8px;
   background: #00b894;
   border-radius: 50%;
   border: 2px solid white;
   animation: pulse 2s infinite;
   /* z-index: 5; */
+}
+
+.status-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.status-dot.online {
+  background: #00b894;
+  animation: pulse 2s infinite;
+}
+
+.status-dot.away {
+  background: #fdcb6e;
+}
+
+.status-dot.offline {
+  background: #636e72;
 }
 
 .visitor-info {
@@ -85,14 +112,25 @@
 }
 
 .visitor-name {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   color: #2d3436;
   margin: 0 0 2px 0;
 }
 
+
+.visitor-mood{
+  font-size: 10px;
+  color: #636e72;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .visitor-time {
-  font-size: 11px;
+  display: flex;
+  font-size: 10px;
   color: #636e72;
   margin: 0;
 }
@@ -108,12 +146,14 @@
 .friend-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 22px;
   padding: 8px;
   background: #f8f9fa;
   border-radius: 10px;
   transition: all 0.3s ease;
+  width: 15rem;
 }
+
 
 .friend-item:hover {
   background: #e9ecef;
@@ -122,18 +162,15 @@
 
 .friend-avatar {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 43px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+  background: rgba(133, 42, 175, 0.1);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border: 2px solid #fff;
-}
-
-.friend-avatar .avatar-emoji {
-  font-size: 16px;
 }
 
 .status-dot {
@@ -195,17 +232,4 @@
 .view-all-btn:hover {
   background: linear-gradient(135deg, #d63031, #b71c1c);
   transform: translateY(-2px);
-}
-
-/* 반응형 */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-  }
-  
-  .profile-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
 }

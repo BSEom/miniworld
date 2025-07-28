@@ -3,16 +3,27 @@ import './Header.css';
 import './Theme.css';
 import { getThemeClass } from '../utils/Theme';
 
+<<<<<<< HEAD
 const Header = ({ visitCount, todayMood, setTodayMood }) => {
+=======
+const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
+>>>>>>> main
   const currentDate = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit'
   }).replace(/\. /g, '.').replace('.', '');
   // const [todayMood, setTodayMood] = useState('😊');
+<<<<<<< HEAD
   const moodOptions = ['😊', '😄', '😆', '🥰', '🤗', '😎', '😴', '🤗', '😵‍💫','😢','🥹', '😡'];
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const moodRef = useRef(null);
+=======
+  const moodOptions = ['😊', '😄', '😆', '🥰', '🤗', '😎', '✈️', '😴', '😵‍💫','😢','🥹', '😡'];
+  const [showMoodSelector, setShowMoodSelector] = useState(false);
+  const moodRef = useRef(null);
+  // const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
+>>>>>>> main
 
   useEffect(() => {
     function handleClickOutside(event) {

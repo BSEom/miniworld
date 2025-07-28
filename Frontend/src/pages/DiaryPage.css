@@ -1,151 +1,146 @@
-.diary-page {
-  background: white;
-  min-height: 500px;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+.mood-icon {
+  font-size: 16px;
 }
 
-.diary-header {
+.diary-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 20px;
+  /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); */
+  overflow-y: auto;
+  max-height: 480px;
+}
+
+.calendar-date-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   padding-bottom: 15px;
-  border-bottom: 2px solid rgba(255,255,255,0.3);
+  border-bottom: 2px solid #e9ecef;
 }
 
-.diary-header h2 {
+.selected-date-info h3 {
   color: #2d3436;
-  font-size: 24px;
   margin: 0;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  font-size: 20px;
 }
 
-.diary-stats {
-  background: rgba(255,255,255,0.8);
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #2d3436;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.diary-detail {
+  animation: slideIn 0.3s ease;
 }
 
-.diary-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.diary-entry {
-  background: rgba(255,255,255,0.9);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.diary-entry:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-}
-
-.entry-header {
+.diary-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
 }
 
-.entry-date {
-  font-weight: bold;
-  color: #636e72;
-  font-size: 14px;
-}
-
-.entry-weather {
+.weather {
   display: flex;
   align-items: center;
   gap: 5px;
-  background: #f8f9fa;
-  padding: 5px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  color: #495057;
+  font-size: 14px;
 }
 
-.weather-icon {
-  font-size: 16px;
-}
-
-.entry-mood {
+.mood {
   font-size: 20px;
 }
 
-.entry-content {
+.diary-detail h4 {
   color: #2d3436;
-}
-
-.entry-title {
+  margin: 15px 0;
   font-size: 18px;
-  font-weight: bold;
-  margin: 0 0 10px 0;
-  color: #2d3436;
 }
 
-.entry-text {
-  line-height: 1.6;
-  margin: 0;
-  font-size: 14px;
+.diary-detail p {
   color: #636e72;
+  line-height: 1.6;
+  font-size: 14px;
 }
 
-.diary-actions {
+.no-diary {
   text-align: center;
+  color: #636e72;
+  margin-top: 40px;
+}
+
+.no-diary p {
+  margin-bottom: 20px;
 }
 
 .write-btn {
   background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
   color: white;
   border: none;
-  padding: 12px 30px;
-  border-radius: 25px;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 20px;
   cursor: pointer;
+  font-size: 14px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,184,148,0.3);
 }
 
 .write-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,184,148,0.4);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
 }
 
-.write-btn:active {
-  transform: translateY(0);
+.no-selection {
+  text-align: center;
+  color: #636e72;
+  margin-top: 80px;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 20px;
+.no-selection .hint {
+  font-size: 12px;
+  color: #b2bec3;
+  margin-top: 10px;
 }
 
-.pagination button {
-  padding: 6px 12px;
-  border: none;
-  background: #eee;
-  border-radius: 4px;
-  cursor: pointer;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.pagination button.active {
-  background: #c44569;
-  color: white;
-  font-weight: bold;
+@media (max-width: 768px) {
+  .calendar-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .calendar-day {
+    height: 60px;
+  }
+
+  .calendar-date-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .edit-btn {
+    align-self: flex-end;
+  }
+}
+
+.diary-lock-icon {
+  font-size: 14px;
+  margin-left: 6px;
+  position: relative;
+  top: -2px;
 }

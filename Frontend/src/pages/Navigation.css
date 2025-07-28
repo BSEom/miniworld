@@ -89,6 +89,7 @@
   to { box-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.6); }
 }
 
+<<<<<<< HEAD
 .nav-actions {
   display: flex;
   gap: 5px;
@@ -124,6 +125,8 @@
   color: white;
 }
 
+=======
+>>>>>>> main
 /* 반응형 */
 @media (max-width: 768px) {
   .nav-container {

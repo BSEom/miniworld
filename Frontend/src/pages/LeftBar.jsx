@@ -11,6 +11,7 @@ const LeftBar = ({ onPageChange, todayMood}) => {
     progress: 35
   });
 
+  console.log("typeof:", typeof todayMood);
   return (
     <div className="sidebar">
       {/* 프로필 카드 */}
@@ -35,7 +36,7 @@ const LeftBar = ({ onPageChange, todayMood}) => {
             </div>
             <div className="player-controls">
               <button
-                className={`play-btn ${bgmPlaying ? 'playing' : ''}`}
+                className={`play-btn ${getThemeClass(todayMood)} ${bgmPlaying ? 'playing' : ''}`}
                 onClick={() => setBgmPlaying(!bgmPlaying)}
               >
                 {bgmPlaying ? '⏸' : '▶'}

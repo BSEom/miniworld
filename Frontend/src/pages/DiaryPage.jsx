@@ -1,89 +1,136 @@
 import React, { useState } from 'react';
+import Calendar from './DiaryCalendar';
 import './DiaryPage.css';
+import './Theme.css';
+import { getThemeClass } from '../utils/Theme';
 
-const DiaryPage = () => {
-  const [diaryEntries] = useState([
-    {
-      id: 1,
-      date: '2025.07.11',
-      title: '오늘의 일기',
-      content: '오늘은 정말 좋은 하루였다. 친구들과 함께 카페에서 수다를 떨고, 새로운 책도 읽었다. 이런 평범한 일상이 얼마나 소중한지 다시 한번 느꼈다.',
-      weather: '맑음',
-      mood: '😊'
-    },
-    {
-      id: 2,
-      date: '2025.07.10',
-      title: '영화 관람 후기',
-      content: '오늘 본 영화가 정말 인상깊었다. 스토리도 좋고 연출도 훌륭했다. 다음에 또 보고 싶을 정도로 재미있었다.',
-      weather: '흐림',
-      mood: '😍'
-    },
-    {
-      id: 3,
-      date: '2025.07.09',
-      title: '새로운 취미',
-      content: '요즘 사진 찍는 재미에 푹 빠져있다. 일상의 소소한 순간들을 담아보니 세상이 더 아름답게 보인다.',
-      weather: '비',
-      mood: '🤔'
+const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMood = [] }) => {
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [showDiary, setShowDiary] = useState(false);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const formatDateForDisplay = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+  };
+
+  const getDiaryForDate = (date) => {
+    const dateStr = formatDate(date);
+    return diaryEntries.find(entry => formatDate(new Date(entry.selectDate)) === dateStr);
+  };
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    const found = getDiaryForDate(date);
+    setShowDiary(!!found);
+  };
+
+  const handleWriteNewDiary = () => {
+    if (onNavigateToWrite) {
+      onNavigateToWrite(selectedDate);
     }
-  ]);
-const [currentPage, setCurrentPage] = useState(1);
-const itemsPerPage = 2;
+  };
 
-const startIndex = (currentPage - 1) * itemsPerPage;
-const endIndex = startIndex + itemsPerPage;
-const currentEntries = diaryEntries.slice(startIndex, endIndex);
+  const handleEditDiary = () => {
+    const diary = getDiaryForDate(selectedDate);
+    if (onNavigateToEdit && diary) {
+      onNavigateToEdit(selectedDate, diary);
+    }
+  };
 
-const totalPages = Math.ceil(diaryEntries.length / itemsPerPage);
+  const navigateMonth = (direction) => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + direction);
+    setCurrentDate(newDate);
+    setShowDiary(false);
+    setSelectedDate(null);
+  };
+
+  const selectedDiary = selectedDate ? getDiaryForDate(selectedDate) : null;
 
   return (
-  <div className="diary-page">
-    <div className="diary-header">
-      <h2>📝 나의 일기장</h2>
-    <div className="diary-actions">
-      <button className="write-btn">✏️ 새 일기 쓰기</button>
-    </div>
-      <div className="diary-stats">
-        <span>총 {diaryEntries.length}개의 일기</span>
+    <div className={`calendar-diary-page ${getThemeClass(todayMood)}`}>
+      <div className="calendar-header">
+        <h2>📅 나의 다이어리 캘린더</h2>
+        <div className="calendar-month-navigation">
+          <button onClick={() => navigateMonth(-1)} className={`calendar-nav-btn ${getThemeClass(todayMood)}`}>‹</button>
+          <span className="calendar-current-month">
+            {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
+          </span>
+          <button onClick={() => navigateMonth(1)} className={`calendar-nav-btn ${getThemeClass(todayMood)}`}>›</button>
+        </div>
+      </div>
+
+      <div className="calendar-content">
+        <div className="calendar-section">
+          <Calendar
+            currentDate={currentDate}
+            diaryEntries={diaryEntries}
+            onDateClick={handleDateClick}
+            todayMood={todayMood}
+          />
+        </div>
+
+        <div className="diary-section">
+          {selectedDate && (
+            <div className="selected-date-info">
+              <div className="calendar-date-header">
+                <h3>{formatDateForDisplay(formatDate(selectedDate))}</h3>
+                {showDiary && selectedDiary && (
+                  <button className="write-btn" onClick={handleEditDiary}>
+                    ✏️ 편집
+                  </button>
+                )}
+              </div>
+              {showDiary && selectedDiary ? (
+                <div className="diary-detail">
+                  <div className="diary-meta">
+                    <span className="weather">
+                      {selectedDiary.weather === '맑음' ? '☀️' : selectedDiary.weather === '흐림' ? '☁️' : '🌧️'}
+                      {selectedDiary.weather}
+                    </span>
+                    <span className="mood">
+                      {selectedDiary.mood}
+                    </span>
+                  </div>
+                  <h4>
+                    {selectedDiary.title}
+                    {selectedDiary.isPublic === "N" && <span className="diary-lock-icon">🔒</span>}
+                  </h4>
+                  <p>{selectedDiary.content}</p>
+                </div>
+              ) : (
+                <div className="no-diary">
+                  <p>
+                    {formatDate(selectedDate) === formatDate(new Date())
+                      ? '오늘은 일기가 없어요'
+                      : '이 날에는 일기가 없어요'}
+                  </p>
+                  <button className="write-btn" onClick={handleWriteNewDiary}>
+                    ✏️ 새 일기 쓰기
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          {!selectedDate && (
+            <div className="no-selection">
+              <p>📝 날짜를 클릭해보세요!</p>
+              <p className="hint">일기가 있는 날에는 이모지가 표시돼요</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-
-    <div className="diary-list">
-      {currentEntries.map(entry => (
-        <div key={entry.id} className="diary-entry">
-          <div className="entry-header">
-            <div className="entry-date">{entry.date}</div>
-            <div className="entry-weather">
-              <span className="weather-icon">
-                {entry.weather === '맑음' ? '☀️' : entry.weather === '흐림' ? '☁️' : '🌧️'}
-              </span>
-              <span>{entry.weather}</span>
-            </div>
-            <div className="entry-mood">{entry.mood}</div>
-          </div>
-          <div className="entry-content">
-            <h3 className="entry-title">{entry.title}</h3>
-            <p className="entry-text">{entry.content}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div className="pagination">
-      {Array.from({ length: totalPages }, (_, i) => (
-        <button
-          key={i}
-          onClick={() => setCurrentPage(i + 1)}
-          className={currentPage === i + 1 ? 'active' : ''}
-        >
-          {i + 1}
-        </button>
-      ))}
-    </div>
-
-  </div>
-);
+  );
 };
 
 export default DiaryPage;
