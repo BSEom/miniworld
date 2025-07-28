@@ -73,6 +73,18 @@ public class UserService {
         return userRepository.findByUserId(userId).orElse(null);
     }
 
+    // 비밀번호 재설정
+    public void resetPassword(String username, String newPassword) {
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자 없음"));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    // username으로 찾기
+    public UserEntity findByEmail(String email) {
+    return userRepository.findByEmail(email).orElse(null);
+}
     public Long getUserIdByUsername(String username) {
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다: " + username));
