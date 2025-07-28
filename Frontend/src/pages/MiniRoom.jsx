@@ -16,6 +16,9 @@ const MiniRoom = (todayMood) => {
     
   ])
 
+  const myUserId = localStorage.getItem("userId");
+
+
   // const [userId, setUserId] = useState(163);
   const { userId: userIdParam } = useParams();
   const [userId, setUserId] = useState();
@@ -29,7 +32,7 @@ const MiniRoom = (todayMood) => {
 
   useEffect(() => {
     if (!userId) return;
-    
+
     const fetchMiniroomState = async () => {
       try {
         const items = await loadMiniroomState(userId);
@@ -184,10 +187,17 @@ const MiniRoom = (todayMood) => {
       <div className='side_wrapper'>
         {isEditable ? <ItemList onItemClick={handleAddItem} myItemList={myItemList}/>: <RightBar todayMood={todayMood.todayMood}/>}
       </div>
-  
-      <button className='btn_edit' onClick={handleEditBtnClick}>
+
+      {myUserId === userIdParam && (
+        <button className='btn_edit' onClick={handleEditBtnClick}>
+          {isEditable ? '완료' : '수정'}
+        </button>
+      )}
+      
+
+      {/* <button className='btn_edit' onClick={handleEditBtnClick}>
         {isEditable ? '완료' : '수정'}
-      </button>  
+      </button>   */}
     </div>
   );
 };
