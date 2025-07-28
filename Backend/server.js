@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
-const { MongoClient, GridFSBucket } = require('mongodb');
+const { GridFSBucket } = require('mongodb');
 const { Readable } = require('stream');
 
 const app = express();
@@ -29,7 +29,7 @@ mongoose.connection.once('open', () => {
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// ✅ 1. 파일 업로드 (이미지는 GridFS에 저장)
+// ✅ 1. 파일 업로드 (GridFS 저장)
 app.post('/upload', upload.single('file'), (req, res) => {
     if (!req.file) return res.status(400).json({ error: '파일 없음' });
 
@@ -51,9 +51,11 @@ app.post('/upload', upload.single('file'), (req, res) => {
         });
 });
 
-// ✅ 2. 업로드된 파일 목록 메타데이터 저장
+// ✅ 2. 메타데이터 저장 (userId 포함)
 app.post('/photos', async (req, res) => {
-    const { filename, title, content, category } = req.body;
+    const { filename, title, content, category, userId } = req.body;
+
+    if (!userId) return res.status(400).json({ error: 'userId 필요' });
 
     const collection = mongoose.connection.db.collection('photos');
     const newPhoto = {
@@ -61,6 +63,7 @@ app.post('/photos', async (req, res) => {
         title,
         content,
         category,
+        userId: parseInt(userId), // 숫자 형식으로 저장
         createdAt: new Date(),
     };
 
@@ -68,10 +71,13 @@ app.post('/photos', async (req, res) => {
     res.json(newPhoto);
 });
 
-// ✅ 3. 메타데이터 목록 조회
-app.get('/photos', async (req, res) => {
+// ✅ 3. 특정 userId 사진 목록 조회
+app.get('/photos/:userId', async (req, res) => {
+    const userId = parseInt(req.params.userId);
+
     const collection = mongoose.connection.db.collection('photos');
-    const photos = await collection.find().sort({ createdAt: -1 }).toArray();
+    const photos = await collection.find({ userId }).sort({ createdAt: -1 }).toArray();
+
     res.json(photos);
 });
 
@@ -86,5 +92,8 @@ app.get('/files/:filename', (req, res) => {
     downloadStream.pipe(res);
 });
 
+// ✅ 서버 실행
 const PORT = 4000;
-app.listen(PORT, () => console.log(`🚀 Server on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+    console.log(`🚀 Server on http://localhost:${PORT}`);
+});
