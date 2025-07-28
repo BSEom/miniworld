@@ -18,4 +18,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     
     // 추가: 사용자 ID로 사용자 찾기 (JWT에서 사용)
     Optional<UserEntity> findByUserId(Long userId);
+
+    // 사용자명(Username)으로 사용자 찾기
+    Optional<UserEntity> findByUsername(String username);
 }

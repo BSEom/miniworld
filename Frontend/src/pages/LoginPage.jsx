@@ -100,7 +100,7 @@ const LoginPage = () => {
           </button>
 
           <div className="links">
-            <a href="#" onClick={() => navigate("/signup")}>아이디/비밀번호 찾기</a>
+            <a href="#" onClick={() => navigate("/IdPwFind")}>아이디/비밀번호 찾기</a>
             <a href="#" onClick={() => navigate("/signup")}>회원가입</a>
           </div>
         </div>

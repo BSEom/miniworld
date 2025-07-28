@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 import Signup from "./pages/Signup";
 import Login from "./pages/LoginPage";
 import "./App.css";
+import IdPwfind from "./pages/IdPwFind"
 import MainLayout from "./MainLayout";
+import ResetPassword from "./pages/ResetPassword"
 
 
 const AppContent = () => {
@@ -106,6 +108,8 @@ useEffect(() => {
       {/* 로그인/회원가입은 별도 전체화면 */}
       <Route path="/login" element={<Login goToSignup={() => navigate("/signup")} setCurrentPage={navigate} />} />
       <Route path="/signup" element={<Signup goToLogin={() => navigate("/login")} />} />
+      <Route path="/idpwfind" element={<IdPwfind />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       {/* 나머지는 공통 레이아웃 */}
       <Route path="/*" element={
         <MainLayout

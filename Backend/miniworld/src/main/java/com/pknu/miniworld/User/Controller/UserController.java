@@ -107,4 +107,27 @@ public class UserController {
         
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증되지 않은 사용자입니다.");
     }
+
+    // 비밀번호 재설정
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        String newPassword = request.get("newPassword");
+
+        userService.resetPassword(username, newPassword);
+        return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+    }
+
+    // 아이디 찾기
+    @PostMapping("/find-username")
+    public ResponseEntity<?> findUsernameByEmail(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        UserEntity user = userService.findByEmail(email);
+
+        if (user != null) {
+            return ResponseEntity.ok(Map.of("username", user.getUsername()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("❌ 해당 이메일로 등록된 사용자를 찾을 수 없습니다.");
+        }
+    }
 }
