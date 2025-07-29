@@ -8,7 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import GuestBookPage from "./pages/GuestBookPage";
 import FriendsPage from "./pages/FriendsPage";
 import WriteDiaryPage from "./pages/DiaryWritePage";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { getThemeClass } from "./utils/Theme";
 import "./App.css";
 import axios from "axios";
@@ -19,6 +19,12 @@ const MainLayout = ({
   handleSaveDiary, handleUpdateDiary, handleBack,
   selectedDate, diaryToEdit
 }) => {
+  const location = useLocation();
+
+  // 예시: "/home/163" → ["", "home", "163"]
+  const pathSegments = location.pathname.split("/");
+  const userId = pathSegments[2];  // 두번째(0:빈칸, 1:home, 2:userId)
+
   // 로그아웃 핸들러
   const handleLogout = async () => {
     try {
@@ -35,9 +41,9 @@ const MainLayout = ({
     <div className={`app ${getThemeClass(todayMood)}`}>
       <div className="test">
         <div className="container">
-          <Header visitCount={visitCount} todayMood={todayMood} setTodayMood={setTodayMood} />
+          <Header userId={userId} visitCount={visitCount} todayMood={todayMood} setTodayMood={setTodayMood} />
           <div className="layout">
-            <LeftBar onPageChange={navigate} todayMood={todayMood} />
+            <LeftBar userId={userId} onPageChange={navigate} todayMood={todayMood} />
             <div className="main-content">
               <div className={`content-area ${getThemeClass(todayMood)}`}> 
                 <Routes>
