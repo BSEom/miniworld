@@ -6,6 +6,7 @@ import com.pknu.miniworld.User.DTO.UserDTO;
 import com.pknu.miniworld.User.Entity.UserEntity;
 import com.pknu.miniworld.User.Repository.UserRepository;
 
+import com.pknu.miniworld.Profile.Service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final MiniroomRepository miniroomRepository;
+    private final ProfileService profileService;
 
     public void register(UserDTO request) {
         validateDuplicate(request);
@@ -36,6 +38,9 @@ public class UserService {
         miniroom.setUser(savedUser);
         miniroom.setBackgroundImageUrl("/images/default_background.jpg");
         miniroomRepository.save(miniroom);
+
+        // 프로필 생성
+        profileService.createDefaultProfile(savedUser);
     }
 
     private void validateDuplicate(UserDTO request) {
