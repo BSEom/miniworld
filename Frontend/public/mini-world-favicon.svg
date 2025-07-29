@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" rx="30" fill="#f6f8fd"/>
+  <!-- 행성 본체 -->
+  <circle cx="60" cy="72" r="32" fill="#b3e3fc" stroke="#58b8d7" stroke-width="4"/>
+  <!-- 위성(작은 행성) -->
+  <circle cx="96" cy="44" r="8" fill="#fff3af" stroke="#ffdc70" stroke-width="2"/>
+  <!-- 고리 -->
+  <ellipse cx="60" cy="80" rx="37" ry="10" fill="none" stroke="#d1e7fa" stroke-width="3"/>
+  <!-- 반짝 별(좌상단) -->
+  <polygon points="30,30 32,36 38,36 33,40 35,46 30,42 25,46 27,40 22,36 28,36"
+    fill="#ffedaf"/>
+  <!-- 반짝 별(우상단) -->
+  <polygon points="87,20 89,24 93,24 90,27 91,31 87,28 83,31 84,27 81,24 85,24"
+    fill="#ffe7e7"/>
+</svg>
