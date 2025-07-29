@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LeftBar.css';
 import './Theme.css';
 import { getThemeClass } from '../utils/Theme';
 
-const LeftBar = ({ onPageChange, todayMood}) => {
+const LeftBar = ({ userId, onPageChange, todayMood}) => {
   const [bgmPlaying, setBgmPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState({
     title: '첫사랑',
     artist: '버즈',
     progress: 35
   });
+  const [nickname, setNickname] = useState("");
+
+  useEffect(() => {
+    if (!userId) return;
+    fetch(`/api/users/who/${userId}`)
+      .then(res => res.text())
+      .then(setNickname)
+      .catch(() => setNickname(""));
+  }, [userId]);
 
   console.log("typeof:", typeof todayMood);
   return (
@@ -22,7 +31,7 @@ const LeftBar = ({ onPageChange, todayMood}) => {
             <div className="status-indicator online"></div>
           </div>
           <div className="profile-info">
-            <h3 className="profile-name">박유빈</h3>
+            <h3 className="profile-name">{nickname ? nickname : `User ${userId}`}</h3>
             <p className="profile-message">안녕하세요! 제 미니홈피에 오신걸 환영합니다 ^_^</p>
           </div>
 

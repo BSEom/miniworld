@@ -3,7 +3,9 @@ import './Header.css';
 import './Theme.css';
 import { getThemeClass } from '../utils/Theme';
 
-const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
+const Header = ({ userId, visitCount, todayMood, setTodayMood, onRegisterClick }) => {
+  const [nickname, setNickname] = useState("");
+
   const currentDate = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: '2-digit',
@@ -15,6 +17,14 @@ const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
   const moodRef = useRef(null);
   // const [visitCount, setVisitCount] = useState({ today: 127, total: 15847 });
 
+  useEffect(() => {
+    if (!userId) return;
+    fetch(`/api/users/who/${userId}`)
+      .then(res => res.text())
+      .then(setNickname)
+      .catch(() => setNickname(""));
+  }, [userId]);
+  
   useEffect(() => {
     function handleClickOutside(event) {
       if (moodRef.current && !moodRef.current.contains(event.target)) {
@@ -62,7 +72,7 @@ const Header = ({ visitCount, todayMood, setTodayMood, onRegisterClick }) => {
             )}
           </div>
           <div className="logo-text">
-              <h1>유빈이의 미니홈피</h1>
+              <h1>{nickname ? nickname : `User ${userId}`}의 미니홈피</h1>
               <p className='now-status'>프로젝트 열씨미 합시당!! 😁</p>
           </div>
         </div>
