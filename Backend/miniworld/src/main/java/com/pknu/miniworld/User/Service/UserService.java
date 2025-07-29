@@ -85,4 +85,9 @@ public class UserService {
     public UserEntity findByEmail(String email) {
     return userRepository.findByEmail(email).orElse(null);
 }
+    public Long getUserIdByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다: " + username));
+        return user.getUserId(); // userId만 반환
+    }
 }
