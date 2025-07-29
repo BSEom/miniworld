@@ -13,10 +13,26 @@ const IdPwFind = () => {
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // 비밀번호 유효성 검사
+    if (name === "newPassword") {
+      const isValid =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/.test(
+          value
+        );
+      setPasswordError(
+        isValid
+          ? ""
+          : "❌ 비밀번호는 8~20자, 영문/숫자/특수문자를 포함해야 합니다."
+      );
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -43,48 +59,49 @@ const IdPwFind = () => {
     }
   };
 
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setResult("");
-    setError("");
+const handleChangePassword = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setResult("");
+  setError("");
 
-    // 새 비밀번호 확인 검증
-    if (formData.newPassword !== formData.confirmPassword) {
-      setError("❌ 새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-      setLoading(false);
-      return;
-    }
+  // 새 비밀번호 확인 검증
+  if (formData.newPassword !== formData.confirmPassword) {
+    setError("❌ 새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+    setLoading(false);
+    return;
+  }
 
-    // 비밀번호 형식 검증
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
-    if (!passwordPattern.test(formData.newPassword)) {
-      setError("❌ 비밀번호는 8~20자, 영문/숫자/특수문자를 포함해야 합니다.");
-      setLoading(false);
-      return;
-    }
+  // 비밀번호 형식 검증
+  const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
+  if (!passwordPattern.test(formData.newPassword)) {
+    setError("❌ 비밀번호는 8~20자, 영문/숫자/특수문자를 포함해야 합니다.");
+    setLoading(false);
+    return;
+  }
 
-    try {
-      const res = await axios.post("/api/users/change-password", {
-        username: formData.username,
-        email: formData.emailForPassword,
-        newPassword: formData.newPassword,
-      });
-      setResult("✅ 비밀번호가 성공적으로 변경되었습니다.");
-      // 폼 초기화
-      setFormData({
-        email: "",
-        username: "",
-        emailForPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      });
-    } catch (err) {
-      setError(err.response?.data || "❌ 입력한 정보와 일치하는 계정을 찾을 수 없습니다.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    // 이메일 제거하고 username + newPassword만 전송
+    const res = await axios.post("/api/users/reset-password", {
+      username: formData.username,
+      newPassword: formData.newPassword,
+    });
+
+    setResult("✅ 비밀번호가 성공적으로 변경되었습니다.");
+    // 폼 초기화
+    setFormData({
+      email: "",
+      username: "",
+      emailForPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+  } catch (err) {
+    setError(err.response?.data || "❌ 입력한 정보와 일치하는 계정을 찾을 수 없습니다.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="find-account-app">
@@ -154,7 +171,7 @@ const IdPwFind = () => {
                   required
                 />
                 
-                <label>이메일</label>
+                {/* <label>이메일</label>
                 <input
                   name="emailForPassword"
                   type="email"
@@ -162,7 +179,7 @@ const IdPwFind = () => {
                   onChange={handleInputChange}
                   placeholder="가입할 때 사용한 이메일을 입력하세요"
                   required
-                />
+                /> */}
 
                 <label>새 비밀번호</label>
                 <input
@@ -173,6 +190,9 @@ const IdPwFind = () => {
                   placeholder="새 비밀번호 (8~20자, 영문/숫자/특수문자 포함)"
                   required
                 />
+                {passwordError && (
+                  <div className="password-match error">{passwordError}</div>
+                )}
 
                 <label>새 비밀번호 확인</label>
                 <input
@@ -203,10 +223,11 @@ const IdPwFind = () => {
                 disabled={
                   loading || 
                   !formData.username || 
-                  !formData.emailForPassword || 
+                  // !formData.emailForPassword || 
                   !formData.newPassword || 
                   !formData.confirmPassword ||
-                  formData.newPassword !== formData.confirmPassword
+                  formData.newPassword !== formData.confirmPassword ||
+                  passwordError
                 }
               >
                 {loading ? "변경 중..." : "비밀번호 변경"}
