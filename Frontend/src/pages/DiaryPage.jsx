@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from './DiaryCalendar';
 import './DiaryPage.css';
 import './Theme.css';
 import { getThemeClass } from '../utils/Theme';
+import axios from 'axios';
 
 /**
  * DiaryPage: 달력과 일기 보기 기능이 있는 메인 페이지
@@ -13,8 +14,9 @@ import { getThemeClass } from '../utils/Theme';
  * - todayMood: 오늘의 기분 (이모지 기반 테마용)
  */
 
-const DiaryPage = ({ userId, onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMood = [] }) => {
+const DiaryPage = ({ userId, onNavigateToWrite, onNavigateToEdit, todayMood = [] }) => {
 
+  const [diaryEntries, setDiaryEntries] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 보고 있는 월
   const [selectedDate, setSelectedDate] = useState(null);     // 클릭한 날짜
   const [showDiary, setShowDiary] = useState(false);          // 일기 표시 여부
@@ -22,6 +24,18 @@ const DiaryPage = ({ userId, onNavigateToWrite, onNavigateToEdit, diaryEntries, 
   const myUserId = localStorage.getItem("userId");
 
   const isMyPage = String(userId) === String(myUserId);
+
+   // 🟡 userId가 바뀔 때마다 다이어리 목록 새로 요청!
+  useEffect(() => {
+    if (!userId) return;
+    axios.get(`/api/diaries/${userId}`)
+      .then(res => setDiaryEntries(res.data))
+      .catch(err => {
+        setDiaryEntries([]);
+        console.error('일기 불러오기 실패:', err);
+      });
+  }, [userId]);
+
 
   // 날짜를 yyyy-mm-dd 형식으로 변환
   const formatDate = (date) => {

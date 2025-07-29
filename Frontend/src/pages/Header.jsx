@@ -6,6 +6,10 @@ import { getThemeClass } from '../utils/Theme';
 const Header = ({ userId, visitCount, todayMood, setTodayMood, onRegisterClick }) => {
   const [nickname, setNickname] = useState("");
 
+  const myUserId = localStorage.getItem("userId");
+
+  const isMyPage = String(userId) === String(myUserId);
+
   const currentDate = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: '2-digit',
@@ -49,11 +53,13 @@ const Header = ({ userId, visitCount, todayMood, setTodayMood, onRegisterClick }
         <div className="header-left">
           <div className="logo" ref={moodRef}>
             <span className="avatar-emoji">{todayMood}</span>
-            <button 
-              className="mood-selector"
-              onClick={handleMoodSelectorClick}>
-              기분 바꾸기
-            </button>
+            {isMyPage && (
+              <button 
+                className="mood-selector"
+                onClick={handleMoodSelectorClick}>
+                기분 바꾸기
+              </button>
+            )}
             {showMoodSelector && (
               <div className="mood-options">
                 {moodOptions.map((mood, idx) => (

@@ -86,7 +86,7 @@ export default function PhotoPage() {
 
       {isMyPage && (
         <div>
-          <input type="file" accept="image/*" onChange={handleFileChange} />
+          <input type="file" accept="uploads/*" onChange={handleFileChange} />
           <button onClick={handleUpload} disabled={!file} style={{ marginLeft: 8 }}>
             Upload
           </button>

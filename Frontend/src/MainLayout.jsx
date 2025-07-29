@@ -55,7 +55,7 @@ const MainLayout = ({
                     <DiaryPage
                       userId={userId}
                       todayMood={todayMood}
-                      diaryEntries={diaryEntries}
+                      // diaryEntries={diaryEntries}
                       onNavigateToWrite={handleNavigateToWrite}
                       onNavigateToEdit={handleNavigateToEdit}
                     />
