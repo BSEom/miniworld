@@ -5,9 +5,9 @@ import { getThemeClass } from '../utils/Theme';
 import { useLocation } from 'react-router-dom';
 
 
-const Navigation = ({ onPageChange, todayMood }) => {
+const Navigation = ({ userId, onPageChange, todayMood }) => {
   const location = useLocation();
-  const userId = localStorage.getItem("userId");
+  // const userId = localStorage.getItem("userId");
   const navItems = [
     { id: 'home', label: '홈', icon: '🏠', path: userId ? `/home/${userId}` : '/home' },
     { id: 'profile', label: '프로필', icon: '👤', path: userId ? `/profile/${userId}` : '/profile' },

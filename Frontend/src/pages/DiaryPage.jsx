@@ -13,12 +13,15 @@ import { getThemeClass } from '../utils/Theme';
  * - todayMood: 오늘의 기분 (이모지 기반 테마용)
  */
 
-const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMood = [] }) => {
+const DiaryPage = ({ userId, onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMood = [] }) => {
 
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 보고 있는 월
   const [selectedDate, setSelectedDate] = useState(null);     // 클릭한 날짜
   const [showDiary, setShowDiary] = useState(false);          // 일기 표시 여부
 
+  const myUserId = localStorage.getItem("userId");
+
+  const isMyPage = String(userId) === String(myUserId);
 
   // 날짜를 yyyy-mm-dd 형식으로 변환
   const formatDate = (date) => {
@@ -122,7 +125,7 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMoo
             <div className="selected-date-info">
               <div className="calendar-date-header">
                 <h3>{formatDateForDisplay(formatDate(selectedDate))}</h3>
-                {showDiary && selectedDiary && (
+                {showDiary && selectedDiary && isMyPage && (
                   <button className="write-btn" onClick={handleEditDiary}>
                     ✏️ 편집
                   </button>
@@ -154,9 +157,11 @@ const DiaryPage = ({ onNavigateToWrite, onNavigateToEdit, diaryEntries, todayMoo
                       ? '오늘은 일기가 없어요'
                       : '이 날에는 일기가 없어요'}
                   </p>
-                  <button className="write-btn" onClick={handleWriteNewDiary}>
-                    ✏️ 새 일기 쓰기
-                  </button>
+                  {isMyPage && (
+                    <button className="write-btn" onClick={handleWriteNewDiary}>
+                      ✏️ 새 일기 쓰기
+                    </button>
+                  )}
                 </div>
               )}
             </div>
