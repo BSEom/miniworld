@@ -39,7 +39,8 @@ public class UserEntity {
 
     @Column(nullable = false, unique = true, length = 100)
     private String email;
-
+    
+    @Column(nullable = false, length = 20)
     private LocalDate birthDate;
 
     @Column(nullable = false, length = 1)
