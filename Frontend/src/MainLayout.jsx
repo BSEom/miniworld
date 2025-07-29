@@ -25,6 +25,9 @@ const MainLayout = ({
   const pathSegments = location.pathname.split("/");
   const userId = pathSegments[2];  // 두번째(0:빈칸, 1:home, 2:userId)
 
+  const myUserId = localStorage.getItem("userId");
+  const isMyHome = String(userId) === String(myUserId);
+
   // 로그아웃 핸들러
   const handleLogout = async () => {
     try {
@@ -50,6 +53,7 @@ const MainLayout = ({
                   <Route path="/home/:userId" element={<MiniRoom todayMood={todayMood} />} />
                   <Route path="/diary/:userId" element={
                     <DiaryPage
+                      userId={userId}
                       todayMood={todayMood}
                       diaryEntries={diaryEntries}
                       onNavigateToWrite={handleNavigateToWrite}
@@ -73,11 +77,21 @@ const MainLayout = ({
                 </Routes>
               </div>
               <div className="tag_area">
-                <Navigation currentPage={null} onPageChange={navigate} todayMood={todayMood} />
+                <Navigation userId={userId} currentPage={null} onPageChange={navigate} todayMood={todayMood} />
               </div>
             </div>
           </div>
           <div className="nav-actions">
+            {/* 내 미니홈피로 돌아가기 버튼 */}
+            {!isMyHome && myUserId && (
+              <button
+                className="action-btn myhome-btn"
+                onClick={() => navigate(`/home/${myUserId}`)}
+                title="내 미니홈피로 이동"
+              >
+                <span>🔙</span>
+              </button>
+            )}
             <button className="action-btn settings-btn">
               <span>⚙️</span>
             </button>

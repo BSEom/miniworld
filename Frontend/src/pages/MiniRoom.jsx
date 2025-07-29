@@ -188,16 +188,17 @@ const MiniRoom = (todayMood) => {
         {isEditable ? <ItemList onItemClick={handleAddItem} myItemList={myItemList}/>: <RightBar todayMood={todayMood.todayMood}/>}
       </div>
 
-      {myUserId === userIdParam && (
+      {/* {myUserId === userIdParam && (
         <button className='btn_edit' onClick={handleEditBtnClick}>
-          {isEditable ? '완료' : '수정'}
+          {isEditable ? '수정 완료' : '미니룸 수정'}
+        </button>
+      )} */}
+      
+      {myUserId === userIdParam && (
+        <button className='btn_edit' onClick={handleEditBtnClick} title={isEditable ? '수정 완료' : '미니룸 수정'}>
+          {isEditable ? '✅' : '✏️'}
         </button>
       )}
-      
-
-      {/* <button className='btn_edit' onClick={handleEditBtnClick}>
-        {isEditable ? '완료' : '수정'}
-      </button>   */}
     </div>
   );
 };
